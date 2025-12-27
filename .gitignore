@@ -1,0 +1,17 @@
+**/*.iml
+**/*.ipr
+**/*.iws
+**/*.ids
+**/.classpath
+**/.idea
+**/.project
+**/.settings
+**/target
+**/temp
+**/*.bak
+/data
+/log
+/work
+/bin
+.DS_Store
+/Dockerfile
