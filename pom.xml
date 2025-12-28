@@ -41,27 +41,21 @@
     </repositories>
 
     <properties>
-        <VeracodeAnnotations.version>1.2.1</VeracodeAnnotations.version>
-        <avro-maven-plugin.version>1.12.0</avro-maven-plugin.version>
-        <avro.version>1.12.0</avro.version>
-        <awaitility.version>4.3.0</awaitility.version>
-        <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
-        <commons-io.version>2.20.0</commons-io.version>
-        <commons-lang.version>3.18.0</commons-lang.version>
-        <couchbase-encryption.version>3.1.0</couchbase-encryption.version>
-        <exec-maven-plugin.version>3.6.1</exec-maven-plugin.version>
-        <flyway-core.version>11.13.2</flyway-core.version>
-        <githook-maven-plugin.version>1.0.5</githook-maven-plugin.version>
-        <grpc-core.version>1.73.0</grpc-core.version>
-        <h2.version>2.4.240</h2.version>
-        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <!-- Project props-->
         <java.version>25</java.version>
-        <jsch.version>2.27.3</jsch.version>
-        <json2avro-converter.version>0.3.0</json2avro-converter.version>
-        <kafka-avro-serializer.version>7.5.6</kafka-avro-serializer.version>
-        <kafka.version>3.9.1</kafka.version>
-        <libphonenumber.version>8.13.34</libphonenumber.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Application props -->
+        <surefireArgLine/>
+        <application.main-class/>
+
+        <!--Plugin versions -->
+        <avro-maven-plugin.version>1.12.0</avro-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
+        <exec-maven-plugin.version>3.6.1</exec-maven-plugin.version>
+        <githook-maven-plugin.version>1.0.5</githook-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <kubernetes-maven-plugin.version>1.18.2</kubernetes-maven-plugin.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -71,19 +65,37 @@
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
+        <openapi-generator-maven-plugin.version>7.16.0</openapi-generator-maven-plugin.version>
+        <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
+        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
+        <spring-boot.version>4.0.1</spring-boot.version>
+        <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
+
+        <!--Dependency versions -->
+        <avro.version>1.12.0</avro.version>
+        <awaitility.version>4.3.0</awaitility.version>
+        <caffeine.version>3.2.3</caffeine.version>
+        <commons-io.version>2.20.0</commons-io.version>
+        <commons-lang.version>3.18.0</commons-lang.version>
+        <couchbase-encryption.version>3.1.0</couchbase-encryption.version>
+        <flyway-core.version>11.13.2</flyway-core.version>
+        <grpc-core.version>1.73.0</grpc-core.version>
+        <h2.version>2.4.240</h2.version>
+        <json2avro-converter.version>0.3.0</json2avro-converter.version>
+        <jsch.version>2.27.3</jsch.version>
+        <jspecify.version>1.0.0</jspecify.version>
+        <kafka-avro-serializer.version>7.5.6</kafka-avro-serializer.version>
+        <kafka.version>3.9.1</kafka.version>
+        <libphonenumber.version>8.13.34</libphonenumber.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <micrometer-tracing-bridge-otel.version>1.3.8</micrometer-tracing-bridge-otel.version>
         <nimbus-jose-jwt.version>10.5</nimbus-jose-jwt.version>
-        <openapi-generator-maven-plugin.version>7.16.0</openapi-generator-maven-plugin.version>
         <opentelemetry-api.version>1.43.0</opentelemetry-api.version>
         <opentelemetry-exporter-otlp-common.version>1.43.0</opentelemetry-exporter-otlp-common.version>
         <opentelemetry-exporter-otlp.version>1.43.0</opentelemetry-exporter-otlp.version>
         <postgresql.version>42.7.8</postgresql.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <querydsl-core.version>5.1.0</querydsl-core.version>
         <snakeyaml.version>2.5</snakeyaml.version>
-        <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
-        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
-        <spring-boot.version>4.0.1</spring-boot.version>
         <spring-boot-starter-aop.version>4.0.0-M2</spring-boot-starter-aop.version>
         <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
         <spring-cloud-gcp-dependencies.version>7.4.2</spring-cloud-gcp-dependencies.version>
@@ -91,9 +103,7 @@
         <springdoc-openapi-starter-webmvc-ui.version>2.8.10</springdoc-openapi-starter-webmvc-ui.version>
         <sshd-core.version>2.15.0</sshd-core.version>
         <tomcat.version>10.1.44</tomcat.version>
-        <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
-        <caffeine.version>3.2.3</caffeine.version>
-        <jspecify.version>1.0.0</jspecify.version>
+        <VeracodeAnnotations.version>1.2.1</VeracodeAnnotations.version>
     </properties>
 
     <dependencyManagement>
@@ -406,14 +416,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>newcrm-apims-releases</id>
-            <name>Releases</name>
-            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/apims</url>
-        </repository>
-    </repositories>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -470,6 +472,26 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-clean-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>auto-clean</id>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                            <phase>package</phase>
+                            <configuration>
+                                <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                                <filesets>
+                                    <fileset>
+                                        <directory>${project.basedir}/target/generated-sources/openapi</directory>
+                                        <includes>
+                                            <include>pom.xml</include>
+                                        </includes>
+                                    </fileset>
+                                </filesets>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -502,6 +524,7 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven-failsafe-plugin.version}</version>
                     <configuration>
+                        <!--suppress UnresolvedMavenProperty -->
                         <argLine>-Xmx1024m ${surefireArgLine}</argLine>
                     </configuration>
                 </plugin>
@@ -514,6 +537,41 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
+                    <executions>
+                        <!-- Generate docker file -->
+                        <execution>
+                            <id>docker</id>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <phase>generate-resources</phase>
+                            <configuration>
+                                <outputDirectory>${basedir}</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/docker</directory>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>start_service</id>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <phase>generate-resources</phase>
+                            <configuration>
+                                <outputDirectory>${basedir}/target</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/scripts</directory>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -533,6 +591,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
+                        <!--suppress UnresolvedMavenProperty -->
                         <argLine>-Xmx1024m ${surefireArgLine}</argLine>
                         <forkCount>1</forkCount>
                         <reuseForks>false</reuseForks>
@@ -548,6 +607,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>${exec-maven-plugin.version}</version>
                     <configuration>
+                        <!--suppress UnresolvedMavenProperty -->
                         <mainClass>${application.main-class}</mainClass>
                     </configuration>
                 </plugin>
@@ -618,6 +678,88 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>delete-openapi-pom</id>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <phase>package</phase>
+                            <configuration>
+                                <target>
+                                    <delete failonerror="false"
+                                            file="${project.build.directory}/generated-sources/openapi/pom.xml"/>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.jkube</groupId>
+                    <artifactId>kubernetes-maven-plugin</artifactId>
+                    <version>${kubernetes-maven-plugin.version}</version>
+                    <configuration>
+                        <resources>
+                            <controller>
+                                <env>
+                                    <SPRING_COUCHBASE_HOSTNAME>host.docker.internal</SPRING_COUCHBASE_HOSTNAME>
+                                    <SPRING_COUCHBASE_PASSWORD>apims-dev</SPRING_COUCHBASE_PASSWORD>
+                                    <SPRING_KAFKA_BOOTSTRAP_SERVERS>host.docker.internal:9092</SPRING_KAFKA_BOOTSTRAP_SERVERS>
+                                    <SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL>http://host.docker.internal:8081</SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL>
+                                    <NAMESPACE>dev</NAMESPACE>
+                                    <SERVER_PORT>4040</SERVER_PORT>
+                                    <SERVER_ADDRESS>0.0.0.0</SERVER_ADDRESS>
+                                    <MANAGEMENT_SERVER_PORT>4401</MANAGEMENT_SERVER_PORT>
+                                    <MANAGEMENT_SERVER_ADDRESS>0.0.0.0</MANAGEMENT_SERVER_ADDRESS>
+                                </env>
+                                <containerResources>
+                                    <requests>
+                                        <memory>256Mi</memory>
+                                        <cpu>500m</cpu>
+                                    </requests>
+                                </containerResources>
+                                <startup>
+                                    <getUrl>http://:4401/health/liveness</getUrl>
+                                    <failureThreshold>60</failureThreshold>
+                                    <initialDelaySeconds>120</initialDelaySeconds>
+                                </startup>
+                                <liveness>
+                                    <getUrl>http://:4401/health/liveness</getUrl>
+                                </liveness>
+                                <readiness>
+                                    <getUrl>http://:4401/health/readiness</getUrl>
+                                </readiness>
+                            </controller>
+                            <serviceAccounts>
+                                <serviceAccount>
+                                    <name>sa-apims</name>
+                                    <deploymentRef>${project.name}</deploymentRef>
+                                </serviceAccount>
+                            </serviceAccounts>
+                        </resources>
+                        <generator>
+                            <config>
+                                <spring-boot>
+                                    <color>always</color>
+                                </spring-boot>
+                            </config>
+                        </generator>
+                        <enricher>
+                            <config>
+                                <jkube-service>
+                                    <name>svc-${project.name}</name>
+                                    <type>ClusterIP</type>
+                                    <multiPort>true</multiPort>
+                                </jkube-service>
+                                <jkube-serviceaccount/>
+                            </config>
+                        </enricher>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -651,6 +793,7 @@
             </activation>
             <modules>
                 <module>apims-spring-boot-core</module>
+                <module>apims-spring-boot-core-test</module>
             </modules>
         </profile>
         <profile>
@@ -660,6 +803,8 @@
             </activation>
             <modules>
                 <module>apims-spring-boot-core</module>
+                <module>apims-spring-boot-core-test</module>
+                <module>apims-spring-boot-parent</module>
             </modules>
         </profile>
         <profile>

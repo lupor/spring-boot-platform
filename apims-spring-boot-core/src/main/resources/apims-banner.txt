@@ -1,0 +1,19 @@
+
+
+  ,---.  ,------. ,--.,--.   ,--. ,---.
+ /  O  \ |  .--. '|  ||   `.'   |'   .-'
+|  .-.  ||  '--' ||  ||  |'.'|  |`.  `-.
+|  | |  ||  | --' |  ||  |   |  |.-'    |
+`--' `--'`--'     `--'`--'   `--'`-----'
+
+spring-boot  : ${spring-boot.version}
+apims-parent : ${apims.app.parent-version}
+app          : ${apims.app.name}
+type         : ${apims.app.type}
+version      : ${apims.app.build-version}
+domain       : ${apims.app.domain}
+team         : ${apims.app.team}
+env          : ${apims.app.env}
+profile      : ${apims.app.config-profile}
+host         : ${apims.app.host}
+instance-id  : ${apims.app.instance-id}

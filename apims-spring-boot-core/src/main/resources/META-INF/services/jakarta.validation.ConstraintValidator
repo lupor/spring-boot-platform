@@ -1,0 +1,3 @@
+de.sky.newcrm.apims.spring.core.support.validator.constraintvalidators.NoOpPatternValidatorForDate
+de.sky.newcrm.apims.spring.core.support.validator.constraintvalidators.NoOpPatternValidatorForLocalDate
+de.sky.newcrm.apims.spring.core.support.validator.constraintvalidators.NoOpPatternValidatorForOffsetDateTime

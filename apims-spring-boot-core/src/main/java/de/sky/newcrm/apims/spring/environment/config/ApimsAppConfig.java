@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("apims.app")
 @Getter
 @Setter
-public class CoreConfig {
+public class ApimsAppConfig {
     private ApimsAppTypeEnum type = ApimsAppTypeEnum.UNKNOWN;
     private String team = ApimsAppTeamEnum.UNKNOWN.name();
     private String name = "${APP_NAME:UNKNOWN}";
@@ -23,6 +23,6 @@ public class CoreConfig {
     private String resourcePrefix = "${RESOURCE_PREFIX:dev}";
     private String domain = "${DOMAIN:}";
     private boolean serviceStartupListenerEnabled = true;
-    private MockConfig mocks = new MockConfig();
+    private ApimsMockConfig mocks = new ApimsMockConfig();
     private IncidentManagementConfig incidentMgmt = new IncidentManagementConfig();
 }

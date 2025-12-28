@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("apims.app.mocks")
 @Getter
 @Setter
-public class MockConfig {
+public class ApimsMockConfig {
     private boolean embeddedSftpServerEnabled = false;
     private boolean apiMockFileHeaderChecksumEnabled = false;
 }

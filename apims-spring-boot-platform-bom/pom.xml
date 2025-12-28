@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.sky.newcrm</groupId>
+    <artifactId>apims-spring-boot-platform-bom</artifactId>
+    <version>254.1.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>apims-spring-boot-platform-bom</name>
+    <description>BOM for apims spring boot platform, including parent, libs and starters</description>
+
+    <distributionManagement>
+        <repository>
+            <id>newcrm-apims-releases</id>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>newcrm-apims-releases</id>
+            <name>Releases</name>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/apims</url>
+        </repository>
+        <repository>
+            <id>newcrm-common-releases</id>
+            <name>Common</name>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/common</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Central</name>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/maven-central</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <apims-spring-boot-platform.version>254.1.2-SNAPSHOT</apims-spring-boot-platform.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.sky.newcrm</groupId>
+                <artifactId>apims-spring-boot-core</artifactId>
+                <version>254.1.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>de.sky.newcrm</groupId>
+                <artifactId>apims-spring-boot-core-test</artifactId>
+                <version>254.1.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>de.sky.newcrm</groupId>
+                <artifactId>apims-spring-boot-parent</artifactId>
+                <version>254.1.2-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
