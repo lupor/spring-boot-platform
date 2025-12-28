@@ -66,7 +66,7 @@ public class ApimsBeanValidatorAdapter extends SpringValidatorAdapter {
                 "[Assertion failed] - descriptor for annotation '" + annotationType
                         + "' is required; descriptor not found.");
         if (descriptors.size() == 1 || value == null) {
-            return descriptors.get(0);
+            return descriptors.getFirst();
         }
         Class<?> valueType = value.getClass();
         for (ConstraintValidatorDescriptor<A> descriptor : descriptors) {

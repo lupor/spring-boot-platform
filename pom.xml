@@ -414,7 +414,7 @@
  */]]></content>
                         </licenseHeader>
                         <java>
-                            <palantirJavaFormat></palantirJavaFormat>
+                            <palantirJavaFormat/>
                         </java>
                     </configuration>
                 </plugin>

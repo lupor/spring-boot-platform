@@ -59,7 +59,7 @@ public enum ApimsAppTeamEnum {
 
     public static ApimsAppTeamEnum findFirstByDomain(ApimsAppDomainEnum domainEnum) {
         List<ApimsAppTeamEnum> list = findByDomain(domainEnum);
-        return list.isEmpty() ? UNKNOWN : list.get(0);
+        return list.isEmpty() ? UNKNOWN : list.getFirst();
     }
 
     public static List<ApimsAppTeamEnum> findByDomain(ApimsAppDomainEnum domainEnum) {
