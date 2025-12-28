@@ -6,7 +6,8 @@ package de.sky.newcrm.apims.spring.utils;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.lang.Nullable;
+
+import org.jspecify.annotations.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -247,7 +248,7 @@ public class FunctionUtils {
         default void accept(T t, boolean suppressExceptions) {
             try {
                 accept(t);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 if (!suppressExceptions) {
                     throw ExceptionUtils.resolveAsRuntimeException(e);
                 }
@@ -262,7 +263,7 @@ public class FunctionUtils {
         default void accept(T t, U u, boolean suppressExceptions) {
             try {
                 accept(t, u);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 if (!suppressExceptions) {
                     throw ExceptionUtils.resolveAsRuntimeException(e);
                 }

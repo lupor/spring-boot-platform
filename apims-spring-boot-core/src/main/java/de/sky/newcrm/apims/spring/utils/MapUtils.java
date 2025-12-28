@@ -13,12 +13,12 @@ public interface MapUtils {
 
     @SafeVarargs
     static <K, V> Map<K, V> ofTreeMapEntries(Map.Entry<? extends K, ? extends V>... entries) {
-        return new TreeMap<>(ofEntries(new HashMap<>(entries.length), entries));
+        return new TreeMap<>(ofEntries(HashMap.newHashMap(entries.length), entries));
     }
 
     @SafeVarargs
     static <K, V> Map<K, V> ofLinkedHashMapEntries(Map.Entry<? extends K, ? extends V>... entries) {
-        return ofEntries(new LinkedHashMap<>(entries.length), entries);
+        return ofEntries(LinkedHashMap.newLinkedHashMap(entries.length), entries);
     }
 
     @SafeVarargs

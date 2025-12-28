@@ -13,8 +13,9 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
+import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 public interface HttpRequestUtils {
@@ -159,7 +160,7 @@ public interface HttpRequestUtils {
     static String decodeUrlParam(String value, String encoding) {
         try {
             return value.contains("%") ? URLDecoder.decode(value, encoding) : value;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return value;
         }
     }

@@ -165,7 +165,7 @@ public class CsvDefaultObjectReader<T> extends CsvDefaultObjectBuilder {
     public long readValues(File source, IteratorCallback<T> callback) throws IOException {
         try {
             return doReadValues(source, callback);
-        } catch (CharConversionException e) {
+        } catch (CharConversionException _) {
             // no UTF-8 file: second try with ISO_8859_1 (CP1257)
             return readValues(source, StandardCharsets.ISO_8859_1, callback);
         }
@@ -231,8 +231,6 @@ public class CsvDefaultObjectReader<T> extends CsvDefaultObjectBuilder {
                 iterator = objectReader.readValues((InputStream) source);
             } else if (source instanceof Reader) {
                 iterator = objectReader.readValues((Reader) source);
-            } else if (source instanceof URL) {
-                iterator = objectReader.readValues((URL) source);
             } else if (source instanceof DataInput) {
                 iterator = objectReader.readValues((DataInput) source);
             } else if (source instanceof JsonParser) {
@@ -247,7 +245,7 @@ public class CsvDefaultObjectReader<T> extends CsvDefaultObjectBuilder {
             if (iterator != null) {
                 try {
                     iterator.close();
-                } catch (IOException ignore) {
+                } catch (IOException _) {
                     // ignore
                 }
             }
@@ -312,6 +310,7 @@ public class CsvDefaultObjectReader<T> extends CsvDefaultObjectBuilder {
         return this;
     }
 
+    @Getter
     public static class IteratorCallback<T> {
 
         public static final int MAXIMUM_MAX_SIZE = 5000;
@@ -324,10 +323,6 @@ public class CsvDefaultObjectReader<T> extends CsvDefaultObjectBuilder {
 
         protected IteratorCallback(int maxSize) {
             this.maxSize = maxSize;
-        }
-
-        public int getMaxSize() {
-            return maxSize;
         }
 
         public boolean apply(List<T> values) {
@@ -412,109 +407,59 @@ public class CsvDefaultObjectReader<T> extends CsvDefaultObjectBuilder {
         private String col50;
 
         public String getColumn(int index) {
-            if (index == 1) {
-                return col01;
-            } else if (index == 2) {
-                return col02;
-            } else if (index == 3) {
-                return col03;
-            } else if (index == 4) {
-                return col04;
-            } else if (index == 5) {
-                return col05;
-            } else if (index == 6) {
-                return col06;
-            } else if (index == 7) {
-                return col07;
-            } else if (index == 8) {
-                return col08;
-            } else if (index == 9) {
-                return col09;
-            } else if (index == 10) {
-                return col10;
-            } else if (index == 11) {
-                return col11;
-            } else if (index == 12) {
-                return col12;
-            } else if (index == 13) {
-                return col13;
-            } else if (index == 14) {
-                return col14;
-            } else if (index == 15) {
-                return col15;
-            } else if (index == 16) {
-                return col16;
-            } else if (index == 17) {
-                return col17;
-            } else if (index == 18) {
-                return col18;
-            } else if (index == 19) {
-                return col19;
-            } else if (index == 20) {
-                return col20;
-            } else if (index == 21) {
-                return col21;
-            } else if (index == 22) {
-                return col22;
-            } else if (index == 23) {
-                return col23;
-            } else if (index == 24) {
-                return col24;
-            } else if (index == 25) {
-                return col25;
-            } else if (index == 26) {
-                return col26;
-            } else if (index == 27) {
-                return col27;
-            } else if (index == 28) {
-                return col28;
-            } else if (index == 29) {
-                return col29;
-            } else if (index == 30) {
-                return col30;
-            } else if (index == 31) {
-                return col31;
-            } else if (index == 32) {
-                return col32;
-            } else if (index == 33) {
-                return col33;
-            } else if (index == 34) {
-                return col34;
-            } else if (index == 35) {
-                return col35;
-            } else if (index == 36) {
-                return col36;
-            } else if (index == 37) {
-                return col37;
-            } else if (index == 38) {
-                return col38;
-            } else if (index == 39) {
-                return col39;
-            } else if (index == 40) {
-                return col40;
-            } else if (index == 41) {
-                return col41;
-            } else if (index == 42) {
-                return col42;
-            } else if (index == 43) {
-                return col43;
-            } else if (index == 44) {
-                return col44;
-            } else if (index == 45) {
-                return col45;
-            } else if (index == 46) {
-                return col46;
-            } else if (index == 47) {
-                return col47;
-            } else if (index == 48) {
-                return col48;
-            } else if (index == 49) {
-                return col49;
-            } else if (index == 50) {
-                return col50;
-            } else {
-                return null;
-            }
+            return switch (index) {
+                case 1 -> col01;
+                case 2 -> col02;
+                case 3 -> col03;
+                case 4 -> col04;
+                case 5 -> col05;
+                case 6 -> col06;
+                case 7 -> col07;
+                case 8 -> col08;
+                case 9 -> col09;
+                case 10 -> col10;
+                case 11 -> col11;
+                case 12 -> col12;
+                case 13 -> col13;
+                case 14 -> col14;
+                case 15 -> col15;
+                case 16 -> col16;
+                case 17 -> col17;
+                case 18 -> col18;
+                case 19 -> col19;
+                case 20 -> col20;
+                case 21 -> col21;
+                case 22 -> col22;
+                case 23 -> col23;
+                case 24 -> col24;
+                case 25 -> col25;
+                case 26 -> col26;
+                case 27 -> col27;
+                case 28 -> col28;
+                case 29 -> col29;
+                case 30 -> col30;
+                case 31 -> col31;
+                case 32 -> col32;
+                case 33 -> col33;
+                case 34 -> col34;
+                case 35 -> col35;
+                case 36 -> col36;
+                case 37 -> col37;
+                case 38 -> col38;
+                case 39 -> col39;
+                case 40 -> col40;
+                case 41 -> col41;
+                case 42 -> col42;
+                case 43 -> col43;
+                case 44 -> col44;
+                case 45 -> col45;
+                case 46 -> col46;
+                case 47 -> col47;
+                case 48 -> col48;
+                case 49 -> col49;
+                case 50 -> col50;
+                default -> null;
+            };
         }
     }
 }
