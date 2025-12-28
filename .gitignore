@@ -4,6 +4,7 @@
 **/*.ids
 **/.classpath
 **/.idea
+**/.vscode
 **/.project
 **/.settings
 **/target

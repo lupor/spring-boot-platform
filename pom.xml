@@ -25,6 +25,21 @@
         </repository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <id>newcrm-apims-releases</id>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/apims</url>
+        </repository>
+        <repository>
+            <id>newcrm-common-releases</id>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/common</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/maven-central</url>
+        </repository>
+    </repositories>
+
     <properties>
         <VeracodeAnnotations.version>1.2.1</VeracodeAnnotations.version>
         <avro-maven-plugin.version>1.12.0</avro-maven-plugin.version>
