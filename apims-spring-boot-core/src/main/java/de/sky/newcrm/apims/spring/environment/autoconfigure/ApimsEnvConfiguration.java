@@ -2,7 +2,7 @@
  * Copyright (C) 2023-2024 Sky Deutschland Fernsehen GmbH & Co. KG. All rights reserved.
  * This file and its contents are the sole property of Sky Deutschland Fernsehen GmbH & Co. KG.
  */
-package de.sky.newcrm.apims.spring.environment.autoconfiguration;
+package de.sky.newcrm.apims.spring.environment.autoconfigure;
 
 import de.sky.newcrm.apims.spring.environment.core.ApimsApplicationAvailabilityBean;
 import de.sky.newcrm.apims.spring.environment.core.ApimsSpringApplicationEventInfoListener;

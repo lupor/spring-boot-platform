@@ -4,8 +4,9 @@
  */
 package de.sky.newcrm.apims.spring.flow;
 
+import org.jspecify.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
-import org.springframework.lang.Nullable;
 
 @SuppressWarnings("java:S1452")
 public interface ApimsFlowContext {

@@ -5,8 +5,9 @@
 package de.sky.newcrm.apims.spring.environment.core;
 
 import java.util.Map;
+
+import org.jspecify.annotations.Nullable;
 import org.springframework.context.ApplicationContext;
-import org.springframework.lang.Nullable;
 
 @SuppressWarnings({"java:S1192"})
 public class ApimsSpringApplicationContext implements ApimsApplicationContext {

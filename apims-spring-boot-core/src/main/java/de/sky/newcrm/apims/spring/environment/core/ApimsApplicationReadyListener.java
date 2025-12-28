@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.environment.core;
 
 import de.sky.newcrm.apims.spring.telemetry.logging.ApimsAroundLoggingListenerSuppress;
-import de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsAroundMetricsListenerSuppress;
+import de.sky.newcrm.apims.spring.telemetry.metrics.core.aspects.ApimsAroundMetricsListenerSuppress;
 import org.springframework.core.Ordered;
 
 public interface ApimsApplicationReadyListener extends Ordered {

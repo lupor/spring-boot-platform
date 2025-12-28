@@ -27,22 +27,14 @@ public class ApimsCoreProperties {
 
     //    TODO: check if this remains in core. Move it for now
     //    private Async async = new Async();
-    private Caching caching = new Caching();
     //    TODO: Move to relevant starters
     //    private Cli cli = new Cli();
     //    private Cloud cloud = new Cloud();
     //    private Couchbase couchbase = new Couchbase();
     //    private Integration integration = new Integration();
-
-    private Features features = new Features();
-    private Jackson jackson = new Jackson();
     //    TODO: Move to relevant starters
     //    private Jobs jobs = new Jobs();
     //    private Kafka kafka = new Kafka();
-
-    private Metrics metrics = new Metrics();
-
-    private ObjectMapperConfig objectMapperConfig = new ObjectMapperConfig();
 
     //    TODO: Move to relevant starters
     //    private Rest rest = new Rest();
@@ -215,6 +207,7 @@ public class ApimsCoreProperties {
             this.allowCoreThreadTimeOut = allowCoreThreadTimeOut;
             this.prestartAllCoreThreads = prestartAllCoreThreads;
             this.threadNamePrefix = threadNamePrefix;
+            this.threadNamePrefix = threadNamePrefix;
         }
     }
 
@@ -261,12 +254,6 @@ public class ApimsCoreProperties {
             commonTags.remove(DEFAULT_PLACEHOLDER_VALUE);
             this.commonTags = commonTags;
         }
-    }
-
-    @Setter
-    @Getter
-    public static class ObjectMapperConfig {
-        private boolean dateTimeSerializerWriteIsoDateWithTimezone = false;
     }
 
     public static class Tasking extends Async {

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sky.newcrm.apims.spring.serialization.core.mapper.module.ApimsDateTimeUtcModule;
 import de.sky.newcrm.apims.spring.serialization.core.mapper.module.ApimsModelEnumModule;
 import java.text.SimpleDateFormat;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 @SuppressWarnings({"java:S1610"})
 public abstract class DefaultJacksonObjectFactory {
@@ -28,25 +27,25 @@ public abstract class DefaultJacksonObjectFactory {
     }
 
     public static ObjectMapper createDefaultJsonObjectMapper() {
-        ObjectMapper objectMapper = buildJackson2ObjectMapperBuilder().build();
+        ObjectMapper objectMapper = buildJacksonObjectMapperBuilder().build();
         objectMapper.setDefaultPrettyPrinter(createPrettyPrinterWithLinuxEol());
         return objectMapper;
     }
 
     public static ObjectMapper createDefaultXmlObjectMapper() {
-        return buildJackson2ObjectXmlMapperBuilder().build();
+        return buildJacksonObjectXmlMapperBuilder().build();
     }
 
-    public static Jackson2ObjectMapperBuilder buildJackson2ObjectMapperBuilder() {
-        return buildJackson2ObjectMapperBuilder(false);
+    public static JacksonObjectMapperBuilder buildJacksonObjectMapperBuilder() {
+        return buildJacksonObjectMapperBuilder(false);
     }
 
-    public static Jackson2ObjectMapperBuilder buildJackson2ObjectXmlMapperBuilder() {
-        return buildJackson2ObjectMapperBuilder(true);
+    public static JacksonObjectMapperBuilder buildJacksonObjectXmlMapperBuilder() {
+        return buildJacksonObjectMapperBuilder(true);
     }
 
-    public static Jackson2ObjectMapperBuilder buildJackson2ObjectMapperBuilder(boolean createXmlMapper) {
-        return new Jackson2ObjectMapperBuilder()
+    public static JacksonObjectMapperBuilder buildJacksonObjectMapperBuilder(boolean createXmlMapper) {
+        return new JacksonObjectMapperBuilder()
                 .createXmlMapper(createXmlMapper)
                 .indentOutput(true)
                 .dateFormat(new SimpleDateFormat(DATE_TIME_PATTERN))

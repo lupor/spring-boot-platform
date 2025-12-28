@@ -9,8 +9,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.jspecify.annotations.Nullable;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.lang.Nullable;
 
 @SuppressWarnings({"java:S6212"})
 public class ApimsFlowContextImpl implements ApimsFlowContext {

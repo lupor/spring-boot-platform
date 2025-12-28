@@ -36,7 +36,7 @@ public class ApimsBaseExceptionResolver {
     private static final Object instanceLock = new Object();
     private static final Logger log = LoggerFactory.getLogger(ApimsBaseExceptionResolver.class);
     private final ObjectMapper objectMapper =
-            DefaultJacksonObjectFactory.buildJackson2ObjectMapperBuilder().build();
+            DefaultJacksonObjectFactory.buildJacksonObjectMapperBuilder().build();
     private final Map<String, ApimsBusinessExceptionCacheItem> exceptionMap = new ConcurrentHashMap<>();
 
     private ApimsBaseExceptionResolver() {
@@ -121,7 +121,6 @@ public class ApimsBaseExceptionResolver {
         return map;
     }
 
-    @SuppressWarnings("unchecked")
     private Exception resolveApimsBaseException(String body) {
 
         if (!body.contains("{") || !body.contains("\"" + BUSINESS_EXCEPTION_ERROR_CODE_KEY + "\"")) {
@@ -138,11 +137,12 @@ public class ApimsBaseExceptionResolver {
         }
         Map<String, Serializable> details = parseDetails(map);
         Exception bex = resolveException(code);
-        if (bex instanceof ApimsDetailsAwareException dae) {
-            if (dae.getDetails() != null) {
+        if (bex instanceof ApimsDetailsAwareException dae
+                && dae.getDetails() != null
+        ) {
                 dae.getDetails().putAll(details);
             }
-        }
+
         return bex;
     }
 
@@ -152,7 +152,7 @@ public class ApimsBaseExceptionResolver {
         if (bodyMap != null && bodyMap.containsKey(BUSINESS_EXCEPTION_DETAILS_KEY)) {
             try {
                 return (Map<String, Serializable>) bodyMap.get(BUSINESS_EXCEPTION_DETAILS_KEY);
-            } catch (Exception ignore) {
+            } catch (Exception _) {
                 // ignore
             }
         }

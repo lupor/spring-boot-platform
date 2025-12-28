@@ -6,7 +6,7 @@ package de.sky.newcrm.apims.spring.environment.core;
 
 import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
-import de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsAroundMetricsListenerSuppress;
+import de.sky.newcrm.apims.spring.telemetry.metrics.core.aspects.ApimsAroundMetricsListenerSuppress;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,10 +86,10 @@ public class ApimsApplicationReadyHandler implements BeanFactoryAware {
         List<ApimsEnvironmentPostProcessor.ShadowStartupLogItem> preStartupLogMessages =
                 ApimsEnvironmentPostProcessor.getPreStartupLogMessages();
         for (ApimsEnvironmentPostProcessor.ShadowStartupLogItem preStartupLogMessage : preStartupLogMessages) {
-            if (preStartupLogMessage.isWarn()) {
-                log.warn(preStartupLogMessage.getMessage());
+            if (preStartupLogMessage.warn()) {
+                log.warn(preStartupLogMessage.message());
             } else {
-                log.info(preStartupLogMessage.getMessage());
+                log.info(preStartupLogMessage.message());
             }
         }
     }

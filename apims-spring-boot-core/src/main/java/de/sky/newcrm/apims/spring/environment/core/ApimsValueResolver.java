@@ -5,6 +5,7 @@
 package de.sky.newcrm.apims.spring.environment.core;
 
 import de.sky.newcrm.apims.spring.utils.CastUtils;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.config.BeanExpressionContext;
 import org.springframework.beans.factory.config.BeanExpressionResolver;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.Scope;
-import org.springframework.lang.Nullable;
 
 public class ApimsValueResolver implements BeanFactoryAware {
 

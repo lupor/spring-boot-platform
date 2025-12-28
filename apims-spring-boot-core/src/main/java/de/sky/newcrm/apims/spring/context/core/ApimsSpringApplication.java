@@ -30,7 +30,9 @@ public abstract class ApimsSpringApplication {
         if (!StringUtils.hasLength(country)) {
             country = "US";
         }
-        Locale.setDefault(new Locale(language, country));
+        final Locale defaultLocale =
+                new Locale.Builder().setLanguage(language).setRegion(country).build();
+        Locale.setDefault(defaultLocale);
     }
 
     private static void initTimeZone() {
@@ -47,6 +49,8 @@ public abstract class ApimsSpringApplication {
         if (args != null && args.length == 1 && MAIN_NOP_START_ARG.equals(args[0])) {
             return;
         }
-        SpringApplication.run(application, args);
+
+        String[] arguments = args == null ? new String[0] : args;
+        SpringApplication.run(application, arguments);
     }
 }

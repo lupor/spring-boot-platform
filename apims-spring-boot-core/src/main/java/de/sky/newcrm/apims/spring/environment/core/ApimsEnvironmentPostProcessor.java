@@ -14,9 +14,9 @@ import java.net.InetAddress;
 import java.util.*;
 import java.util.stream.Stream;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
+import org.springframework.boot.EnvironmentPostProcessor;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
@@ -44,7 +44,7 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     @Override
     @SuppressWarnings({"java:S2259"})
-    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+    public void postProcessEnvironment(ConfigurableEnvironment environment, @NonNull SpringApplication application) {
 
         getPreStartupLogMessages().clear();
         forcedProperties.clear();
@@ -250,7 +250,7 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
             return null;
         }
         PropertySource<?> propertySource =
-                FunctionUtils.execute(() -> this.loader.load(name, path).get(0), ApimsRuntimeException.class);
+                FunctionUtils.execute(() -> this.loader.load(name, path).getFirst(), ApimsRuntimeException.class);
         resourceMap.put(name, path);
         SHADOW_STARTUP_LOG.info("spring default configuration '%s' registered.".formatted(pathName));
         return propertySource;
@@ -287,8 +287,8 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
                     "'apims.app.domain' = '%s' is invalid. Check the env value of 'APP_DOMAIN' and the application value of 'apims.app.domain'!"
                             .formatted(checkAppDomain);
             SHADOW_STARTUP_LOG.warn(msg);
-            if (Boolean.TRUE.equals(Boolean.parseBoolean(
-                    environment.getProperty("apims.startup-check.throw-exception-on-invalid-domain-enum", "true")))) {
+            if (Boolean.parseBoolean(
+                    environment.getProperty("apims.startup-check.throw-exception-on-invalid-domain-enum", "true"))) {
                 throw new IllegalStateException("[Assertion failed] - %s".formatted(msg));
             }
         } else if (!domainEnum.getValue().equals(apimsAppDomain)) {
@@ -313,8 +313,8 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
                     "'apims.app.team' = '%s' is invalid. Check the env value of 'APP_TEAM' and the application value of 'apims.app.team'!"
                             .formatted(checkAppTeam);
             SHADOW_STARTUP_LOG.warn(msg);
-            if (Boolean.TRUE.equals(Boolean.parseBoolean(
-                    environment.getProperty("apims.startup-check.throw-exception-on-invalid-team-enum", "true")))) {
+            if (Boolean.parseBoolean(
+                    environment.getProperty("apims.startup-check.throw-exception-on-invalid-team-enum", "true"))) {
                 throw new IllegalStateException("[Assertion failed] - %s".formatted(msg));
             }
         } else if (!teamEnum.name().equals(apimsAppTeam)) {
@@ -359,7 +359,7 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
                 || "127.0.0.1".equals(apimsAppHostname)) {
             try {
                 apimsAppHostname = InetAddress.getLocalHost().getHostName();
-            } catch (Exception ignore) {
+            } catch (Exception _) {
                 // ignore
             }
             if (!StringUtils.hasLength(apimsAppHostname)) {
@@ -529,13 +529,10 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
         return new HashSet<>(classList);
     }
 
+    @Getter
     static class ShadowStartupLog {
 
         final List<ShadowStartupLogItem> messages = new ArrayList<>();
-
-        public List<ShadowStartupLogItem> getMessages() {
-            return messages;
-        }
 
         void info(String message) {
             messages.add(new ShadowStartupLogItem(false, message));
@@ -546,11 +543,5 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
         }
     }
 
-    @Getter
-    @RequiredArgsConstructor
-    static class ShadowStartupLogItem {
-
-        private final boolean warn;
-        private final String message;
-    }
+    record ShadowStartupLogItem(boolean warn, String message) { }
 }

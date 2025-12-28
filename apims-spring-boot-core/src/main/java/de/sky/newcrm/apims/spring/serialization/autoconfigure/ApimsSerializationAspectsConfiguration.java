@@ -7,6 +7,7 @@ package de.sky.newcrm.apims.spring.serialization.autoconfigure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sky.newcrm.apims.spring.environment.config.ApimsCoreProperties;
 import de.sky.newcrm.apims.spring.serialization.core.mapper.DefaultJacksonObjectFactory;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.JacksonObjectMapperBuilder;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMaskerDefaultImpl;
 import de.sky.newcrm.apims.spring.serialization.core.serializer.ApimsAroundObjectSerializer;
@@ -23,7 +24,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.util.StringUtils;
 
 @Configuration(proxyBeanMethods = false)
@@ -39,15 +39,15 @@ public class ApimsSerializationAspectsConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(name = "aspectsJacksonBuilder")
-    public Jackson2ObjectMapperBuilder aspectsJacksonBuilder() {
-        return DefaultJacksonObjectFactory.buildJackson2ObjectMapperBuilder();
+    public JacksonObjectMapperBuilder aspectsJacksonBuilder() {
+        return DefaultJacksonObjectFactory.buildJacksonObjectMapperBuilder();
     }
 
     @Bean
     @ConditionalOnMissingBean(name = "aspectsObjectMapper")
     public ObjectMapper aspectsObjectMapper(
-            @Qualifier("aspectsJacksonBuilder") Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
-        return jackson2ObjectMapperBuilder.build();
+            @Qualifier("aspectsJacksonBuilder") JacksonObjectMapperBuilder jacksonObjectMapperBuilder) {
+        return jacksonObjectMapperBuilder.build();
     }
 
     @Bean
