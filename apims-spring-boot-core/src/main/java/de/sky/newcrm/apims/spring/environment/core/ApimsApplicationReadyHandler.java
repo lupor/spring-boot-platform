@@ -6,7 +6,7 @@ package de.sky.newcrm.apims.spring.environment.core;
 
 import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
-import de.sky.newcrm.apims.spring.telemetry.metrics.core.aspects.ApimsAroundMetricsListenerSuppress;
+import de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsAroundMetricsListenerSuppress;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import java.util.Map;
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -54,7 +55,7 @@ public class ApimsApplicationReadyHandler implements BeanFactoryAware {
 
     @Override
     @ApimsAroundMetricsListenerSuppress
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+    public void setBeanFactory(@NonNull BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
     }
 
@@ -72,6 +73,7 @@ public class ApimsApplicationReadyHandler implements BeanFactoryAware {
         SpringApplication springApplication = ApimsSpringContext.getSpringApplication();
         informApplicationReadyListeners();
         AssertUtils.notNullCheck("SHeck if main application class is not null", springApplication.getMainApplicationClass());
+        assert springApplication.getMainApplicationClass() != null;
         log.info(
                 "SpringApplication {} loaded: {} {} : {} : {}",
                 apimsAppName,

@@ -24,5 +24,5 @@ public class ApimsAppConfig {
     private String domain = "${DOMAIN:}";
     private boolean serviceStartupListenerEnabled = true;
     private ApimsMockConfig mocks = new ApimsMockConfig();
-    private IncidentManagementConfig incidentMgmt = new IncidentManagementConfig();
+    private ApimsIncidentManagementConfig incidentMgmt = new ApimsIncidentManagementConfig();
 }

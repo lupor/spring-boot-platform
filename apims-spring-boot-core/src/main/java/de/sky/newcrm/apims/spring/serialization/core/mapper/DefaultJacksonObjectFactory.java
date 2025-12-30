@@ -5,13 +5,14 @@
 package de.sky.newcrm.apims.spring.serialization.core.mapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.PrettyPrinter;
-import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.module.ApimsDateTimeUtcModule;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.module.ApimsModelEnumModule;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.module.ApimsDateTimeUtcModule;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.module.ApimsModelEnumModule;
+import tools.jackson.core.util.DefaultIndenter;
+import tools.jackson.core.util.DefaultPrettyPrinter;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+
 import java.text.SimpleDateFormat;
 
 @SuppressWarnings({"java:S1610"})
@@ -19,40 +20,33 @@ public abstract class DefaultJacksonObjectFactory {
 
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
 
-    protected DefaultJacksonObjectFactory() {}
-
-    public static PrettyPrinter createPrettyPrinterWithLinuxEol() {
-        DefaultIndenter indenter = new DefaultIndenter("  ", "\n");
-        return new DefaultPrettyPrinter().withObjectIndenter(indenter);
+    protected DefaultJacksonObjectFactory() {
     }
 
-    public static ObjectMapper createDefaultJsonObjectMapper() {
-        ObjectMapper objectMapper = buildJacksonObjectMapperBuilder().build();
-        objectMapper.setDefaultPrettyPrinter(createPrettyPrinterWithLinuxEol());
-        return objectMapper;
+    public static DefaultPrettyPrinter createDefaultJsonPrettyPrinter() {
+        DefaultIndenter unixIndenter = new DefaultIndenter("  ", "\n");
+
+        return new DefaultPrettyPrinter()
+                .withObjectIndenter(unixIndenter)
+                .withArrayIndenter(unixIndenter);
     }
 
-    public static ObjectMapper createDefaultXmlObjectMapper() {
-        return buildJacksonObjectXmlMapperBuilder().build();
+    public static JsonMapper createDefaultJsonObjectMapper() {
+        return createDefaultJsonMapperBuilder()
+                .build();
     }
 
-    public static JacksonObjectMapperBuilder buildJacksonObjectMapperBuilder() {
-        return buildJacksonObjectMapperBuilder(false);
-    }
-
-    public static JacksonObjectMapperBuilder buildJacksonObjectXmlMapperBuilder() {
-        return buildJacksonObjectMapperBuilder(true);
-    }
-
-    public static JacksonObjectMapperBuilder buildJacksonObjectMapperBuilder(boolean createXmlMapper) {
-        return new JacksonObjectMapperBuilder()
-                .createXmlMapper(createXmlMapper)
-                .indentOutput(true)
-                .dateFormat(new SimpleDateFormat(DATE_TIME_PATTERN))
-                .modulesToInstall(new ApimsDateTimeUtcModule(), new ApimsModelEnumModule())
-                .serializationInclusion(JsonInclude.Include.NON_NULL)
-                .featuresToEnable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
-                .featuresToEnable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE)
-                .featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+    public static JsonMapper.Builder createDefaultJsonMapperBuilder() {
+        return JsonMapper.builder()
+                .defaultPrettyPrinter(createDefaultJsonPrettyPrinter())
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .addModule(new ApimsDateTimeUtcModule())
+                .addModule(new ApimsModelEnumModule())// Fea
+                .defaultDateFormat(new SimpleDateFormat(DATE_TIME_PATTERN))
+                .changeDefaultPropertyInclusion(incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))
+                .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE)
+                .disable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     }
 }

@@ -15,7 +15,7 @@ public class ApimsAsyncAutoConfigurationHelper {
     public static ApimsExecutor createExecuter(ApimsPoolConfig p, boolean mockEnabled) {
 
         if (mockEnabled) {
-            return ObjectUtils.createInstance("de.sky.newcrm.apims.spring.core.mocks.ApimsMockedExecutor");
+            return ObjectUtils.createInstance("de.sky.newcrm.apims.spring.mocks.ApimsMockedExecutor");
         }
         return new ApimsExecutor(
                 p.getCorePoolSize(),

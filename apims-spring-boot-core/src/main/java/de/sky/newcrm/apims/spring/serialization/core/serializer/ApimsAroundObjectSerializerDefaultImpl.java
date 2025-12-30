@@ -4,7 +4,6 @@
  */
 package de.sky.newcrm.apims.spring.serialization.core.serializer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
 import de.sky.newcrm.apims.spring.utils.ExceptionUtils;
@@ -14,6 +13,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.generic.GenericContainer;
 import org.springframework.util.Assert;
+import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 @SuppressWarnings({"java:S6212"})

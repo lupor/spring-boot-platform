@@ -46,9 +46,6 @@ public class ApimsDateSerializer extends DateSerializer {
 
         @Override
         public void serialize(Date value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            if (isWriteIsoDateWithTimezone()) {
-                value = DateTimeUtc.resetTimeByDate(value);
-            }
             gen.writeString(DateTimeUtc.format(value, getDateTimeUtcISO()));
         }
     }

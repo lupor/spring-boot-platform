@@ -1,0 +1,65 @@
+# defaults for prod
+apims:
+  api:
+    mock-implementations-allowed: false
+  app:
+    config-profile: prod
+    config-profile-prefix: prod
+    env: prod
+    namespace: prod
+    resource-prefix: prod
+  integration:
+    endpoints:
+      apimsdb-server: "apims-db.prod.nc.gcp.internal.skycdp.de:5432"
+      toolsdb-server: "tools-db.prod.nc.gcp.internal.skycdp.de:5432"
+      couchbase-servers: "couchbases://cb-nc01-ew3.nc01.svc.ew3-a.prod.cbms.gcp.internal.skycdp.de"
+      kafka-servers: "kafka-001.prod.nc.gcp.internal.skycdp.de:9093,kafka-002.prod.nc.gcp.internal.skycdp.de:9093,kafka-003.prod.nc.gcp.internal.skycdp.de:9093,kafka-004.prod.nc.gcp.internal.skycdp.de:9093,kafka-005.prod.nc.gcp.internal.skycdp.de:9093,kafka-006.prod.nc.gcp.internal.skycdp.de:9093"
+      kafka-schema-servers: "https://kafka-001.prod.nc.gcp.internal.skycdp.de:8084,https://kafka-002.prod.nc.gcp.internal.skycdp.de:8084,https://kafka-003.prod.nc.gcp.internal.skycdp.de:8084,https://kafka-004.prod.nc.gcp.internal.skycdp.de:8084,https://kafka-005.prod.nc.gcp.internal.skycdp.de:8084,https://kafka-006.prod.nc.gcp.internal.skycdp.de:8084"
+      crm-gateway-instance-url: "https://p.sky.com"
+      cms-contentstack-instance-url: "http://svc-contentstack-datasync-api-server.ns-frontend-prod:3000"
+      netflix-partner-instance-url: "https://partnerapi.netflix.com"
+      marketing-cloud-instance-url: "https://mc3g5c-g6r45z9ljssp7p6r1rk24.rest.marketingcloudapis.com"
+      salesforce-instance-url: "https://skyde.my.salesforce.com"
+      tibco-aopd-instance-url: "https://aopd.tibco.prod.fo.gcp.internal.skycdp.de"
+      tibco-orchestrator-instance-url: "https://orchestrator.tibco.prod.fo.gcp.internal.skycdp.de"
+      tibco-scms-instance-url: "http://10.96.53.10:9140"
+      vault-instance-url: "https://vault.prod.kms.si.gcp.internal.skycdp.de:8200"
+      vault-token-url: "https://vault.prod.kms.si.gcp.internal.skycdp.de:8200/v1/auth/approle/login"
+      vlocity-instance-url: "https://api.prod.skyde.dc.vloc-prod.com"
+      vlocity-token-url: "https://vlocity-dc-prod-skyde.auth.eu-central-1.amazoncognito.com/oauth2/token"
+  kafka:
+    consumer:
+      group-id: prod-${apims.app.name}
+logging:
+  level:
+    de.sky.newcrm: INFO
+    de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundLoggingListener: DEBUG
+    de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundMetricsListener: DEBUG
+    org.springframework.cache: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+spring:
+  couchbase:
+    bucket: "prod"
+    username: "prod-${apims.app.domain}-apims"
+    password: ""
+    scopename: "${apims.app.domain}"
+  datasource:
+    schema: "${apims.app.domain}"
+    username: "prod-${apims.app.domain}-apims"
+  kafka:
+    consumer:
+      group-id: prod-${apims.app.name}-default
+    listener:
+      concurrency: 6
+  postresql:
+    username: "prod-${apims.app.domain}-apims"
+    password: ""

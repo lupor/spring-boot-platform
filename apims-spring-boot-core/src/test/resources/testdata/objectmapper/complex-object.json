@@ -1,0 +1,152 @@
+{
+  "customer" : {
+    "customerNumber" : "5366417425",
+    "firstName" : "Test",
+    "country" : "DE",
+    "externalCustomerId" : "c9b1bed1-8649-461f-bdff-b6c82e982c7c",
+    "salesforceContactId" : "0039E00001lWB92QAG"
+  },
+  "common" : {
+    "sender" : "order-confirmation-service"
+  },
+  "shippingAddress" : {
+    "firstName" : "Test",
+    "lastName" : "User",
+    "houseNumber" : "45f",
+    "postalCode" : "23234",
+    "street" : "Street",
+    "city" : "Unterföhring"
+  },
+  "billingAddress" : {
+    "firstName" : "Test",
+    "lastName" : "User",
+    "houseNumber" : "45f",
+    "postalCode" : "23234",
+    "street" : "Street",
+    "city" : "Unterföhring"
+  },
+  "orderStarter" : {
+    "description" : "Der Gutschein wird nach Ablauf der Widerrufsfrist und positiver Bonitätsprüfung sowie des ersten positiven Zahlungseingangs bei Sky, in Form eines digitalen Gutscheincodes ca. 6-8 Wochen nach Abonnementvertragsabschluss per E-Mail versendet. Es gelten die <a href=\"https://www.amazon.de/gp/help/customer/display.html?nodeId=GNG9PXYZUMQT72QK\" target=\"_blank\">Amazon-Gutscheinbedingungen</a>.",
+    "product" : "€ 50 Amazon Gutschein",
+    "productPrice" : 0
+  },
+  "businessProcess" : "NEW",
+  "primaryDevice" : {
+    "deviceName" : "Sky Q IPTV Box Internet",
+    "deviceType" : "QOverIP"
+  },
+  "otDetails" : {
+    "otPackageDetails" : [ {
+      "cmsMessage" : "Servicepauschale",
+      "descriptionSummary" : "",
+      "energyLabel" : "",
+      "finalOneTimePrice" : 2900,
+      "oneTimePrice" : 2900,
+      "productCode" : "ActivationFee",
+      "productSummary" : "Einmalige Gebühr",
+      "receptionType" : "Internet",
+      "rental" : "false"
+    }, {
+      "cmsMessage" : "Servicepauschale",
+      "descriptionSummary" : "Versand innerhalb von 3-5 Werktagen",
+      "energyLabel" : "",
+      "finalOneTimePrice" : 1290,
+      "oneTimePrice" : 1290,
+      "productCode" : "LogisticFee",
+      "productSummary" : "Logistikpauschale (Standard)",
+      "receptionType" : "Internet",
+      "rental" : "false"
+    }, {
+      "cmsMessage" : "Servicepauschale",
+      "descriptionSummary" : "zur Leihe",
+      "energyLabel" : "",
+      "finalOneTimePrice" : 0,
+      "oneTimePrice" : 0,
+      "productCode" : "QOverIP",
+      "productSummary" : "Sky Q IPTV Box",
+      "receptionType" : "Internet",
+      "rental" : "true"
+    }, {
+      "cmsMessage" : "Servicepauschale",
+      "descriptionSummary" : "zur Leihe",
+      "energyLabel" : "",
+      "finalOneTimePrice" : 2900,
+      "oneTimePrice" : 2900,
+      "productCode" : "MiniQOverIP1",
+      "productSummary" : "Sky Q IPTV Box 2",
+      "receptionType" : "Internet",
+      "rental" : "true"
+    }, {
+      "cmsMessage" : "Servicepauschale",
+      "descriptionSummary" : "zur Leihe",
+      "energyLabel" : "",
+      "finalOneTimePrice" : 2900,
+      "oneTimePrice" : 2900,
+      "productCode" : "MiniQOverIP2",
+      "productSummary" : "Sky Q IPTV Box 3",
+      "receptionType" : "Internet",
+      "rental" : "true"
+    } ],
+    "otTotalCost" : 9990
+  },
+  "daznBookedNewly" : false,
+  "pdf" : {
+    "url" : "https://skyde--devskysf1--c.documentforce.com/sfc/dist/version/download/?oid=00D9E000000A3Mr&ids=0689E000003SpZl&d=%2Fa%2F9E0000005ZfH%2FA3E_i.Mod5Pp7ngOCNBiSjyB.topL7MVLnIj4YUkxIs&asPdf=true",
+    "fileName" : "Vertragsinformationen_NeukundeSkyQIPTV_259.pdf"
+  },
+  "otherOrderedDevices" : [ "Sky Q IPTV Box 2", "Sky Q IPTV Box 3" ],
+  "payment" : {
+    "bankPayment" : {
+      "iban" : "XXXXXXXXXXXXXXXXX 05678",
+      "mandateRef" : "5366417425-0001",
+      "ownerName" : "Test User"
+    },
+    "mop" : "BANK",
+    "upfrontPayment" : false
+  },
+  "paybackDetails" : { },
+  "voucher" : {
+    "description" : "Dein Gutscheincode wurde eingelöst"
+  },
+  "salesOrderOverview" : {
+    "daznPackages" : [ ],
+    "monthlyPackages" : [ ],
+    "monthlyPromoPackages" : [ ],
+    "yearlyPackages" : [ {
+      "commitmentPrice" : 1000,
+      "finalRecurringPrice" : 1000,
+      "outOfContractPrice" : 1000,
+      "packageName" : "YearlyPackage",
+      "productSummary" : "Multiscreen QoverIP"
+    } ],
+    "yearlyPromoPackages" : [ {
+      "commitmentPrice" : 4100,
+      "finalRecurringPrice" : 4100,
+      "outOfContractPrice" : 4100,
+      "packageName" : "YearlyPromoPackage",
+      "productSummary" : [ "Sky Ultimate TV (inkl. Netflix Basis)", "Sky Cinema" ]
+    } ],
+    "pricePeriods" : [ 12, 13 ],
+    "totalPriceList" : {
+      "totalRecurringActual" : 5100,
+      "totalRecurringOutOfContract" : 5100
+    }
+  },
+  "productVoucherName" : [ {
+    "legalText" : "",
+    "productSummary" : "Paramount+",
+    "productVoucherPlaceholder" : "<p>Paramount+ finalVoucherPrice: 7,99</p>",
+    "voucherLogo" : "https://images.contentstack.io/v3/assets/blt0afdccad202ea94b/bltc7af1e31d98b8360/637c97e15834861044c20c87/sky_nc_voucher_paramount-plus.jpg",
+    "textRuntime" : ""
+  }, {
+    "legalText" : "<p>Legaltext Discovery+<br/>zweite Zeile mit Link <a href=\\\"/v3/assets/blt0afdccad202ea94b/blt248b7a16e80bcdb6/61fc020617f4c326db2fd59e/Fiche_846043_EN_f1_blu.pdf\\\" target=\\\"_blank\\\">Testlink</a></p>",
+    "productSummary" : "Discovery+",
+    "productVoucherPlaceholder" : "<p>Discovery+ finalVoucherPrice: 3,99</p>",
+    "voucherLogo" : "https://images.contentstack.io/v3/assets/blt0afdccad202ea94b/blt01b9ca13385253a9/632052184c470a60a9fa00a7/sky_nc_voucher_discovery-plus.jpg",
+    "textRuntime" : "12 Monate gratis"
+  } ],
+  "skyGoUsed" : false,
+  "daznBookedBefore" : "FALSE",
+  "daznDiscountedText" : "<p>This is a blindtext. Please Check the text CF-&gt; Info DAZN billed separately<br/>DAZN text: Current DAZN via Sky Abo is not impacted/changed.</p>",
+  "checkFreeVisionInMonths" : false
+}

@@ -1,0 +1,60 @@
+# defaults for pre-prod
+apims:
+  api:
+    mock-implementations-allowed: false
+  app:
+    config-profile: pre-prod
+    config-profile-prefix: pre_prod
+    env: pre-prod
+    namespace: pre-prod
+    resource-prefix: pre_prod
+  integration:
+    endpoints:
+      apimsdb-server: "apims-db.pre-prod.nc.gcp.internal.skycdp.de:5432"
+      toolsdb-server: "tools-db.pre-prod.nc.gcp.internal.skycdp.de:5432"
+      couchbase-servers: "couchbases://cb-nc01-ew3.nc01.svc.ew3-a.preprod.cbms.gcp.internal.skycdp.de"
+      kafka-servers: "kafka-001.pre-prod.nc.gcp.internal.skycdp.de:9093,kafka-002.pre-prod.nc.gcp.internal.skycdp.de:9093,kafka-003.pre-prod.nc.gcp.internal.skycdp.de:9093,kafka-004.pre-prod.nc.gcp.internal.skycdp.de:9093,kafka-005.pre-prod.nc.gcp.internal.skycdp.de:9093,kafka-006.pre-prod.nc.gcp.internal.skycdp.de:9093"
+      kafka-schema-servers: "https://kafka-001.pre-prod.nc.gcp.internal.skycdp.de:8084,https://kafka-002.pre-prod.nc.gcp.internal.skycdp.de:8084,https://kafka-003.pre-prod.nc.gcp.internal.skycdp.de:8084,https://kafka-004.pre-prod.nc.gcp.internal.skycdp.de:8084,https://kafka-005.pre-prod.nc.gcp.internal.skycdp.de:8084,https://kafka-006.pre-prod.nc.gcp.internal.skycdp.de:8084"
+      crm-gateway-instance-url: "https://uat-p.sky.com"
+      cms-contentstack-instance-url: "http://svc-contentstack-datasync-api-server.ns-frontend-pre-prod:3000"
+      marketing-cloud-instance-url: "https://mc3g5c-g6r45z9ljssp7p6r1rk24.rest.marketingcloudapis.com"
+      netflix-partner-instance-url: "https://partnerapi.sandbox.netflix.com"
+      salesforce-instance-url: "https://skyde--preprodsky.my.salesforce.com"
+      tibco-aopd-instance-url: "https://aopd.tibco.pre-prod.fo.gcp.internal.skycdp.de"
+      tibco-orchestrator-instance-url: "https://orchestrator.tibco.pre-prod.fo.gcp.internal.skycdp.de"
+      tibco-scms-instance-url: "http://10.96.111.22:9140"
+      vlocity-instance-url: "https://api.preprod.skyde.dc.vloc-dev.com"
+      vlocity-token-url: "https://vlocity-dc-nonprod2-skyde.auth.eu-central-1.amazoncognito.com/oauth2/token"
+  kafka:
+    consumer:
+      group-id: pre-prod-${apims.app.name}
+logging:
+  level:
+    org.springframework.cache: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+spring:
+  couchbase:
+    bucket: "pre-prod"
+    username: "pre-prod-${apims.app.domain}-apims"
+    password: ""
+    scopename: "${apims.app.domain}"
+  datasource:
+    schema: "${apims.app.domain}"
+    username: "pre-prod-${apims.app.domain}-apims"
+  kafka:
+    consumer:
+      group-id: pre-prod-${apims.app.name}-default
+    listener:
+      concurrency: 6
+  postresql:
+    username: "pre-prod-${apims.app.domain}-apims"
+    password: ""

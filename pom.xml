@@ -27,16 +27,16 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/maven-central</url>
+        </repository>
+        <repository>
             <id>newcrm-apims-releases</id>
             <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/apims</url>
         </repository>
         <repository>
             <id>newcrm-common-releases</id>
             <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/common</url>
-        </repository>
-        <repository>
-            <id>central</id>
-            <url>artifactregistry://europe-west3-maven.pkg.dev/de-nc-gr-pr-shared/maven-central</url>
         </repository>
     </repositories>
 
@@ -81,6 +81,8 @@
         <flyway-core.version>11.13.2</flyway-core.version>
         <grpc-core.version>1.73.0</grpc-core.version>
         <h2.version>2.4.240</h2.version>
+        <jackson.version>3.0.3</jackson.version>
+        <junit-jupiter.version>6.0.1</junit-jupiter.version>
         <json2avro-converter.version>0.3.0</json2avro-converter.version>
         <jsch.version>2.27.3</jsch.version>
         <jspecify.version>1.0.0</jspecify.version>
@@ -89,6 +91,7 @@
         <libphonenumber.version>8.13.34</libphonenumber.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <micrometer-tracing-bridge-otel.version>1.3.8</micrometer-tracing-bridge-otel.version>
+        <mockito.version>5.21.0</mockito.version>
         <nimbus-jose-jwt.version>10.5</nimbus-jose-jwt.version>
         <opentelemetry-api.version>1.43.0</opentelemetry-api.version>
         <opentelemetry-exporter-otlp-common.version>1.43.0</opentelemetry-exporter-otlp-common.version>
@@ -104,6 +107,9 @@
         <sshd-core.version>2.15.0</sshd-core.version>
         <tomcat.version>10.1.44</tomcat.version>
         <VeracodeAnnotations.version>1.2.1</VeracodeAnnotations.version>
+
+        <!-- Vulnerability overrides -->
+        <tomcat-embed-core.version>11.0.15</tomcat-embed-core.version>
     </properties>
 
     <dependencyManagement>
@@ -413,6 +419,63 @@
                 <artifactId>jspecify</artifactId>
                 <version>${jspecify.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-bom</artifactId>
+                <version>${mockito.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>tools.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>tools.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>tools.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-csv</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Vulnerabilities Overrides-->
+<!--            <dependency>-->
+<!--                <groupId>org.apache.tomcat.embed</groupId>-->
+<!--                <artifactId>tomcat-embed-core</artifactId>-->
+<!--                <version>11.0.15</version>-->
+<!--            </dependency>-->
+
+<!--            <dependency>-->
+<!--                <groupId>org.bouncycastle</groupId>-->
+<!--                <artifactId>bcpkix-jdk18on</artifactId>-->
+<!--                <version>1.83</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
@@ -793,7 +856,6 @@
             </activation>
             <modules>
                 <module>apims-spring-boot-core</module>
-                <module>apims-spring-boot-core-test</module>
             </modules>
         </profile>
         <profile>
@@ -803,7 +865,6 @@
             </activation>
             <modules>
                 <module>apims-spring-boot-core</module>
-                <module>apims-spring-boot-core-test</module>
                 <module>apims-spring-boot-parent</module>
             </modules>
         </profile>

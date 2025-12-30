@@ -248,7 +248,7 @@ public class FunctionUtils {
         default void accept(T t, boolean suppressExceptions) {
             try {
                 accept(t);
-            } catch (Exception e) {
+            } catch (Throwable e) { //NOSONAR
                 if (!suppressExceptions) {
                     throw ExceptionUtils.resolveAsRuntimeException(e);
                 }
@@ -263,7 +263,7 @@ public class FunctionUtils {
         default void accept(T t, U u, boolean suppressExceptions) {
             try {
                 accept(t, u);
-            } catch (Exception e) {
+            } catch (Throwable e) { //NOSONAR
                 if (!suppressExceptions) {
                     throw ExceptionUtils.resolveAsRuntimeException(e);
                 }
@@ -277,7 +277,7 @@ public class FunctionUtils {
         default R call(Class<? extends RuntimeException> throwRuntimeException) {
             try {
                 return call();
-            } catch (Exception e) {
+            } catch (Throwable e) { //NOSONAR
                 throw ExceptionUtils.resolveAsRuntimeException(e, throwRuntimeException);
             }
         }
@@ -290,7 +290,7 @@ public class FunctionUtils {
         default R apply(T input, Class<? extends RuntimeException> throwRuntimeException) {
             try {
                 return apply(input);
-            } catch (Exception e) {
+            } catch (Throwable e) { //NOSONAR
                 throw ExceptionUtils.resolveAsRuntimeException(e, throwRuntimeException);
             }
         }
@@ -304,7 +304,7 @@ public class FunctionUtils {
         default R execute(ExecuteCallbackExceptionHandler<R> exceptionHandler) {
             try {
                 return execute();
-            } catch (Exception e) {
+            } catch (Throwable e) { //NOSONAR
                 return exceptionHandler.handleException(e);
             }
         }
@@ -319,7 +319,7 @@ public class FunctionUtils {
             try {
                 execute();
                 return true;
-            } catch (Exception e) {
+            } catch (Throwable e) { //NOSONAR
                 return exceptionHandler.handleException(e);
             }
         }
@@ -327,7 +327,7 @@ public class FunctionUtils {
 
     @FunctionalInterface
     public interface ExecuteCallbackExceptionFunction<R> {
-        R handleException(Exception e);
+        R handleException(Throwable e);
     }
 
     public static class ExecuteCallbackExceptionHandler<R> {
@@ -354,7 +354,7 @@ public class FunctionUtils {
             return throwRuntimeException;
         }
 
-        public R handleException(Exception e) {
+        public R handleException(Throwable e) { //NOSONAR
             if (exceptionFunction == null) {
                 throw ExceptionUtils.resolveAsRuntimeException(e, getThrowRuntimeException());
             } else {
@@ -365,7 +365,7 @@ public class FunctionUtils {
 
     @FunctionalInterface
     public interface VoidCallbackExceptionFunction {
-        boolean handleException(Exception e);
+        boolean handleException(Throwable e);
     }
 
     public static class VoidCallbackExceptionHandler {
@@ -406,7 +406,7 @@ public class FunctionUtils {
             return throwRuntimeException;
         }
 
-        public boolean handleException(Exception e) {
+        public boolean handleException(Throwable e) {
             if (!isSuppressExceptions()) {
                 if (exceptionFunction == null) {
                     throw ExceptionUtils.resolveAsRuntimeException(e, getThrowRuntimeException());

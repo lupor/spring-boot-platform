@@ -40,16 +40,25 @@
       <artifactId>spring-context</artifactId>
       <scope>compile</scope>
     </dependency>
+
     <dependency>
       <groupId>de.sky.newcrm</groupId>
       <artifactId>apims-spring-boot-core</artifactId>
       <version>254.1.2-SNAPSHOT</version>
     </dependency>
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>de.sky.newcrm</groupId>
       <artifactId>apims-spring-boot-core-test</artifactId>

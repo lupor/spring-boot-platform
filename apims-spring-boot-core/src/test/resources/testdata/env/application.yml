@@ -1,0 +1,5 @@
+apims:
+  app:
+    name: "env-test"
+    domain: "default"
+    type: "cli"

@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+de.sky.newcrm.apims.spring.core.env.ApimsEnvironmentPostProcessor

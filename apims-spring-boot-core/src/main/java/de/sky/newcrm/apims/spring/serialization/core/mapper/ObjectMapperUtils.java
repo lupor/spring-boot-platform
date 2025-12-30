@@ -4,24 +4,25 @@
  */
 package de.sky.newcrm.apims.spring.serialization.core.mapper;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import tools.jackson.core.type.TypeReference;
+
 import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings({"java:S112"})
 public class ObjectMapperUtils {
 
-    private static final ApimsObjectMapperJson APIMS_OBJECT_MAPPER_JSON = new ApimsObjectMapperJson();
-    private static final ApimsObjectMapperXml APIMS_OBJECT_MAPPER_XML = new ApimsObjectMapperXml();
-    private static final ApimsObjectMapper APIMS_DEFAULT_OBJECT_MAPPER = APIMS_OBJECT_MAPPER_JSON;
+    private static final ApimsJsonMapper APIMS_OBJECT_MAPPER_JSON = new ApimsJsonMapper();
+    private static final ApimsXmlMapper APIMS_OBJECT_MAPPER_XML = new ApimsXmlMapper();
+    private static final ApimsJsonMapper APIMS_DEFAULT_OBJECT_MAPPER = APIMS_OBJECT_MAPPER_JSON;
 
     protected ObjectMapperUtils() {}
 
-    public static ApimsObjectMapperJson getApimsObjectMapperJson() {
+    public static ApimsJsonMapper getApimsObjectMapperJson() {
         return APIMS_OBJECT_MAPPER_JSON;
     }
 
-    public static ApimsObjectMapperXml getApimsObjectMapperXml() {
+    public static ApimsXmlMapper getApimsObjectMapperXml() {
         return APIMS_OBJECT_MAPPER_XML;
     }
 
@@ -54,7 +55,7 @@ public class ObjectMapperUtils {
     }
 
     public static Map<String, Object> toFlattenMap(Map<String, Object> map) {
-        return ApimsObjectMapper.toFlattenMap(map);
+        return ApimsJsonMapper.toFlattenMap(map);
     }
 
     public static <T> T readValue(String payload, Class<T> type) {
@@ -86,22 +87,22 @@ public class ObjectMapperUtils {
     }
 
     public static Object getNodeValue(Map<String, Object> map, String path) {
-        return ApimsObjectMapper.getNodeValue(map, path);
+        return ApimsJsonMapper.getNodeValue(map, path);
     }
 
     public static void removeNode(Map<String, Object> map, String path) {
-        ApimsObjectMapper.removeNode(map, path);
+        ApimsJsonMapper.removeNode(map, path);
     }
 
     public static void upsertNode(Map<String, Object> map, String path, Object value) {
-        ApimsObjectMapper.upsertNode(map, path, value);
+        ApimsJsonMapper.upsertNode(map, path, value);
     }
 
     public static void appendList(Map<String, Object> map, String path, List<Object> value) {
-        ApimsObjectMapper.appendList(map, path, value);
+        ApimsJsonMapper.appendList(map, path, value);
     }
 
-    public static class MapReader extends ApimsObjectMapper.MapReader {
+    public static class MapReader extends ApimsJsonMapper.MapReader {
 
         public static MapReader buildForMap(String payload) {
             return new MapReader(readMap(payload));

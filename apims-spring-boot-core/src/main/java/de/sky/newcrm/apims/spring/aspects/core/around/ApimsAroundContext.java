@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.aspects.core.around;
 
 import de.sky.newcrm.apims.spring.flow.ApimsFlowContext;
-import de.sky.newcrm.apims.spring.telemetry.logging.ApimsAroundLoggingListenerSuppress;
+import de.sky.newcrm.apims.spring.telemetry.logging.core.ApimsAroundLoggingListenerSuppress;
 import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;

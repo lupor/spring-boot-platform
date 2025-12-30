@@ -7,7 +7,7 @@ package de.sky.newcrm.apims.spring.telemetry.metrics.autoconfigure;
 import de.sky.newcrm.apims.spring.telemetry.metrics.config.ApimsMetricsConfig;
 import de.sky.newcrm.apims.spring.telemetry.metrics.core.ApimsMeterRegistry;
 import de.sky.newcrm.apims.spring.telemetry.metrics.core.ApimsMeterRegistryConfigurer;
-import de.sky.newcrm.apims.spring.telemetry.metrics.core.aspects.ApimsAroundMetricsListener;
+import de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsAroundMetricsListener;
 import io.micrometer.core.aop.CountedAspect;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;

@@ -1,0 +1,80 @@
+# defaults for dev-test
+apims:
+  api:
+    mock-implementations-allowed: true
+    crm-gateway:
+      implementation: "ApimsCrmGatewayClientDummyImpl"
+  app:
+    config-profile: dev-test
+    config-profile-prefix: dev_test
+    env: dev
+    namespace: ${NAMESPACE:dev-test}
+    resource-prefix: ${RESOURCE_PREFIX:dev_test}
+  integration:
+    endpoints:
+      apimsdb-server: "apims-db.dev.nc.gcp.internal.skycdp.de:5432"
+      toolsdb-server: "tools-db.dev.nc.gcp.internal.skycdp.de:5432"
+      couchbase-servers: "couchbases://cb-nc01-ew3.nc01.svc.ew3-a.uat.cbms.gcp.internal.skycdp.de"
+      kafka-servers: "kafka-001.dev.nc.gcp.internal.skycdp.de:9093,kafka-002.dev.nc.gcp.internal.skycdp.de:9093,kafka-003.dev.nc.gcp.internal.skycdp.de:9093,kafka-004.dev.nc.gcp.internal.skycdp.de:9093,kafka-005.dev.nc.gcp.internal.skycdp.de:9093,kafka-006.dev.nc.gcp.internal.skycdp.de:9093"
+      kafka-schema-servers: "https://kafka-001.dev.nc.gcp.internal.skycdp.de:8084,https://kafka-002.dev.nc.gcp.internal.skycdp.de:8084,https://kafka-003.dev.nc.gcp.internal.skycdp.de:8084,https://kafka-004.dev.nc.gcp.internal.skycdp.de:8084,https://kafka-005.dev.nc.gcp.internal.skycdp.de:8084,https://kafka-006.dev.nc.gcp.internal.skycdp.de:8084"
+      cms-contentstack-instance-url: "http://svc-contentstack-datasync-api-server.ns-frontend-dev:3000"
+      crm-gateway-instance-url: "https://uat-p.sky.com"
+      marketing-cloud-instance-url: "https://mc3g5c-g6r45z9ljssp7p6r1rk24.rest.marketingcloudapis.com"
+      netflix-partner-instance-url: "https://partnerapi.sandbox.netflix.com"
+      salesforce-instance-url: "https://skyde--devskysf1.sandbox.my.salesforce.com"
+      salesforce-token-url: "http://svc-customer-sf-token-service:8080?system=SFDC"
+      tibco-aopd-instance-url: "https://aopd.tibco.dev.fo.gcp.internal.skycdp.de"
+      tibco-orchestrator-instance-url: "https://orchestrator.tibco.dev.fo.gcp.internal.skycdp.de"
+      tibco-scms-instance-url: "http://svc-http-mock:8080"
+      vlocity-instance-url: "https://api.devskysf1.skyde.dc.vloc-dev.com"
+      vlocity-token-url: "https://vlocity-dc-nonprod2-skyde.auth.eu-central-1.amazoncognito.com/oauth2/token"
+  sftp:
+    host: svc-sftp-mock
+    port: 22
+    allow-unknown-keys: true
+    user: foo
+    password: pass
+  sftp-2:
+    host: svc-sftp-mock
+    port: 22
+    allow-unknown-keys: true
+    user: foo
+    password: pass
+  kafka:
+    consumer:
+      group-id: ${apims.app.namespace}-${apims.app.name}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway, openapi, swaggerui, env
+  otlp:
+    tracing:
+      export:
+        enabled: false
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+spring:
+  couchbase:
+    bucket: "dev-test"
+    username: "dev-${apims.app.domain}-apims"
+    password: ""
+    scopename: "${apims.app.domain}"
+  datasource:
+    database: "de-nc-sq-in-db-apims-sandbox"
+    schema: "${apims.app.domain}"
+    username: "dev-${apims.app.domain}-apims"
+  kafka:
+    consumer:
+      group-id: ${apims.app.namespace}-${apims.app.name}-default
+    listener:
+      concurrency: 1
+  postresql:
+    username: "dev-${apims.app.domain}-apims"
+    password: ""
+logging:
+  level:
+    com.couchbase.core: DEBUG

@@ -8,8 +8,6 @@ import static de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes.BUSINES
 import static de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes.BUSINESS_EXCEPTION_ERROR_CODE_KEY;
 import static de.sky.newcrm.apims.spring.exceptions.BusinessExceptionErrorCodes.BUSINESS_ERROR;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sky.newcrm.apims.spring.context.core.ApimsSpringApplication;
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import de.sky.newcrm.apims.spring.environment.core.ApimsSpringContext;
@@ -28,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @SuppressWarnings({"java:S1874", "java:S6201", "java:S6212"})
 public class ApimsBaseExceptionResolver {
@@ -36,7 +36,7 @@ public class ApimsBaseExceptionResolver {
     private static final Object instanceLock = new Object();
     private static final Logger log = LoggerFactory.getLogger(ApimsBaseExceptionResolver.class);
     private final ObjectMapper objectMapper =
-            DefaultJacksonObjectFactory.buildJacksonObjectMapperBuilder().build();
+            DefaultJacksonObjectFactory.createDefaultJsonObjectMapper();
     private final Map<String, ApimsBusinessExceptionCacheItem> exceptionMap = new ConcurrentHashMap<>();
 
     private ApimsBaseExceptionResolver() {
@@ -105,7 +105,7 @@ public class ApimsBaseExceptionResolver {
                 if (maps.length != 0) {
                     map = maps[0];
                 }
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 log.trace("Business Exception Class not parsable (Array Object).", e);
                 map = new HashMap<>();
             }
@@ -113,7 +113,7 @@ public class ApimsBaseExceptionResolver {
         if (map == null) {
             try {
                 map = objectMapper.readValue(body, Map.class);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 log.trace("Business Exception Class not parsable.", e);
                 map = new HashMap<>();
             }
