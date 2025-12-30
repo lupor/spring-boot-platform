@@ -6,28 +6,27 @@ package de.sky.newcrm.apims.spring.serialization.core.mapper;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import de.sky.newcrm.apims.spring.utils.FunctionUtils;
 import de.sky.newcrm.apims.spring.utils.walker.FlattenMap;
 import de.sky.newcrm.apims.spring.utils.walker.FlattenMapCreator;
 import de.sky.newcrm.apims.spring.utils.walker.SingleObjectFinder;
-import java.util.*;
-import java.util.function.Predicate;
 import org.springframework.util.StringUtils;
 
-@SuppressWarnings({"java:S112"})
-public abstract class ApimsObjectMapper {
+import java.util.*;
+import java.util.function.Predicate;
 
-    protected static final ObjectMapper DEFAULT_OBJECT_MAPPER_JSON =
-            DefaultJacksonObjectFactory.createDefaultJsonObjectMapper();
-    protected static final ObjectMapper DEFAULT_OBJECT_MAPPER_XML =
-            DefaultJacksonObjectFactory.createDefaultXmlObjectMapper();
+@SuppressWarnings({"java:S112"})
+public class ApimsXmlMapper {
+    protected static final XmlMapper DEFAULT_OBJECT_MAPPER_XML =
+            DefaultJacksonXMLObjectFactory.createDefaultXmlObjectMapper();
 
     protected final ObjectMapper objectMapper;
 
-    protected ApimsObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public ApimsXmlMapper() {
+        this.objectMapper = DEFAULT_OBJECT_MAPPER_XML;
     }
 
     public ObjectMapper unwrap() {

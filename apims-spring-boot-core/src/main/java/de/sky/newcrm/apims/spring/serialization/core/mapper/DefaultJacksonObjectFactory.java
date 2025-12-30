@@ -25,10 +25,10 @@ public abstract class DefaultJacksonObjectFactory {
 
     public static DefaultPrettyPrinter createDefaultJsonPrettyPrinter() {
         DefaultIndenter unixIndenter = new DefaultIndenter("  ", "\n");
-
-        return new DefaultPrettyPrinter()
-                .withObjectIndenter(unixIndenter)
-                .withArrayIndenter(unixIndenter);
+        DefaultPrettyPrinter pp = new DefaultPrettyPrinter();
+        pp.indentArraysWith(unixIndenter);
+        pp.indentObjectsWith(unixIndenter);
+        return pp;
     }
 
     public static JsonMapper createDefaultJsonObjectMapper() {
