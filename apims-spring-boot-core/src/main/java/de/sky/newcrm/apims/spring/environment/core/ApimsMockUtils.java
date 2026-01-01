@@ -6,7 +6,7 @@ package de.sky.newcrm.apims.spring.environment.core;
 
 import de.sky.newcrm.apims.spring.exceptions.ApimsBaseException;
 import de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.utils.FileUtils;
 import de.sky.newcrm.apims.spring.utils.TempFileUtils;
 import org.springframework.util.Assert;

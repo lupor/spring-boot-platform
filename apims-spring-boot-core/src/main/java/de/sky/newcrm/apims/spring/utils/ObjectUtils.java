@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.utils;
 
 import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

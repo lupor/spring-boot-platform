@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.module;
 
 import tools.jackson.databind.ValueSerializer;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ApimsObjectMapperConfig;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ApimsObjectMapperConfig;
 import de.sky.newcrm.apims.spring.utils.DateTimeUtc;
 import org.springframework.format.annotation.DateTimeFormat;
 

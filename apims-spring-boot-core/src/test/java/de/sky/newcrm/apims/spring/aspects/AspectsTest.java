@@ -10,7 +10,7 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import de.sky.newcrm.apims.spring.aspects.core.around.ApimsAspect;
-//import de.sky.newcrm.apims.spring.serialization.core.mapper.DefaultJacksonObjectFactory;
+//import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.DefaultJacksonObjectFactory;
 //import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
 //import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMaskerDefaultImpl;
 //import de.sky.newcrm.apims.spring.serialization.core.serializer.ApimsAroundObjectSerializer;

@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.serialization.aspects;
 
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMaskerDefaultImpl;
 import de.sky.newcrm.apims.spring.serialization.core.serializer.ApimsAroundObjectSerializer;

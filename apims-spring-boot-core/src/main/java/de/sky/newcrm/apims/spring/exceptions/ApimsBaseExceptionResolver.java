@@ -11,7 +11,7 @@ import static de.sky.newcrm.apims.spring.exceptions.BusinessExceptionErrorCodes.
 import de.sky.newcrm.apims.spring.context.core.ApimsSpringApplication;
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import de.sky.newcrm.apims.spring.environment.core.ApimsSpringContext;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.DefaultJacksonObjectFactory;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.DefaultJacksonObjectFactory;
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import de.sky.newcrm.apims.spring.utils.scanner.ApimsClassScanner;
 import java.io.Serializable;

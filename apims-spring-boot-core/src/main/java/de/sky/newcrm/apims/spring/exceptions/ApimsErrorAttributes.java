@@ -7,7 +7,7 @@ package de.sky.newcrm.apims.spring.exceptions;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.utils.ExceptionUtils;
 import de.sky.newcrm.apims.spring.utils.VeracodeMitigationUtils;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;

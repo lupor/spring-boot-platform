@@ -1,0 +1,126 @@
+# defaults for dev (local dev)
+apims:
+  api:
+    mock-implementations-allowed: true
+    crm-gateway:
+      implementation: "ApimsCrmGatewayClientDummyImpl"
+  app:
+    config-profile: dev
+    config-profile-prefix: dev
+    env: dev
+    namespace: dev
+    resource-prefix: dev
+  integration:
+    endpoints:
+      apimsdb-server: "127.0.0.1:5432"
+      toolsdb-server: "127.0.0.1:5432"
+  kafka:
+    consumer:
+      group-id: dev-${apims.app.name}
+      default-error-handler-interval: 5000
+      dlt:
+        delay: 1000
+        multiplier: 2
+        last-retry-attempts: 3
+        auto-create-topics: ${spring.kafka.properties.allow.auto.create.topics:true}
+  sftp:
+    host: svc-sftp-mock
+    port: 2222
+    allow-unknown-keys: true
+    user: foo
+    password: pass
+  sftp-2:
+    host: svc-sftp-mock
+    port: 2222
+    allow-unknown-keys: true
+    user: foo
+    password: pass
+  startup-check:
+    check-forbidden-application-properties: true
+  trace:
+    force-record-trace-files: true
+  web:
+    auth:
+      aad-token-validator:
+        key-source-type: TRUSTED
+        explicit-audience-check: false
+      additional-token-validator:
+        key-source-type: TRUSTED
+      service-token-validator:
+        key-source-type: TRUSTED
+      test-token-validator:
+        enabled: true
+        issuer: "https://testcase.com/"
+        key-source-type: BYTE_SECRET_BASE_64
+        key-source-value: "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm02NTQzMjE="
+    http-components:
+      hostname-verifier-disabled: true
+      trust-all-certificates: true
+    logging:
+      max-payload-length: 6000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway, openapi, swaggerui, env
+  server:
+    address: "localhost"
+    port: 4401
+  otlp:
+    tracing:
+      endpoint: http://localhost:4317/v1/traces
+      export:
+        enabled: false
+server:
+  port: 4040
+spring:
+  cloud:
+    gcp:
+      core:
+        enabled: false
+        dummy-credentials-enabled: true
+      logging:
+        enabled: false
+      trace:
+        enabled: false
+      pubsub:
+        emulator-enabled: false
+        emulator-host: localhost:8085
+        emulator-queues: queue_01_tp:queue_01_sc
+        project-id: de-nc-gr-pr-dev-emu
+        subscriber:
+          executor-threads: 1
+    vault:
+      authentication: token
+      enabled: false
+      uri: http://localhost:8200
+  couchbase:
+    hostname: "127.0.0.1"
+    bucket: "dev"
+    username: "apims-dev"
+    scopename: "${apims.app.domain}"
+    env:
+      security:
+        auth-method: password
+        tls-enabled: false
+      io:
+        networkResolution: default
+  datasource:
+    schema: "${apims.app.domain}"
+    username: "dev-${apims.app.domain}-apims"
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    properties:
+      allow.auto.create.topics: true
+      auto.register.schemas: true
+      schema.registry.url: "http://localhost:8081"
+    listener:
+      concurrency: 1
+    security:
+      protocol: "PLAINTEXT"
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

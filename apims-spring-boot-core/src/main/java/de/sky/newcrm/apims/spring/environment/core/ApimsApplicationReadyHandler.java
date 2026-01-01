@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.environment.core;
 
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
 import de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsAroundMetricsListenerSuppress;
 import java.time.LocalDateTime;

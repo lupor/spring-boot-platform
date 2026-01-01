@@ -6,7 +6,7 @@ package de.sky.newcrm.apims.spring.store.core;
 
 import com.veracode.annotation.FilePathCleanser;
 import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.utils.FunctionUtils;
 import de.sky.newcrm.apims.spring.utils.ObjectUtils;
 import de.sky.newcrm.apims.spring.utils.collections.ThreadSaveArrayList;

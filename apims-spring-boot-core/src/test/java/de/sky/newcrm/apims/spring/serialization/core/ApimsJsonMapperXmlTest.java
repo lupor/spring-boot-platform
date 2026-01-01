@@ -14,8 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ApimsJsonMapper;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ApimsXmlMapper;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ApimsXmlMapper;
 import lombok.*;
 import org.junit.jupiter.api.Test;
 

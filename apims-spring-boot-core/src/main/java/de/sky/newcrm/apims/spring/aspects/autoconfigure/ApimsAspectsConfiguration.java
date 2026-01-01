@@ -4,23 +4,21 @@
  */
 package de.sky.newcrm.apims.spring.aspects.autoconfigure;
 
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.DefaultJacksonObjectFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
-@Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = "apims.aspects", name = "enabled", havingValue = "true", matchIfMissing = true)
-@SuppressWarnings({"java:S6212"})
+@Configuration(proxyBeanMethods = false) @SuppressWarnings({"java:S6212"})
 public class ApimsAspectsConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(name = "aspectsJacksonBuilder")
     public JsonMapper.Builder aspectsJacksonBuilder() {
-        return de.sky.newcrm.apims.spring.serialization.core.mapper.DefaultJacksonObjectFactory
+        return DefaultJacksonObjectFactory
                 .createDefaultJsonMapperBuilder();
     }
 

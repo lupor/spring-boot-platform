@@ -8,7 +8,7 @@ import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.telemetry.logging.core.ApimsAroundLoggingListenerSuppress;
 import jakarta.persistence.Id;
 import java.lang.reflect.Field;

@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.serialization.autoconfigure;
 
 import de.sky.newcrm.apims.spring.environment.config.ApimsCoreProperties;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.DefaultJacksonObjectFactory;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.DefaultJacksonObjectFactory;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMasker;
 import de.sky.newcrm.apims.spring.serialization.core.masker.ApimsAroundObjectMaskerDefaultImpl;
 import de.sky.newcrm.apims.spring.serialization.core.serializer.ApimsAroundObjectSerializer;

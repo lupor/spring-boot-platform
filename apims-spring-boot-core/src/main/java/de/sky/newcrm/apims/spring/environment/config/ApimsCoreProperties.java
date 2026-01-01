@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class ApimsCoreProperties {
 
-    private static final String DEFAULT_PLACEHOLDER_VALUE = "_placeholder";
+    public static final String DEFAULT_PLACEHOLDER_VALUE = "_placeholder";
 
     private App app = new App();
     private Aspects aspects = new Aspects();

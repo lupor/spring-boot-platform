@@ -6,7 +6,7 @@ package de.sky.newcrm.apims.spring.serialization.core.module;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.sky.newcrm.apims.spring.serialization.core.mapper.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.utils.DateTimeUtc;
 import de.sky.newcrm.apims.spring.utils.ObjectUtils;
 import java.time.LocalDate;
