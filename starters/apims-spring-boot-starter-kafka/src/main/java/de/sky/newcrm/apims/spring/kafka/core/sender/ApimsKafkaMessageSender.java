@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core.sender;
 
-import de.sky.newcrm.apims.spring.core.env.ApimsSpringContext;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsSpringContext;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 

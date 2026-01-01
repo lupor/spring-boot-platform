@@ -4,11 +4,11 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core.serializers;
 
-import de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundLoggingListenerSuppress;
-import de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundMetricsListenerSuppress;
-import de.sky.newcrm.apims.spring.core.integration.kafka.schema.client.v1.m0.ApimsKafkaSchemaClient;
-import de.sky.newcrm.apims.spring.core.objectmapper.ObjectMapperUtils;
-import de.sky.newcrm.apims.spring.core.utils.AssertUtils;
+import de.sky.newcrm.apims.spring.kafka.core.integration.ApimsKafkaSchemaClient;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.legacy.ObjectMapperUtils;
+import de.sky.newcrm.apims.spring.telemetry.logging.core.ApimsAroundLoggingListenerSuppress;
+import de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsAroundMetricsListenerSuppress;
+import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;

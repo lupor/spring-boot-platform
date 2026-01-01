@@ -4,10 +4,10 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.kafka.entity.ApimsKafkaRecord;
-import de.sky.newcrm.apims.spring.core.kafka.serializers.ApimsKafkaRecordProducer;
-import de.sky.newcrm.apims.spring.core.support.exception.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
+import de.sky.newcrm.apims.spring.kafka.core.entity.ApimsKafkaRecord;
+import de.sky.newcrm.apims.spring.kafka.core.serializers.ApimsKafkaRecordProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

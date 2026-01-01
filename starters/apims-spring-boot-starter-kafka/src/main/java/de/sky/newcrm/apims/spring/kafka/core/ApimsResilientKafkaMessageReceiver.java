@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.processing.ApimsProcessingStrategy;
-import de.sky.newcrm.apims.spring.core.support.exception.ApimsRuntimeException;
+import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
+import de.sky.newcrm.apims.spring.kafka.core.processing.ApimsProcessingStrategy;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.circuitbreaker.event.CircuitBreakerOnStateTransitionEvent;

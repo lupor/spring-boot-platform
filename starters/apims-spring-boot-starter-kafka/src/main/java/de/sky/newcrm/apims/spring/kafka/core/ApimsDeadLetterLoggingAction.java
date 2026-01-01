@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.kafka.entity.ApimsKafkaRecord;
+import de.sky.newcrm.apims.spring.kafka.core.entity.ApimsKafkaRecord;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

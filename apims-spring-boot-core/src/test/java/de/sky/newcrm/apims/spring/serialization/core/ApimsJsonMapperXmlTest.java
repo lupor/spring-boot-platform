@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Sky Deutschland Fernsehen GmbH & Co. KG. All rights reserved.
+ * Copyright (C) 2023-2024 Sky Deutschland Fernsehen GmbH & Co. KG. All rights reserved.
  * This file and its contents are the sole property of Sky Deutschland Fernsehen GmbH & Co. KG.
  */
 package de.sky.newcrm.apims.spring.serialization.core;
@@ -7,16 +7,15 @@ package de.sky.newcrm.apims.spring.serialization.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
+import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ApimsXmlMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ApimsXmlMapper;
 import lombok.*;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 class ApimsJsonMapperXmlTest {
 
@@ -92,8 +91,7 @@ class ApimsJsonMapperXmlTest {
         String jsonValue = apimsObjectMapperXml.writeValueAsString(EXPECTED_OBJECT_VALUE);
         assertNotNull(jsonValue);
         assertNotEquals("", jsonValue);
-        assertEquals(
-                EXPECTED_XML_VALUE, jsonValue.replaceAll("\r\n", "\n"));
+        assertEquals(EXPECTED_XML_VALUE, jsonValue.replaceAll("\r\n", "\n"));
     }
 
     @Test

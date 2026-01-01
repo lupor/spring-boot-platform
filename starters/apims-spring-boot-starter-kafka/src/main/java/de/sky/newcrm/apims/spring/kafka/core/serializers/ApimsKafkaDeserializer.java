@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core.serializers;
 
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.core.utils.FunctionUtils;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.utils.FunctionUtils;
 import io.confluent.kafka.schemaregistry.ParsedSchema;
 import io.confluent.kafka.schemaregistry.client.SchemaMetadata;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;

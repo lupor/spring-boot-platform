@@ -110,6 +110,7 @@
         <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
         <spring-cloud-gcp-dependencies.version>7.4.2</spring-cloud-gcp-dependencies.version>
         <spring-data-couchbase.version>6.0.1</spring-data-couchbase.version>
+        <spring-boot.version>4.0.1</spring-boot.version>
         <spring-kafka.version>4.0.1</spring-kafka.version>
         <spring-shell-core.version>3.4.1</spring-shell-core.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.8.10</springdoc-openapi-starter-webmvc-ui.version>
@@ -126,7 +127,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>4.0.1</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -392,6 +393,18 @@
                         <artifactId>lz4-java</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-kafka</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
 
             <dependency>
@@ -894,6 +907,7 @@
             <modules>
                 <module>starters/apims-spring-boot-starter-couchbase</module>
                 <module>starters/apims-spring-boot-starter-kafka</module>
+                <module>starters/apims-spring-boot-starter-web</module>
             </modules>
         </profile>
 

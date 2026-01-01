@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.env.ApimsSpringContext;
+import de.sky.newcrm.apims.spring.environment.core.ApimsSpringContext;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.header.Headers;
 import org.apache.kafka.common.header.internals.RecordHeaders;

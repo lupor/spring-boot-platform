@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.support.exception.NoRetryableException;
+import de.sky.newcrm.apims.spring.exceptions.NoRetryableException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.SerializationException;
 import org.springframework.kafka.retrytopic.DefaultDestinationTopicResolver;

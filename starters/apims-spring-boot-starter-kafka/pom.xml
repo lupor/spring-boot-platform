@@ -60,8 +60,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-kafka</artifactId>
         </dependency>
 
         <dependency>
@@ -77,6 +77,12 @@
         <dependency>
             <groupId>tech.allegro.schema.json2avro</groupId>
             <artifactId>converter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.sky.newcrm</groupId>
+            <artifactId>apims-spring-boot-platform</artifactId>
+            <version>254.1.2-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

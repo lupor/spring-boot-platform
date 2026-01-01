@@ -4,19 +4,18 @@
  */
 package de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import de.sky.newcrm.apims.spring.utils.FunctionUtils;
 import de.sky.newcrm.apims.spring.utils.walker.FlattenMap;
 import de.sky.newcrm.apims.spring.utils.walker.FlattenMapCreator;
 import de.sky.newcrm.apims.spring.utils.walker.SingleObjectFinder;
-import org.springframework.util.StringUtils;
-
 import java.util.*;
 import java.util.function.Predicate;
+import org.springframework.util.StringUtils;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.dataformat.xml.XmlMapper;
 
 @SuppressWarnings({"java:S112"})
 public class ApimsXmlMapper {

@@ -5,6 +5,7 @@
 package de.sky.newcrm.apims.spring.kafka.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.*;
 import org.springframework.kafka.support.KafkaHeaders;
 
 import java.util.List;

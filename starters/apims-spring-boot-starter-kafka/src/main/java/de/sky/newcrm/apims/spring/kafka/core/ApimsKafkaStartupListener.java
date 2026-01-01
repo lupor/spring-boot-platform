@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.env.ApimsApplicationReadyListener;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsApplicationReadyListener;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;

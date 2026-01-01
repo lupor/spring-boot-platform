@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core.sender;
 
-import de.sky.newcrm.apims.spring.core.kafka.entity.ApimsKafkaRecord;
-import de.sky.newcrm.apims.spring.core.kafka.serializers.ApimsAvroRecordProducer;
+import de.sky.newcrm.apims.spring.kafka.core.entity.ApimsKafkaRecord;
+import de.sky.newcrm.apims.spring.kafka.core.serializers.ApimsAvroRecordProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.support.KafkaHeaders;
 

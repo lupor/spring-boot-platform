@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.kafka.entity.ApimsKafkaRecord;
+import de.sky.newcrm.apims.spring.kafka.core.entity.ApimsKafkaRecord;
 import org.springframework.core.Ordered;
 
 public interface ApimsDeadLetterAction extends Ordered {

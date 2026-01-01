@@ -4,7 +4,6 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.features.ApimsFeatureUtils;
 import org.apache.kafka.common.header.Headers;
 
 import java.util.Map;
@@ -21,12 +20,7 @@ public abstract class ApimsAbstractKafkaMessageHeaderWriter implements ApimsKafk
 
     @Override
     public void writeHeaders(Headers kafkaHeaders) {
-        writeFeatureMap(kafkaHeaders);
         writeHeadersMap(kafkaHeaders);
-    }
-
-    protected void writeFeatureMap(Headers kafkaHeaders) {
-        ApimsFeatureUtils.writeFeatures(kafkaHeaders);
     }
 
     protected void writeHeadersMap(Headers kafkaHeaders) {

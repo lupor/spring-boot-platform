@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core.producer;
 
-import de.sky.newcrm.apims.spring.core.env.ApimsSpringContext;
+import de.sky.newcrm.apims.spring.environment.core.ApimsSpringContext;
 import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;

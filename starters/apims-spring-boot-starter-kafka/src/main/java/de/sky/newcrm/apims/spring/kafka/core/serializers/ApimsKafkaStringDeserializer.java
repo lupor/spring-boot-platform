@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core.serializers;
 
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;

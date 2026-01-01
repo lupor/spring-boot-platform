@@ -4,9 +4,9 @@
  */
 package de.sky.newcrm.apims.spring.kafka.core;
 
-import de.sky.newcrm.apims.spring.core.processing.ApimsProcessingGroup;
-import de.sky.newcrm.apims.spring.core.processing.ApimsProcessingStrategy;
-import de.sky.newcrm.apims.spring.core.processing.ApimsProcessorExecutor;
+import de.sky.newcrm.apims.spring.kafka.core.processing.ApimsProcessingGroup;
+import de.sky.newcrm.apims.spring.kafka.core.processing.ApimsProcessingStrategy;
+import de.sky.newcrm.apims.spring.kafka.core.processing.ApimsProcessorExecutor;
 import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Value;
