@@ -906,7 +906,7 @@
             </activation>
             <modules>
                 <module>starters/apims-spring-boot-starter-couchbase</module>
-                <module>starters/apims-spring-boot-starter-kafka</module>
+<!--                <module>starters/apims-spring-boot-starter-kafka</module>-->
                 <module>starters/apims-spring-boot-starter-web</module>
             </modules>
         </profile>
