@@ -10,22 +10,6 @@ public class ApimsKafkaConfig extends ConditionalEnabled {
     private KafkaConsumer consumer = new KafkaConsumer();
     private KafkaProducer producer = new KafkaProducer();
 
-    public KafkaConsumer getConsumer() {
-        return consumer;
-    }
-
-    public void setConsumer(KafkaConsumer consumer) {
-        this.consumer = consumer;
-    }
-
-    public KafkaProducer getProducer() {
-        return producer;
-    }
-
-    public void setProducer(KafkaProducer producer) {
-        this.producer = producer;
-    }
-
     @Getter
     @Setter
     public static class KafkaConsumer {

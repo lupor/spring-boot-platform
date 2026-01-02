@@ -4,22 +4,22 @@
  */
 package de.sky.newcrm.apims.spring.web.autoconfigure.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.sky.newcrm.apims.spring.autoconfigure.env.ApimsProperties;
-import de.sky.newcrm.apims.spring.core.http.converter.*;
-import de.sky.newcrm.apims.spring.core.oauth.builder.ApimsServiceTokenBuilder;
-import de.sky.newcrm.apims.spring.core.oauth.handler.ApimsAuthenticationRequestHandler;
-import de.sky.newcrm.apims.spring.core.oauth.handler.ApimsAuthenticationRequestJwtHandler;
-import de.sky.newcrm.apims.spring.core.oauth.handler.ApimsAuthenticationRequestTrustedServicesHandler;
-import de.sky.newcrm.apims.spring.core.oauth.principal.ApimsUserPrincipalManager;
-import de.sky.newcrm.apims.spring.core.oauth.validator.*;
-import de.sky.newcrm.apims.spring.core.support.exception.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.core.support.web.ApimsApiErrorAttributes;
-import de.sky.newcrm.apims.spring.core.support.web.ApimsRestControllerExceptionHandler;
-import de.sky.newcrm.apims.spring.core.utils.ObjectUtils;
-import de.sky.newcrm.apims.spring.core.web.ApimsRequestLoggingFilter;
-import de.sky.newcrm.apims.spring.core.web.ApimsRoleStatelessAuthenticationFilter;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
+import de.sky.newcrm.apims.spring.utils.ObjectUtils;
+import de.sky.newcrm.apims.spring.web.config.ApimsWebConfig;
+import de.sky.newcrm.apims.spring.web.core.http.converter.*;
+import de.sky.newcrm.apims.spring.web.core.oauth.builder.ApimsServiceTokenBuilder;
+import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestHandler;
+import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestJwtHandler;
+import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestTrustedServicesHandler;
+import de.sky.newcrm.apims.spring.web.core.oauth.principal.ApimsUserPrincipalManager;
+import de.sky.newcrm.apims.spring.web.core.oauth.validator.*;
+import de.sky.newcrm.apims.spring.web.core.support.web.ApimsApiErrorAttributes;
+import de.sky.newcrm.apims.spring.web.core.support.web.ApimsRestControllerExceptionHandler;
+import de.sky.newcrm.apims.spring.web.core.web.ApimsRequestLoggingFilter;
+import de.sky.newcrm.apims.spring.web.core.web.ApimsRoleStatelessAuthenticationFilter;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +28,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.OrderComparator;
@@ -42,22 +42,23 @@ import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.*;
 
 @Configuration(proxyBeanMethods = false)
 @AutoConfiguration(before = ErrorMvcAutoConfiguration.class)
-@EnableConfigurationProperties(ApimsProperties.class)
+@EnableConfigurationProperties(ApimsWebConfig.class)
 @ConditionalOnProperty(prefix = "apims.web", name = "enabled", havingValue = "true", matchIfMissing = true)
 @SuppressWarnings({"java:S6212"})
 public class ApimsWebAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(ApimsWebAutoConfiguration.class);
-    private final ApimsProperties apimsProperties;
+    private final ApimsWebConfig apimsWebConfig;
 
-    public ApimsWebAutoConfiguration(ApimsProperties apimsProperties) {
+    public ApimsWebAutoConfiguration(ApimsWebConfig apimsWebConfig) {
         log.debug("[APIMS AUTOCONFIG] Web.");
-        this.apimsProperties = apimsProperties;
+        this.apimsWebConfig = apimsWebConfig;
     }
 
     @Bean
@@ -131,7 +132,7 @@ public class ApimsWebAutoConfiguration {
     @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
     public ApimsUserPrincipalManager apimsUserPrincipalManager(List<ApimsTokenValidator> tokenValidators) {
         log.debug("[APIMS AUTOCONFIG] Web:apimsUserPrincipalManager.");
-        ApimsProperties.Web.Auth auth = apimsProperties.getWeb().getAuth();
+        ApimsWebConfig.Auth auth = apimsWebConfig.getAuth();
         tokenValidators.sort(new OrderComparator());
         Map<String, String> roleMapping = new HashMap<>();
         for (Map.Entry<String, String> entry : auth.getRoleMapping().entrySet()) {
@@ -157,8 +158,8 @@ public class ApimsWebAutoConfiguration {
             "'${apims.web.auth.trusted-services.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
     public ApimsServiceTokenBuilder apimsServiceTokenBuilder() {
         log.debug("[APIMS AUTOCONFIG] Web:apimsServiceTokenBuilder.");
-        ApimsProperties.Web.Auth.TrustedServices trustedConfig =
-                apimsProperties.getWeb().getAuth().getTrustedServices();
+        ApimsWebConfig.Auth.TrustedServices trustedConfig =
+                apimsWebConfig.getAuth().getTrustedServices();
         return new ApimsServiceTokenBuilder(
                 getTrustedRoles(trustedConfig.getServicesDefaultRoles(), trustedConfig.getServicesRoles()),
                 getTrustedRoles(trustedConfig.getDomainsDefaultRoles(), trustedConfig.getDomainsRoles()));
@@ -180,8 +181,8 @@ public class ApimsWebAutoConfiguration {
     public ApimsAuthenticationRequestTrustedServicesHandler apimsAuthenticationRequestTrustedServicesHandler(
             ApimsUserPrincipalManager principalManager) {
         log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestTrustedServicesHandler.");
-        ApimsProperties.Web.Auth.TrustedServices trustedConfig =
-                apimsProperties.getWeb().getAuth().getTrustedServices();
+        ApimsWebConfig.Auth.TrustedServices trustedConfig =
+                apimsWebConfig.getAuth().getTrustedServices();
         return new ApimsAuthenticationRequestTrustedServicesHandler(
                 principalManager,
                 getTrustedRoles(trustedConfig.getServicesDefaultRoles(), trustedConfig.getServicesRoles()),
@@ -308,10 +309,11 @@ public class ApimsWebAutoConfiguration {
         return new CorsFilter(source);
     }
 
+    // TODO Fix deprecation
     @Configuration(proxyBeanMethods = false)
     public static class ApimsWebMvcAutoConfigurationAdapter implements WebMvcConfigurer {
         @Override
-        public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        public void extendMessageConverters(@NonNull List<HttpMessageConverter<?>> converters) {
             new ApimsHttpMessageConvertersConfigurer().configureWebConverters(converters);
         }
     }

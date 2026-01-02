@@ -9,9 +9,14 @@
     </parent>
 
     <artifactId>apims-spring-boot-core</artifactId>
-    <version>254.1.2-SNAPSHOT</version>
     <name>apims-spring-boot-core</name>
     <description>Module that contains the core functionality of the spring boot parent. Meaning all functionality that is used by ALL microservices</description>
+
+    <properties>
+        <!-- Project props-->
+        <java.version>25</java.version>
+
+    </properties>
 
     <dependencies>
         <dependency>

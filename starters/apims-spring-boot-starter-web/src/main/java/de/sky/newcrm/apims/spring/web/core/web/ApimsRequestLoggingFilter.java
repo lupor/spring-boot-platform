@@ -4,11 +4,11 @@
  */
 package de.sky.newcrm.apims.spring.web.core.web;
 
-import de.sky.newcrm.apims.spring.core.mdc.ApimsMdc;
-import de.sky.newcrm.apims.spring.core.support.exception.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.core.utils.FunctionUtils;
-import de.sky.newcrm.apims.spring.core.utils.VeracodeMitigationUtils;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
+import de.sky.newcrm.apims.spring.telemetry.mdc.core.ApimsMdc;
+import de.sky.newcrm.apims.spring.utils.FunctionUtils;
+import de.sky.newcrm.apims.spring.utils.VeracodeMitigationUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -5,7 +5,6 @@
 package de.sky.newcrm.apims.spring.kafka.core;
 
 
-import com.google.api.client.http.ExponentialBackOffPolicy;
 import de.sky.newcrm.apims.spring.environment.core.ApimsValueResolver;
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import de.sky.newcrm.apims.spring.utils.ObjectUtils;
@@ -19,6 +18,9 @@ import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.retrytopic.*;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.EndpointHandlerMethod;
+import org.springframework.util.backoff.BackOff;
+import org.springframework.util.backoff.ExponentialBackOff;
+import org.springframework.util.backoff.FixedBackOff;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -98,10 +100,11 @@ public class ApimsRetryTopicConfigurationResolverDefaultImpl
                     retryTopicSuffix = "-" + listenerGroupId + retryTopicSuffix;
                 }
 
-                SleepingBackOffPolicy<?> policy;
+                BackOff policy;
                 if (SameIntervalTopicReuseStrategy.SINGLE_TOPIC.equals(annotation.sameIntervalTopicReuseStrategy())) {
-                    FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
-                    fixedBackOffPolicy.setBackOffPeriod(delayValue);
+                    FixedBackOff fixedBackOffPolicy = new FixedBackOff();
+                    // TODO: May not be correct
+                    fixedBackOffPolicy.setInterval(delayValue);
                     policy = fixedBackOffPolicy;
                 } else {
                     long current = delayValue;
@@ -110,14 +113,14 @@ public class ApimsRetryTopicConfigurationResolverDefaultImpl
                         current = (long) (current * multiplierValue);
                         maxElapsedTime += current;
                     }
-                    ExponentialBackOffPolicy exponentialBackOffPolicy = new ExponentialBackOffPolicy();
+                    ExponentialBackOff exponentialBackOffPolicy = new ExponentialBackOff();
                     exponentialBackOffPolicy.setInitialInterval(delayValue);
                     exponentialBackOffPolicy.setMultiplier(multiplierValue);
                     exponentialBackOffPolicy.setMaxInterval(maxElapsedTime);
                     policy = exponentialBackOffPolicy;
                 }
 
-                return RetryTopicConfigurationBuilder.newInstance()
+                RetryTopicConfigurationBuilder.newInstance()
                         .maxAttempts(maxAttempts)
                         .customBackoff(policy)
                         .retryTopicSuffix(retryTopicSuffix)

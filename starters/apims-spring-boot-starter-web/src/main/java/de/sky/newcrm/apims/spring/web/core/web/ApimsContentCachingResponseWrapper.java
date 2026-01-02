@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.web.core.web;
 
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
 import jakarta.servlet.http.HttpServletResponse;

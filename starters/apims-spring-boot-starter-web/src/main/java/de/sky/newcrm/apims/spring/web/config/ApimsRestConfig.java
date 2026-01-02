@@ -24,39 +24,12 @@ public class ApimsRestConfig extends ConditionalEnabled {
         private Map<String, String> headers = new LinkedHashMap<>();
         private Map<String, String> additionalHeaders = new LinkedHashMap<>();
 
-        public Map<String, String> getHeaders() {
-            return headers;
-        }
-
-        public void setHeaders(Map<String, String> headers) {
+    public void setHeaders(Map<String, String> headers) {
             headers.remove(DEFAULT_PLACEHOLDER_VALUE);
             this.headers = headers;
         }
 
-        public boolean isExpandUriVars() {
-            return expandUriVars;
-        }
-
-        public boolean isAutoValidateResponse() {
-            return autoValidateResponse;
-        }
-
-        public boolean isAutoValidateRequest() {
-            return autoValidateRequest;
-        }
-
-        public boolean isPreventDoubleEncoding() {
-            return preventDoubleEncoding;
-        }
-        public int getReportNotHandledHttpErrorsAsStatusCode() {
-            return reportNotHandledHttpErrorsAsStatusCode;
-        }
-
-        public Map<String, String> getAdditionalHeaders() {
-            return additionalHeaders;
-        }
-
-        public void setAdditionalHeaders(Map<String, String> additionalHeaders) {
+    public void setAdditionalHeaders(Map<String, String> additionalHeaders) {
             additionalHeaders.remove(DEFAULT_PLACEHOLDER_VALUE);
             this.additionalHeaders = additionalHeaders;
         }

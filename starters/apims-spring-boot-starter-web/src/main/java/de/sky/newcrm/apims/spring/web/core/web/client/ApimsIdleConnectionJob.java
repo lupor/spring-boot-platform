@@ -4,10 +4,10 @@
  */
 package de.sky.newcrm.apims.spring.web.core.web.client;
 
-import de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundLoggingListenerSuppress;
-import de.sky.newcrm.apims.spring.core.mdc.ApimsMdc;
-import de.sky.newcrm.apims.spring.core.scheduling.ApimsAbstractJob;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.scheduling.ApimsAbstractJob;
+import de.sky.newcrm.apims.spring.telemetry.logging.core.ApimsAroundLoggingListenerSuppress;
+import de.sky.newcrm.apims.spring.telemetry.mdc.core.ApimsMdc;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.HttpRoute;
 import org.apache.hc.core5.pool.PoolStats;

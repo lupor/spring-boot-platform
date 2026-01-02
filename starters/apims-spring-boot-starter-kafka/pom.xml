@@ -24,6 +24,8 @@
     </distributionManagement>
 
     <properties>
+        <java.version>25</java.version>
+
         <project.build.outputTimestamp>2025-11-18T16:12:17Z</project.build.outputTimestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.coverage.exclusions>**/Application.java</sonar.coverage.exclusions>
@@ -45,6 +47,12 @@
             <groupId>de.sky.newcrm</groupId>
             <artifactId>apims-spring-boot-core</artifactId>
             <version>254.1.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.sky.newcrm</groupId>
+            <artifactId>apims-spring-boot-starter-web</artifactId>
+            <version>254.2.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -78,11 +86,10 @@
             <groupId>tech.allegro.schema.json2avro</groupId>
             <artifactId>converter</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>de.sky.newcrm</groupId>
-            <artifactId>apims-spring-boot-platform</artifactId>
-            <version>254.1.2-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
         </dependency>
     </dependencies>
 

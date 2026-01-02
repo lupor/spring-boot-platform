@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.web.core.web;
 
-import de.sky.newcrm.apims.spring.core.oauth.handler.ApimsAuthenticationRequestHandler;
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestHandler;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

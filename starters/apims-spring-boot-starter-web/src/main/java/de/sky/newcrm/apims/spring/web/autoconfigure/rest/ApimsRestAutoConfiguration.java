@@ -108,13 +108,13 @@ public class ApimsRestAutoConfiguration {
     public ApimsRestClientHttpRequestContentInterceptor apimsRestClientHttpRequestContentInterceptor() {
         return new ApimsRestClientHttpRequestContentInterceptor();
     }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public ApimsRestClientHttpRequestMockInterceptor restClientHttpRequestMockInterceptor(
-            List<ApimsRestClientHttpRequestMockHandler> handlers) {
-        return new ApimsRestClientHttpRequestMockInterceptor(handlers);
-    }
+    // TODO: Testing
+//    @Bean
+//    @ConditionalOnMissingBean
+//    public ApimsRestClientHttpRequestMockInterceptor restClientHttpRequestMockInterceptor(
+//            List<ApimsRestClientHttpRequestMockHandler> handlers) {
+//        return new ApimsRestClientHttpRequestMockInterceptor(handlers);
+//    }
 
     // TODO: Testing
 //    @Bean

@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.web.core.web.client;
 
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.client5.http.socket.ConnectionSocketFactory;

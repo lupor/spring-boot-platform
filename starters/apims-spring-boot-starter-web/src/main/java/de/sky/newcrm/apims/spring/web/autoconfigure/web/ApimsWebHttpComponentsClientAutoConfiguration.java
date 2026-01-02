@@ -4,8 +4,8 @@
  */
 package de.sky.newcrm.apims.spring.web.autoconfigure.web;
 
-import de.sky.newcrm.apims.spring.autoconfigure.env.ApimsProperties;
-import de.sky.newcrm.apims.spring.core.web.client.*;
+import de.sky.newcrm.apims.spring.web.config.ApimsWebConfig;
+import de.sky.newcrm.apims.spring.web.core.web.client.*;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.DefaultClientConnectionReuseStrategy;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -29,22 +29,22 @@ import java.util.concurrent.TimeUnit;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = "apims.web", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnExpression("'${apims.web.http-components.enabled:true}'.equals('true')")
-@EnableConfigurationProperties(ApimsProperties.class)
+@EnableConfigurationProperties(ApimsWebConfig.class)
 @SuppressWarnings({"java:S6212"})
 public class ApimsWebHttpComponentsClientAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(ApimsWebHttpComponentsClientAutoConfiguration.class);
-    private final ApimsProperties apimsProperties;
+    private final ApimsWebConfig apimsWebConfig;
 
-    public ApimsWebHttpComponentsClientAutoConfiguration(ApimsProperties apimsProperties) {
+    public ApimsWebHttpComponentsClientAutoConfiguration(ApimsWebConfig apimsWebConfig) {
         log.debug("[APIMS AUTOCONFIG] Http client.");
-        this.apimsProperties = apimsProperties;
+        this.apimsWebConfig = apimsWebConfig;
     }
 
     @Bean
     ApimsPoolingHttpClientConnectionManager poolingConnectionManager() throws GeneralSecurityException {
-        ApimsProperties.Web.HttpComponents httpComponents =
-                apimsProperties.getWeb().getHttpComponents();
+        ApimsWebConfig.HttpComponents httpComponents =
+                apimsWebConfig.getHttpComponents();
         return ApimsPoolingHttpClientConnectionManager.builder()
                 .setConnectionTimeToLiveSecs(httpComponents.getConnectionTimeToLiveSecs())
                 .setMaxTotalConnections(httpComponents.getMaxTotalConnections())
@@ -59,14 +59,14 @@ public class ApimsWebHttpComponentsClientAutoConfiguration {
     @ConditionalOnMissingBean
     ApimsConnectionKeepAliveStrategy connectionKeepAliveStrategy() {
         return new ApimsConnectionKeepAliveStrategy(
-                apimsProperties.getWeb().getHttpComponents().getDefaultKeepAliveTimeMillis());
+                apimsWebConfig.getHttpComponents().getDefaultKeepAliveTimeMillis());
     }
 
     @Bean
     @SuppressWarnings({"java:S1874"})
     RequestConfig requestConfig() {
 
-        ApimsProperties.Web.HttpComponents properties = apimsProperties.getWeb().getHttpComponents();
+        ApimsWebConfig.HttpComponents properties = apimsWebConfig.getHttpComponents();
         return RequestConfig.custom()
                 .setConnectionRequestTimeout(properties.getRequestTimeout(), TimeUnit.MILLISECONDS)
                 .setConnectTimeout(properties.getConnectTimeout(), TimeUnit.MILLISECONDS)
@@ -81,7 +81,7 @@ public class ApimsWebHttpComponentsClientAutoConfiguration {
             ApimsConnectionKeepAliveStrategy connectionKeepAliveStrategy,
             RequestConfig requestConfig) {
 
-        ApimsProperties.Web.HttpComponents properties = apimsProperties.getWeb().getHttpComponents();
+        ApimsWebConfig.HttpComponents properties = apimsWebConfig.getHttpComponents();
         return HttpClients.custom()
                 .setDefaultRequestConfig(requestConfig)
                 .setConnectionManager(poolingConnectionManager)
@@ -103,8 +103,8 @@ public class ApimsWebHttpComponentsClientAutoConfiguration {
     ApimsIdleConnectionJob apimsIdleConnectionJob(
             ApimsPoolingHttpClientConnectionManager connectionManager,
             @Value("${apims.scheduling.rest-idle-connection-job.enabled:true}") boolean enabled) {
-        ApimsProperties.Web.HttpComponents httpComponents =
-                apimsProperties.getWeb().getHttpComponents();
+        ApimsWebConfig.HttpComponents httpComponents =
+                apimsWebConfig.getHttpComponents();
         return new ApimsIdleConnectionJob(
                 connectionManager, httpComponents.getCloseIdleConnectionWaitTimeSecs(), enabled);
     }

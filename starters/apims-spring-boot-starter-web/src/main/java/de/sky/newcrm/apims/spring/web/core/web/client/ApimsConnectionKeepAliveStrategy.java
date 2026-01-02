@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.web.core.web.client;
 
-import de.sky.newcrm.apims.spring.core.support.report.ApimsReportGeneratedHint;
+import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.HeaderElement;
 import org.apache.hc.core5.http.message.BasicHeaderElementIterator;

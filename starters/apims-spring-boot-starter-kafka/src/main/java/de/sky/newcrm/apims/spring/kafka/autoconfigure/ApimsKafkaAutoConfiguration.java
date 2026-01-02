@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
@@ -37,6 +36,7 @@ import org.springframework.kafka.support.ProducerListener;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 
 import java.util.List;
+import java.util.Map;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(KafkaTemplate.class)
@@ -78,7 +78,7 @@ class ApimsKafkaAutoConfiguration {
         ApimsConcurrentKafkaListenerContainerFactory<Object, Object> factory =
                 new ApimsConcurrentKafkaListenerContainerFactory<>(dltTopixSuffix, retryTopixSuffix);
         ConsumerFactory<Object, Object> consumerFactory = kafkaConsumerFactory.getIfAvailable(
-                () -> new DefaultKafkaConsumerFactory<>(this.kafkaProperties.buildConsumerProperties(null)));
+                () -> new DefaultKafkaConsumerFactory<>(this.kafkaProperties.buildConsumerProperties()));
         apimsConfigurer.beforeConfigurer(factory, consumerFactory);
         configurer.configure(factory, consumerFactory);
         apimsConfigurer.afterConfigurer(factory, consumerFactory);
@@ -134,7 +134,7 @@ class ApimsKafkaAutoConfiguration {
             ProducerListener<Object, Object> kafkaProducerListener,
             ObjectProvider<RecordMessageConverter> messageConverter,
             @Value("${spring.kafka.template.auto-flush:false}") boolean autoFlush) {
-        PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
+        PropertyMapper map = PropertyMapper.get();
         KafkaTemplate<Object, Object> kafkaTemplate = new KafkaTemplate<>(kafkaProducerFactory, autoFlush);
         messageConverter.ifUnique(kafkaTemplate::setMessageConverter);
         map.from(kafkaProducerListener).to(kafkaTemplate::setProducerListener);

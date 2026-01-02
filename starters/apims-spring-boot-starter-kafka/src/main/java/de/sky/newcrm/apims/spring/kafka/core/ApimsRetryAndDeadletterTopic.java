@@ -16,8 +16,8 @@ import java.lang.annotation.*;
  * All String properties can be resolved from property placeholders
  * {@code ${...}} or SpEL expressions {@code #{...}}.
  *
- * @see de.sky.newcrm.apims.spring.core.kafka.ApimsRetryTopicConfigurationResolver
- * @see de.sky.newcrm.apims.spring.core.kafka.ApimsRetryTopicConfigurationResolverDefaultImpl
+ * @see de.sky.newcrm.apims.spring.kafka.core.ApimsRetryTopicConfigurationResolver
+ * @see de.sky.newcrm.apims.spring.kafka.core.ApimsRetryTopicConfigurationResolverDefaultImpl
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
