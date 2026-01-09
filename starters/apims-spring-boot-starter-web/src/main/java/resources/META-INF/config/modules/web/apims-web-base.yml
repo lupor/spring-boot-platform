@@ -1,0 +1,123 @@
+# some defaults resolved by ApimsEnvironmentPostProcessor
+apims:
+  rest:
+    report-not-handled-http-errors-as-status-code: -1
+    enabled: true
+    expand-uri-vars: true
+    auto-validate-request: false
+    auto-validate-response: true
+    prevent-double-encoding: false
+    headers:
+      x-sky-app-domain: "${apims.app.domain}"
+      x-sky-app-name: "${apims.app.name}"
+      x-sky-client-domain: "${apims.app.domain}"
+      x-sky-client-name: "${apims.app.name}"
+      x-sky-client-service-ci: "${apims.app.incident-mgmt.service-ci:SRVCI0017657}"
+    additional-headers:
+      _placeholder: ''
+  web:
+    auth:
+      enabled: false
+      default-roles: ""
+      trusted-services:
+        enabled: false
+        trust-by-sky-headers: false
+        domains-default-roles: "ROLE_ADMIN, ROLE_EDITOR, ROLE_READER"
+        domains-roles:
+          owndomain: "${apims.web.auth.trusted-services.domains-default-roles}"
+          account: "${apims.web.auth.trusted-services.domains-default-roles}"
+          billing-revenue: "${apims.web.auth.trusted-services.domains-default-roles}"
+          caif: "${apims.web.auth.trusted-services.domains-default-roles}"
+          campaign: "${apims.web.auth.trusted-services.domains-default-roles}"
+          care: "${apims.web.auth.trusted-services.domains-default-roles}"
+          content: "${apims.web.auth.trusted-services.domains-default-roles}"
+          contract: "${apims.web.auth.trusted-services.domains-default-roles}"
+          dazn: "${apims.web.auth.trusted-services.domains-default-roles}"
+          fraud: "${apims.web.auth.trusted-services.domains-default-roles}"
+          identity: "${apims.web.auth.trusted-services.domains-default-roles}"
+          interaction-channels: "${apims.web.auth.trusted-services.domains-default-roles}"
+          logistics: "${apims.web.auth.trusted-services.domains-default-roles}"
+          netflix: "${apims.web.auth.trusted-services.domains-default-roles}"
+          order-entry: "${apims.web.auth.trusted-services.domains-default-roles}"
+          order-management: "${apims.web.auth.trusted-services.domains-default-roles}"
+          payment: "${apims.web.auth.trusted-services.domains-default-roles}"
+          product-offer: "${apims.web.auth.trusted-services.domains-default-roles}"
+          rewards: "${apims.web.auth.trusted-services.domains-default-roles}"
+          risk: "${apims.web.auth.trusted-services.domains-default-roles}"
+          sky-go: "${apims.web.auth.trusted-services.domains-default-roles}"
+          sky-pil: "${apims.web.auth.trusted-services.domains-default-roles}"
+          transcomm: "${apims.web.auth.trusted-services.domains-default-roles}"
+        services-default-roles: "ROLE_ADMIN, ROLE_EDITOR, ROLE_READER"
+        services-roles:
+          _placeholder: ''
+      role-mapping:
+        _placeholder: ''
+      jwt-claim-name-roles: "groups,roles"
+      aad-token-validator:
+        enabled: true
+        issuer: "https://login.microsoftonline.com/, https://sts.windows.net/"
+        key-source-type: URL_LOCATION
+        key-source-value: "https://login.microsoftonline.com/${apims.web.auth.aad-token-validator.tenant-id:tenant-id-not-set}/discovery/v2.0/keys"
+        explicit-audience-check: true
+        valid-audiences: "api://SCOPE_OID_NOT_CONFIGURED"
+        tenant-id: "68b865d5-cf18-4b2b-82a4-a4eddb9c5237"
+      additional-token-validator:
+        enabled: false
+        issuer: ""
+        key-source-type: URL_LOCATION
+        key-source-value: ""
+        explicit-audience-check: false
+        valid-audiences: ""
+      service-token-validator:
+        enabled: false
+        issuer: "de.sky.apims"
+        key-source-type: BYTE_SECRET_BASE_64
+        key-source-value: ""
+        explicit-audience-check: true
+        valid-audiences: ""
+      test-token-validator:
+        enabled: false
+    http-components:
+      enabled: true
+      connect-timeout: 10000
+      request-timeout: 120000
+      socket-timeout: 120000
+      connection-time-to-live-secs: 300
+      max-total-connections: 18000
+      default-max-connections-per-route: 3000
+      default-keep-alive-time-millis: 5000
+      close-idle-connection-wait-time-secs: 20
+      hostname-verifier-disabled: false
+      trust-all-certificates: false
+    logging:
+      enabled: true
+      include-query-string: true
+      include-sky-headers: true
+      include-headers: false
+      include-payload: false
+      max-payload-length: 1024
+      header-predicate: ''
+
+server:
+  error:
+    include-message: always
+    include-exception: false
+    include-stacktrace: never
+  port: 8080
+  tomcat:
+    mbeanregistry:
+      enabled: true
+    threads:
+      max: 20
+      max-queue-capacity: 1000
+  servlet:
+    context-path: /
+
+spring:
+  mvc:
+    dispatch-options-request: true
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+

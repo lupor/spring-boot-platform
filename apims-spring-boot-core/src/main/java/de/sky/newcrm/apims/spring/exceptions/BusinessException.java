@@ -4,11 +4,9 @@
  */
 package de.sky.newcrm.apims.spring.exceptions;
 
-import static de.sky.newcrm.apims.spring.exceptions.BusinessExceptionErrorCodes.BUSINESS_ERROR;
-
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 
-@ApimsBusinessException(BUSINESS_ERROR)
+@ApimsBusinessException(BusinessExceptionErrorCodes.BUSINESS_ERROR)
 public class BusinessException extends ApimsBaseException {
 
     protected BusinessException() {}
@@ -21,7 +19,7 @@ public class BusinessException extends ApimsBaseException {
     public static BusinessException build(String errorCode) {
         AssertUtils.hasLengthCheck("errorCode", errorCode);
         BusinessException e = new BusinessException();
-        e.setDetail(DETAILS_KEY_ERROR_CODE, errorCode);
+        e.setDetail(ApimsBaseException.DETAILS_KEY_ERROR_CODE, errorCode);
         return e;
     }
 }

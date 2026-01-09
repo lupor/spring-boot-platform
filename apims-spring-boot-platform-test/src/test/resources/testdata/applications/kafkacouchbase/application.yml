@@ -1,0 +1,17 @@
+apims:
+  app:
+    domain: "contract"
+    name: "kafka-couchbase-test"
+    type: "service"
+  aspects:
+    listeners:
+      kafka-template-synchronizer:
+        enabled: true
+  kafka:
+    consumer:
+      topics:
+        customer-message: ${apims.app.resource-prefix}_kafka_couchbase_test_incoming
+    producer:
+      topics:
+        customer-message: ${apims.app.resource-prefix}_kafka_couchbase_test_incoming
+

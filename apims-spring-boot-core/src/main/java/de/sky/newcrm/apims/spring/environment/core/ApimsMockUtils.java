@@ -4,8 +4,6 @@
  */
 package de.sky.newcrm.apims.spring.environment.core;
 
-import de.sky.newcrm.apims.spring.exceptions.ApimsBaseException;
-import de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes;
 import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.ObjectMapperUtils;
 import de.sky.newcrm.apims.spring.utils.FileUtils;
 import de.sky.newcrm.apims.spring.utils.TempFileUtils;
@@ -25,14 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes.BUSINESS_EXCEPTION_ERRORS_KEY;
-
 @SuppressWarnings({"java:S1610", "java:S6212"})
 public abstract class ApimsMockUtils {
 
     public static final String DEFAULT_BASE_TEMP_SUB_DIR_NAME = "test";
 
-    protected ApimsMockUtils() {}
+    protected ApimsMockUtils() {
+    }
 
     public static void injectField(Object target, String fieldName, Object value) {
         Assert.notNull(target, "[Assertion failed] - argument 'target' is required; it must not be null");
@@ -79,29 +76,6 @@ public abstract class ApimsMockUtils {
             }
         }
         return null;
-    }
-
-    public static Map<String, String> getValidationErrors(ApimsBaseException e) {
-
-        Map<String, String> validationErrors = new HashMap<>();
-        if (e == null || e.getDetails() == null) {
-            return validationErrors;
-        }
-        Object errors = e.getDetails().get(BUSINESS_EXCEPTION_ERRORS_KEY);
-        if (!(errors instanceof List<?> errorList)) {
-            return validationErrors;
-        }
-        for (Object object : errorList) {
-            if (!(object instanceof Map<?, ?> validationMap)) {
-                continue;
-            }
-            if (validationMap.containsKey(ApimsErrorAttributes.VALIDATION_ERROR_FIELD_KEY)) {
-                validationErrors.put(
-                        String.valueOf(validationMap.get(ApimsErrorAttributes.VALIDATION_ERROR_FIELD_KEY)),
-                        String.valueOf(validationMap.get(ApimsErrorAttributes.VALIDATION_ERROR_CODE_KEY)));
-            }
-        }
-        return validationErrors;
     }
 
     public static Path copyToTempFile(Path file) throws IOException {

@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.web.core.support.web;
 
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes;
+import de.sky.newcrm.apims.spring.web.core.exceptions.ApimsErrorAttributes;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.webmvc.error.DefaultErrorAttributes;
 import org.springframework.web.context.request.WebRequest;

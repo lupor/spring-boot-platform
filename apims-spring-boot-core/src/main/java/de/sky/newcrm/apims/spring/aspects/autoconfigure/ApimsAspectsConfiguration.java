@@ -12,14 +12,13 @@ import org.springframework.context.annotation.Configuration;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
-@Configuration(proxyBeanMethods = false) @SuppressWarnings({"java:S6212"})
+@Configuration(proxyBeanMethods = false)
+@SuppressWarnings({"java:S6212"})
 public class ApimsAspectsConfiguration {
-
     @Bean
     @ConditionalOnMissingBean(name = "aspectsJacksonBuilder")
     public JsonMapper.Builder aspectsJacksonBuilder() {
-        return DefaultJacksonObjectFactory
-                .createDefaultJsonMapperBuilder();
+        return DefaultJacksonObjectFactory.createDefaultJsonMapperBuilder();
     }
 
     @Bean

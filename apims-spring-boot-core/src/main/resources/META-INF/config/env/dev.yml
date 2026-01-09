@@ -1,0 +1,41 @@
+# defaults for dev (local dev)
+apims:
+  api:
+    mock-implementations-allowed: true
+    crm-gateway:
+      implementation: "ApimsCrmGatewayClientDummyImpl"
+  app:
+    config-profile: dev
+    config-profile-prefix: dev
+    env: dev
+    namespace: dev
+    resource-prefix: dev
+  integration:
+    endpoints:
+      apimsdb-server: "127.0.0.1:5432"
+      toolsdb-server: "127.0.0.1:5432"
+  startup-check:
+    check-forbidden-application-properties: true
+  trace:
+    force-record-trace-files: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway, openapi, swaggerui, env
+  server:
+    address: "localhost"
+    port: 4401
+  otlp:
+    tracing:
+      endpoint: http://localhost:4317/v1/traces
+      export:
+        enabled: false
+server:
+  port: 4040
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

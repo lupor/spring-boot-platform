@@ -1,0 +1,6 @@
+de.sky.newcrm.apims.spring.rest.autoconfigure.ApimsRestObjectMapperAutoConfiguration
+de.sky.newcrm.apims.spring.web.autoconfigure.ApimsWebHttpComponentsClientAutoConfiguration
+de.sky.newcrm.apims.spring.rest.autoconfigure.ApimsRestAutoConfiguration
+de.sky.newcrm.apims.spring.web.autoconfigure.ApimsWebObjectMapperAutoConfiguration
+de.sky.newcrm.apims.spring.web.autoconfigure.ApimsWebAutoConfiguration
+

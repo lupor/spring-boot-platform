@@ -1,0 +1,6 @@
+# defaults for local test
+apims:
+  couchbase:
+    caching:
+      enabled: false
+

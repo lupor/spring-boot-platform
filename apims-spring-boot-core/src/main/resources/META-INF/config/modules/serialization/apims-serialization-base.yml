@@ -1,0 +1,9 @@
+apims:
+  aspects:
+    serializer:
+      mask-keys: "secureValue, password, newPassword, oldPassword, new-password, old-password, pin, newPin, oldPin, codepin, role-id, secret-id, token, Token, BearerToken, client_secret, client_token, access_token, role_id, secret_id, ciphertext, signed_string, plaintext, Authorization, authorization, x-forwarded-client-cert, x-envoy-peer-metadata"
+      additional-mask-keys: ""
+      mask-value: "___masked___"
+      default-max-characters: ${apims.aspects.listeners.logging.max-length}
+  object-mapper-config:
+    date-time-serializer-write-iso-date-with-timezone: false

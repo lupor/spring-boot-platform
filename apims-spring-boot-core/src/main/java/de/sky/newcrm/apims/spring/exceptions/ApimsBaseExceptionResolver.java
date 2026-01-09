@@ -4,9 +4,6 @@
  */
 package de.sky.newcrm.apims.spring.exceptions;
 
-import static de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes.BUSINESS_EXCEPTION_DETAILS_KEY;
-import static de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes.BUSINESS_EXCEPTION_ERROR_CODE_KEY;
-import static de.sky.newcrm.apims.spring.exceptions.BusinessExceptionErrorCodes.BUSINESS_ERROR;
 
 import de.sky.newcrm.apims.spring.context.core.ApimsSpringApplication;
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
@@ -22,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
@@ -31,6 +29,8 @@ import tools.jackson.databind.ObjectMapper;
 
 @SuppressWarnings({"java:S1874", "java:S6201", "java:S6212"})
 public class ApimsBaseExceptionResolver {
+    protected static final String BUSINESS_EXCEPTION_DETAILS_KEY = "details";
+    protected static final String BUSINESS_EXCEPTION_ERROR_CODE_KEY = "code";
 
     private static ApimsBaseExceptionResolver instance = null;
     private static final Object instanceLock = new Object();
@@ -79,7 +79,7 @@ public class ApimsBaseExceptionResolver {
 
     private synchronized ApimsBaseException resolveUnknownException(String errorCode) {
         ApimsBaseException bex = BusinessException.build();
-        if (!BUSINESS_ERROR.equals(errorCode)) {
+        if (!BusinessExceptionErrorCodes.BUSINESS_ERROR.equals(errorCode)) {
             bex.setDetail(ApimsBaseException.DETAILS_KEY_ERROR_CODE, errorCode);
         }
         return bex;
@@ -249,7 +249,7 @@ public class ApimsBaseExceptionResolver {
                 bex = new InvalidRequestDataBusinessException();
             } else if (BusinessException.class.equals(clazz)) {
                 bex = BusinessException.build();
-                if (!BUSINESS_ERROR.equals(errorCode)) {
+                if (!BusinessExceptionErrorCodes.BUSINESS_ERROR.equals(errorCode)) {
                     ((BusinessException) bex).setDetail(ApimsBaseException.DETAILS_KEY_ERROR_CODE, errorCode);
                 }
             } else {

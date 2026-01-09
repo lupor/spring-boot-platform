@@ -1,0 +1,9 @@
+apims:
+  caching:
+    expire-minutes: 5
+    maximum-size: 1000
+    record-stats: false
+    second-cache-manager-expire-minutes: 30
+    second-cache-manager-maximum-size: 1000
+    second-cache-manager-record-stats: false
+    

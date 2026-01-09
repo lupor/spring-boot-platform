@@ -1,0 +1,3 @@
+de.sky.newcrm.apims.spring.kafka.autoconfigure.ApimsKafkaAutoConfiguration
+de.sky.newcrm.apims.spring.kafka.autoconfigure.ApimsKafkaRecordProducerAutoConfiguration
+de.sky.newcrm.apims.spring.kafka.autoconfigure.ApimsKafkaRetryTopicAutoConfiguration

@@ -81,6 +81,7 @@
 
         <!--Dependency versions -->
         <avro.version>1.12.0</avro.version>
+        <apache.httpcomponents.version>5.4</apache.httpcomponents.version>
         <awaitility.version>4.3.0</awaitility.version>
         <caffeine.version>3.2.3</caffeine.version>
         <commons-io.version>2.20.0</commons-io.version>
@@ -91,6 +92,7 @@
         <grpc-core.version>1.73.0</grpc-core.version>
         <h2.version>2.4.240</h2.version>
         <jackson.version>3.0.3</jackson.version>
+        <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
         <junit-jupiter.version>6.0.1</junit-jupiter.version>
         <json2avro-converter.version>0.3.0</json2avro-converter.version>
         <jsch.version>2.27.3</jsch.version>
@@ -108,14 +110,15 @@
         <querydsl-core.version>5.1.0</querydsl-core.version>
         <snakeyaml.version>2.5</snakeyaml.version>
         <spring-boot-starter-aop.version>4.0.0-M2</spring-boot-starter-aop.version>
-        <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
-        <spring-cloud-gcp-dependencies.version>7.4.2</spring-cloud-gcp-dependencies.version>
+        <spring-cloud-circuit-breaker.version>5.0.0</spring-cloud-circuit-breaker.version>
+        <spring-cloud-dependencies.version>2025.1.0</spring-cloud-dependencies.version>
         <spring-data-couchbase.version>6.0.1</spring-data-couchbase.version>
         <spring-boot.version>4.0.1</spring-boot.version>
         <spring-kafka.version>4.0.1</spring-kafka.version>
         <spring-retry.version>2.0.12</spring-retry.version>
         <spring-shell-core.version>3.4.1</spring-shell-core.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.8.10</springdoc-openapi-starter-webmvc-ui.version>
+        <swagger-core.version>2.2.41</swagger-core.version>
         <sshd-core.version>2.15.0</sshd-core.version>
         <tomcat.version>10.1.44</tomcat.version>
         <VeracodeAnnotations.version>1.2.1</VeracodeAnnotations.version>
@@ -126,62 +129,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.google.cloud</groupId>
-                <artifactId>spring-cloud-gcp-dependencies</artifactId>
-                <version>${spring-cloud-gcp-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.threeten</groupId>
-                        <artifactId>threetenbp</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.google.protobuf</groupId>
-                        <artifactId>protobuf-java-util</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.logging.log4j</groupId>
-                        <artifactId>log4j-to-slf4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.logging.log4j</groupId>
-                        <artifactId>log4j-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.zipkin.aws</groupId>
-                        <artifactId>brave-propagation-aws</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.micrometer</groupId>
-                        <artifactId>micrometer-tracing-bridge-brave</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.zipkin.brave</groupId>
-                        <artifactId>brave-instrumentation-messaging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -373,17 +320,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.yaml</groupId>
-                        <artifactId>snakeyaml</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
@@ -502,6 +438,54 @@
                 <version>${spring-retry.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-restclient-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-data-couchbase-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-resttestclient</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-core</artifactId>
+                <version>${swagger-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+                <version>${spring-cloud-circuit-breaker.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5</artifactId>
+                <version>${apache.httpcomponents.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>${apache.httpcomponents.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${jakarta-servlet-api.version}</version>
+            </dependency>
+
             <!-- Vulnerabilities Overrides-->
 <!--            <dependency>-->
 <!--                <groupId>org.apache.tomcat.embed</groupId>-->
@@ -602,6 +586,10 @@
                         <parameters>true</parameters>
                         <release>${java.version}</release>
                         <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-autoconfigure-processor</artifactId>
+                            </path>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
@@ -894,6 +882,7 @@
             </activation>
             <modules>
                 <module>apims-spring-boot-core</module>
+                <module>apims-spring-boot-parent</module>
             </modules>
         </profile>
         <profile>
@@ -904,6 +893,10 @@
             <modules>
                 <module>apims-spring-boot-core</module>
                 <module>apims-spring-boot-parent</module>
+                <module>starters/apims-spring-boot-starter-couchbase</module>
+                <module>starters/apims-spring-boot-starter-kafka</module>
+                <module>starters/apims-spring-boot-starter-web</module>
+                <module>apims-spring-boot-platform-test</module>
             </modules>
         </profile>
 

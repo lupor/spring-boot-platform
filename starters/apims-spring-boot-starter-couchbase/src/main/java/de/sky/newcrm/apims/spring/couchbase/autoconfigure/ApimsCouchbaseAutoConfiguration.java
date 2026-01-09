@@ -16,6 +16,7 @@ import com.couchbase.client.java.env.ClusterEnvironment;
 import com.couchbase.client.java.json.JacksonTransformers;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.sky.newcrm.apims.spring.async.config.ApimsAsyncConfig;
 import de.sky.newcrm.apims.spring.couchbase.config.ApimsCouchbaseCachingConfig;
 import de.sky.newcrm.apims.spring.couchbase.config.ApimsCouchbaseConfig;
 import de.sky.newcrm.apims.spring.couchbase.config.ApimsCouchbaseEncryptionConfig;
@@ -39,10 +40,12 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.convert.CustomConversions;
 import org.springframework.data.convert.PropertyValueConverterRegistrar;
 import org.springframework.data.convert.SimplePropertyValueConversions;
@@ -79,6 +82,7 @@ import java.util.*;
 @EnableCouchbaseRepositories(basePackages = "de.sky", repositoryBaseClass = ApimsSimpleCouchbaseRepository.class)
 @ConditionalOnProperty(prefix = "apims.couchbase", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableCouchbaseAuditing
+@EnableConfigurationProperties(ApimsCouchbaseCachingConfig.class)
 @SuppressWarnings({"java:S6212", "java:S6857"})
 public class ApimsCouchbaseAutoConfiguration {
 
@@ -204,20 +208,11 @@ public class ApimsCouchbaseAutoConfiguration {
     @Value("${spring.couchbase.env.io.networkResolution:auto}")
     protected String networkResolution;
 
-    @Autowired
-    protected ApimsCouchbaseConfig apimsCouchbaseConfig;
-
-    @Autowired
     protected ApimsCouchbaseCachingConfig apimsCouchbaseCachingConfig;
 
-    @Autowired
-    protected ApimsCouchbaseEncryptionConfig apimsCouchbaseEncryptionConfig;
-
-    @Autowired
-    protected ApimsCouchbaseReEncryptionConfig apimsCouchbaseReEncryptionConfig;
-
-    public ApimsCouchbaseAutoConfiguration() {
+    public ApimsCouchbaseAutoConfiguration(ApimsCouchbaseCachingConfig apimsCouchbaseCachingConfig) {
         log.debug("[APIMS AUTOCONFIG] Couchbase.");
+        this.apimsCouchbaseCachingConfig = apimsCouchbaseCachingConfig;
     }
 
     @ApimsReportGeneratedHint

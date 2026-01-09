@@ -4,6 +4,7 @@ import de.sky.newcrm.apims.spring.async.config.ApimsPoolConfig;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 
 @ConfigurationProperties("apims.tasking")
 @Getter

@@ -4,8 +4,6 @@
  */
 package de.sky.newcrm.apims.spring.exceptions;
 
-import static de.sky.newcrm.apims.spring.exceptions.ApimsBaseException.DETAILS_KEY_ERROR_CODE;
-
 import de.sky.newcrm.apims.spring.utils.AssertUtils;
 import org.springframework.util.StringUtils;
 
@@ -22,7 +20,7 @@ public abstract class BusinessExceptionErrorCodes {
         ApimsDetailsAwareException dae = exception instanceof ApimsDetailsAwareException adae ? adae : null;
         String errorCode = dae == null || dae.getDetails() == null
                 ? null
-                : (String) dae.getDetails().get(DETAILS_KEY_ERROR_CODE);
+                : (String) dae.getDetails().get(ApimsBaseException.DETAILS_KEY_ERROR_CODE);
         if (!StringUtils.hasLength(errorCode)) {
             errorCode = calculateErrorCode(exception == null ? null : exception.getClass(), annotationMandatory);
         }

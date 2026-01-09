@@ -1,0 +1,129 @@
+# some defaults resolved by ApimsEnvironmentPostProcessor
+apims:
+  metrics:
+    enabled: true
+    counted-annotation-enabled: false
+    timed-annotation-enabled: false
+    common-tags:
+      apims_app_type: "${apims.app.type}"
+      apims_app_host: "${apims.app.host}"
+      apims_app_instance_id: "${apims.app.instance-id}"
+      apims_app_domain: "${apims.app.domain:default}"
+      apims_app_name: "${apims.app.name}"
+      apims_app_env: "${apims.app.env}"
+      apims_app_config_profile: "${apims.app.config-profile}"
+      metrics_source: "apims"
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      validate-group-membership: false
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway, openapi, swaggerui, env
+      base-path: /
+      path-mapping:
+        prometheus: /metrics
+  health:
+    livenessstate.enabled: true
+    readinessstate.enabled: true
+    defaults.enabled: true
+  info:
+    defaults.enabled: true
+    build.enabled: true
+    git.enabled: true
+    os.enabled: true
+    java.enabled: true
+  metrics:
+    high-cardinality-client-uri: false
+    distribution:
+      # Prometheus currently has a scrape interval of 60s. The buffer length corresponds to metrics buckets each with a given expiry
+      # here is the relevant config: https://github.com/1703/sky-newcrm-infrastructure-k8s-prometheus/blob/main/prometheus/values_prod.yaml
+      expiry:
+        "all": PT60s
+      buffer-length:
+        "all": 3
+      percentiles-histogram:
+        http.client.requests: true
+        http.server.requests: true
+        spring.kafka.listener: true
+        spring.kafka.template: true
+    enable:
+      # If you activate more, please add them to the list here: https://sky.atlassian.net/wiki/spaces/CRM/pages/3889791151/MS+Guides+-+Monitoring+Metrics+SLIs
+      # for a full list of the metrics that are available by default. Override the "all" property and set it to true
+      all: false
+      "executor": true
+      "http.client.requests": true
+      "http.server.requests": true
+      "jvm.gc": true
+      "jvm.memory": true
+      "jvm.buffer": true
+      "jvm.threads": true
+      "process.cpu": true
+      "system.cpu": true
+      "spring.data": true
+      "spring.kafka.listener": true
+      "spring.kafka.template": true
+      # Producer Metrics
+      "kafka.producer.record.retry.rate": true
+      "kafka.producer.record.error.rate": true
+      "kafka.producer.buffer.available.bytes": true
+      "kafka.producer.produce.throttle.time.avg": true
+      "kafka.producer.compression.rate.avg": true
+      "kafka.producer.request.latency.avg": true
+      "kafka.producer.record.queue.time.avg": true
+      "kafka.producer.bufferpool.wait.ratio": true
+      "kafka.producer.failed.authentication.total": true
+      "kafka.producer.outgoing.byte.rate": true
+      "kafka.producer.record.send.rate": true
+      "kafka.producer.batch.size.avg": true
+      "kafka.producer.requests.in.flight": true
+      "kafka.producer.record.size.avg": true
+      "kafka.producer.request.rate": true
+      "kafka.producer.request.size.avg": true
+      "kafka.producer.response.rate": true
+      "kafka.producer.connection.count": true
+      "kafka.producer.connection.creation.rate": true
+      "kafka.producer.connection.close.rate": true
+      "kafka.producer.io.ratio": true
+      "kafka.producer.io.wait.time.ns.avg": true
+      "kafka.producer.io.time.ns.avg": true
+      "kafka.producer.io.wait.ratio": true
+      "kafka.producer.select.rate": true
+      "kafka.producer.metadata.age": true
+      # Consumer Metrics
+      "kafka.consumer.coordinator.commit.rate": true
+      "kafka.consumer.fetch.manager.fetch.throttle.time.avg": true
+      "kafka.consumer.failed.authentication.rate": true
+      "kafka.consumer.coordinator.rebalance.rate.per.hour": true
+      "kafka.consumer.fetch.manager.bytes.consumed.rate": true
+      "kafka.consumer.fetch.manager.records.consumed.rate": true
+      "kafka.consumer.fetch.manager.fetch.rate": true
+      "kafka.consumer.fetch.manager.fetch.size.avg": true
+      "kafka.consumer.fetch.manager.fetch.latency.avg": true
+      "kafka.consumer.fetch.manager.fetch.latency.max": true
+      "kafka.consumer.time.between.poll.avg": true
+      "kafka.consumer.time.between.poll.max": true
+      "kafka.consumer.last.poll.seconds.ago": true
+      "kafka.consumer.poll.idle.ratio.avg": true
+      "kafka.consumer.coordinator.commit.latency.avg": true
+      "kafka.consumer.connection.count": true
+      "kafka.consumer.response.rate": true
+      "kafka.consumer.fetch.manager.records.lag.max": true
+      "tomcat.threads": true
+      "tomcat.sessions": false
+      "tomcat.cache": false
+      "tomcat.global": false
+      "resilience4j.circuitbreaker.state": true
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
+    threads:
+      max: 20
+      max-queue-capacity: 1000
+
+

@@ -1,0 +1,10 @@
+{
+  "deleteCustomer": {
+    "name": "Max Mustermann",
+    "email": "Max.Mustermann@nttdata.com",
+    "general": {
+      "customerId": "42"
+    }
+  },
+  "message": "DeleteCustomer"
+}

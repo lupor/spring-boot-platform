@@ -1,0 +1,9 @@
+# This file is for local test
+apims:
+  web:
+    logging:
+      include-payload: true
+      max-payload-length: 512
+logging:
+  level:
+    de.sky.newcrm.apims.spring.core.web.ApimsRequestLoggingFilter: TRACE

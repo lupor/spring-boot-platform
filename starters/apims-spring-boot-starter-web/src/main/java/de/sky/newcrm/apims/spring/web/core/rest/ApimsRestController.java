@@ -5,7 +5,7 @@
 package de.sky.newcrm.apims.spring.web.core.rest;
 
 import de.sky.newcrm.apims.spring.exceptions.ApimsBeanValidator;
-import de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes;
+import de.sky.newcrm.apims.spring.web.core.exceptions.ApimsErrorAttributes;
 import de.sky.newcrm.apims.spring.exceptions.InvalidRequestDataBusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

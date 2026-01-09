@@ -1,0 +1,28 @@
+spring:
+  config:
+    import:
+      - classpath:META-INF/config/modules/aspects/apims-aspects-base.yml
+      - classpath:META-INF/config/modules/async/apims-async-base.yml
+      - classpath:META-INF/config/modules/caching/apims-caching-base.yml
+      - classpath:META-INF/config/modules/environment/apims-app-base.yml
+      - classpath:META-INF/config/modules/environment/apims-incident-management-base.yml
+      - classpath:META-INF/config/modules/serialization/apims-serialization-base.yml
+      - classpath:META-INF/config/modules/tasking/apims-tasking-base.yml
+      - classpath:META-INF/config/modules/telemetry/logging/apims-logging-base.yml
+      - classpath:META-INF/config/modules/telemetry/metrics/apims-metrics-base.yml
+      - classpath:META-INF/config/modules/telemetry/traces/apims-traces-base.yml
+---
+spring:
+  config:
+    activate:
+      on-profile: unit-test
+    import:
+      - classpath:META-INF/config/env/unit-test.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import:
+      - classpath:META-INF/config/env/dev.yml

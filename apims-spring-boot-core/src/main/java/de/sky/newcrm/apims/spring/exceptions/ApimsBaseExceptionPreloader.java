@@ -15,11 +15,11 @@ public class ApimsBaseExceptionPreloader implements ApimsApplicationReadyListene
     @Override
     @ApimsReportGeneratedHint
     public void onApplicationReadyEvent() throws Exception {
-        Exception bex = ApimsBaseExceptionResolver.getException(BusinessExceptionErrorCodes.BUSINESS_ERROR);
-        if (!(bex instanceof BusinessException)) {
+        Exception bex = ApimsBaseExceptionResolver.getException(de.sky.newcrm.apims.spring.exceptions.BusinessExceptionErrorCodes.BUSINESS_ERROR);
+        if (!(bex instanceof de.sky.newcrm.apims.spring.exceptions.BusinessException)) {
             throw new ApimsBaseExceptionResolver.ApimsBaseExceptionResolverException(
-                    "Class with code '" + BusinessExceptionErrorCodes.BUSINESS_ERROR + "' must be instance of "
-                            + BusinessException.class.getName());
+                    "Class with code '" + de.sky.newcrm.apims.spring.exceptions.BusinessExceptionErrorCodes.BUSINESS_ERROR + "' must be instance of "
+                            + de.sky.newcrm.apims.spring.exceptions.BusinessException.class.getName());
         }
     }
 }

@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.environment.core;
 
-import de.sky.newcrm.apims.spring.context.core.ApimsMdc;
+import de.sky.newcrm.apims.spring.telemetry.mdc.core.ApimsMdc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.availability.ApplicationAvailabilityBean;

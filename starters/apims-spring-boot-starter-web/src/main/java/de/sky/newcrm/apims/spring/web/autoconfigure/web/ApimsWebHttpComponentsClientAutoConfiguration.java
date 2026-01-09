@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,6 +30,10 @@ import java.util.concurrent.TimeUnit;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = "apims.web", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnExpression("'${apims.web.http-components.enabled:true}'.equals('true')")
+
+@AutoConfiguration(afterName = {
+        "org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration"         // Boot 4
+})
 @EnableConfigurationProperties(ApimsWebConfig.class)
 @SuppressWarnings({"java:S6212"})
 public class ApimsWebHttpComponentsClientAutoConfiguration {

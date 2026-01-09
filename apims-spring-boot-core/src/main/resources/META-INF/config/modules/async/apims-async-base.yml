@@ -1,0 +1,9 @@
+apims:
+  async:
+    core-pool-size: 1
+    max-pool-size: -1
+    keep-alive-seconds: 60
+    queue-capacity: -1
+    allow-core-thread-timeout: false
+    prestart-all-core-threads: false
+    thread-name-prefix: "ApimsAsyncThread-"

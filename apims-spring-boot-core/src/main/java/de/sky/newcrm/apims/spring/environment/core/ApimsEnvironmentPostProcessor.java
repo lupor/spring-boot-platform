@@ -265,7 +265,6 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
         validateIncidentMgmtServiceCi(environment);
         validateApimsInstanceId(environment);
         validateVaultInjectedValues(environment);
-        validateCouchbaseConfiguration(environment);
         validateHealthReadinessGroup(environment);
         validateForbiddenProperties(environment);
     }
@@ -409,38 +408,6 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
     }
 
     @ApimsReportGeneratedHint
-    protected void validateCouchbaseConfiguration(ConfigurableEnvironment environment) {
-        boolean autoResolveEnabledFlag =
-                Boolean.parseBoolean(environment.getProperty("apims.couchbase.auto-resolve-enabled-flag"));
-        if (!autoResolveEnabledFlag) {
-            return;
-        }
-        boolean couchbaseEnabled = Boolean.parseBoolean(environment.getProperty("apims.couchbase.enabled"));
-        boolean couchbaseCachingEnabled =
-                Boolean.parseBoolean(environment.getProperty("apims.couchbase.caching.enabled"));
-        String couchbaseAuthMethod = environment.getProperty("spring.couchbase.env.security.auth-method");
-        boolean couchbaseAuthMethodKeystore = "keystore".equals(couchbaseAuthMethod);
-        boolean couchbasePasswordConfigured =
-                StringUtils.hasLength(environment.getProperty("spring.couchbase.password"));
-        boolean couchbaseNeeded =
-                couchbaseCachingEnabled || !couchbaseAuthMethodKeystore && couchbasePasswordConfigured;
-        if (!couchbaseNeeded && couchbaseAuthMethodKeystore) {
-            String basePackage = environment.getProperty("spring.couchbase.env.repositories-base-package");
-            if (!StringUtils.hasLength(basePackage)) {
-                basePackage = "de.sky";
-            }
-            Set<Class<?>> repositoryClasses = getCouchbaseRepositoryClasses(basePackage);
-            couchbaseNeeded = !repositoryClasses.isEmpty();
-            SHADOW_STARTUP_LOG.info(
-                    "Property spring.couchbase.env.security.auth-method is 'keystore'. auto detected repository classes: %s"
-                            .formatted(repositoryClasses.size()));
-        }
-        if (couchbaseNeeded != couchbaseEnabled) {
-            forcedProperties.put("apims.couchbase.enabled", String.valueOf(couchbaseNeeded));
-        }
-    }
-
-    @ApimsReportGeneratedHint
     protected void validateHealthReadinessGroup(ConfigurableEnvironment environment) {
         boolean couchbaseEnabled = Boolean.parseBoolean(environment.getProperty("apims.couchbase.enabled"));
         boolean couchbaseMockEnabled =
@@ -518,15 +485,6 @@ public class ApimsEnvironmentPostProcessor implements EnvironmentPostProcessor {
                     .ifPresent(defaultServiceCi ->
                             forcedProperties.put("apims.app.incident-mgmt.service-ci", defaultServiceCi));
         }
-    }
-
-    @SuppressWarnings({"java:S4449"})
-    @ApimsReportGeneratedHint
-    protected Set<Class<?>> getCouchbaseRepositoryClasses(String basePackage) {
-        List<Class<?>> classList = ApimsClassScanner.findClasses(
-                org.springframework.data.couchbase.repository.Collection.class, true, basePackage);
-        classList.removeIf(c -> ObjectUtils.findClassAnnotation(c, NoRepositoryBean.class, true) != null);
-        return new HashSet<>(classList);
     }
 
     @Getter

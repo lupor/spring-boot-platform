@@ -1,0 +1,19 @@
+spring:
+  config:
+    import:
+      - classpath:META-INF/config/modules/web/apims-web-base.yml
+---
+spring:
+  config:
+    activate:
+      on-profile: unit-test
+    import:
+      - classpath:META-INF/config/env/unit-test.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import:
+      - classpath:META-INF/config/env/dev.yml

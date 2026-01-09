@@ -1,0 +1,22 @@
+# defaults for dev (local dev)
+apims:
+  web:
+    auth:
+      enabled: false
+      aad-token-validator:
+        key-source-type: TRUSTED
+        explicit-audience-check: false
+      additional-token-validator:
+        key-source-type: TRUSTED
+      service-token-validator:
+        key-source-type: TRUSTED
+      test-token-validator:
+        enabled: true
+        issuer: "https://testcase.com/"
+        key-source-type: BYTE_SECRET_BASE_64
+        key-source-value: "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm02NTQzMjE="
+    http-components:
+      hostname-verifier-disabled: true
+      trust-all-certificates: true
+    logging:
+      max-payload-length: 6000

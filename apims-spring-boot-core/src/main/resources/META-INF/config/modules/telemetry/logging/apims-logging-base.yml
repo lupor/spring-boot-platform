@@ -1,0 +1,28 @@
+# some defaults resolved by ApimsEnvironmentPostProcessor
+logging:
+  pattern:
+    level: "%5p |%-32.32X{traceId:-}|%-16.16X{spanId:-}|"
+    correlation: ""
+  level:
+    com.jcraft: WARN
+    com.couchbase.core: ERROR
+    de.sky.newcrm: DEBUG
+    de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundLoggingListener: DEBUG
+    de.sky.newcrm.apims.spring.core.aspects.around.ApimsAroundMetricsListener: DEBUG
+    de.sky.newcrm.apims.spring.core.env.ApimsApplicationReadyHandler: TRACE
+    de.sky.newcrm.apims.spring.core.utils.scanner.ApimsClassPathScanningCandidateComponentProvider: WARN
+    de.sky.newcrm.apims.spring.core.web.ApimsRequestLoggingFilter: INFO
+    io.confluent.kafka.serializers.KafkaAvroSerializerConfig: ERROR
+    org.apache.kafka.clients: ERROR
+    org.apache.kafka.common: WARN
+    org.hibernate.type.descriptor.java.spi.JavaTypeDescriptorRegistry: ERROR
+    org.springframework.cache: TRACE
+    org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider: WARN
+    org.springframework.boot.actuate.endpoint: ERROR
+    org.springframework.boot.availability.ApplicationAvailabilityBean: INFO
+    org.springframework.data.repository.config: ERROR
+    org.springframework.web.cors.DefaultCorsProcessor: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver: ERROR
+    tracer: INFO
+

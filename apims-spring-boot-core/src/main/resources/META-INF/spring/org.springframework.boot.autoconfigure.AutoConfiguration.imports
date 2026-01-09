@@ -1,8 +1,10 @@
 de.sky.newcrm.apims.spring.aspects.autoconfigure.ApimsAspectsConfiguration
-de.sky.newcrm.apims.spring.telemetry.metrics.aspects.ApimsMetricsConfiguration
-de.sky.newcrm.apims.spring.tasking.autoconfigure.ApimsAsyncAutoConfiguration
+de.sky.newcrm.apims.spring.telemetry.metrics.autoconfigure.ApimsMetricsAutoConfiguration
+de.sky.newcrm.apims.spring.async.autoconfigure.ApimsAsyncAutoConfiguration
+de.sky.newcrm.apims.spring.tasking.autoconfigure.ApimsTaskingAutoConfiguration
 de.sky.newcrm.apims.spring.caching.autoconfigure.ApimsCachingAutoConfiguration
 de.sky.newcrm.apims.spring.environment.autoconfigure.ApimsEnvConfiguration
-de.sky.newcrm.apims.spring.jackson.autoconfigure.ApimsJacksonObjectMapperAutoConfiguration
+de.sky.newcrm.apims.spring.serialization.core.mapper.autoconfigure.ApimsJacksonObjectMapperAutoConfiguration
 de.sky.newcrm.apims.spring.tasking.autoconfigure.ApimsTaskingAutoConfiguration
-de.sky.newcrm.apims.spring.env.core.ApimsApplicationReadyHandler
+de.sky.newcrm.apims.spring.environment.core.ApimsApplicationReadyHandler
+de.sky.newcrm.apims.spring.telemetry.mdc.autoconfigure.ApimsMdcAutoconfiguration

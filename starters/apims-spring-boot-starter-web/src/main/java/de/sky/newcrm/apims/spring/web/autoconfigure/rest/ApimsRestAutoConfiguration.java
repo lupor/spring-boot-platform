@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.web.autoconfigure.rest;
 
-import de.sky.newcrm.apims.spring.exceptions.ApimsRestClientBusinessExceptionHandler;
+import de.sky.newcrm.apims.spring.web.core.exceptions.ApimsRestClientBusinessExceptionHandler;
 import de.sky.newcrm.apims.spring.web.config.ApimsRestConfig;
 import de.sky.newcrm.apims.spring.web.core.http.converter.*;
 import de.sky.newcrm.apims.spring.web.core.rest.*;
@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,6 +31,9 @@ import java.util.Optional;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = "apims.rest", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(ApimsRestConfig.class)
+@AutoConfiguration(afterName = {
+        "org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration"         // Boot 4
+})
 @SuppressWarnings({"java:S6212"})
 public class ApimsRestAutoConfiguration {
 

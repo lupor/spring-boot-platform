@@ -1,0 +1,22 @@
+# defaults for dev (local dev)
+apims:
+  kafka:
+    consumer:
+      group-id: dev-${apims.app.name}
+      default-error-handler-interval: 5000
+      dlt:
+        delay: 1000
+        multiplier: 2
+        last-retry-attempts: 3
+        auto-create-topics: ${spring.kafka.properties.allow.auto.create.topics:true}
+spring:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    properties:
+      allow.auto.create.topics: true
+      auto.register.schemas: true
+      schema.registry.url: "http://localhost:8081"
+    listener:
+      concurrency: 1
+    security:
+      protocol: "PLAINTEXT"

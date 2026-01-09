@@ -1,0 +1,56 @@
+# defaults for local test
+apims:
+  aspects:
+    new-trace-id-enabled: false
+  app:
+    config-profile: dev-unit-test
+    config-profile-prefix: dev-unit-test
+    service-startup-listener-enabled: false
+    mocks:
+      api-token-mock-enabled: true
+      async-mock-enabled: true
+      couchbase-mock-enabled: true
+      gcp-mock-enabled: true
+      kafka-mock-enabled: true
+      postgresql-mock-enabled: true
+      resttemplate-mock-enabled: true
+      repository-mock-enabled: true
+      webservicetemplate-mock-enabled: true
+      sftp-mock-enabled: true
+      embedded-sftp-server-enabled: false
+      embedded-ssh-server-enabled: false
+      tasking-mock-enabled: true
+      web-auth-mock-enabled: true
+      mock-file-header-checksum-enabled: false
+  api:
+    mock-implementations-allowed: true
+    salesforce:
+      instance-url-locator-impl: "ApimsSalesforceInstanceUrlLocatorConfigImpl"
+      instance-url: "https://skyde--devskysf1.my.salesforce.com"
+      job-complete-waiting-sleep-time-millis: 0
+  caching:
+    enabled: false
+  startup-check:
+    check-forbidden-application-properties: true
+  trace:
+    force-record-trace-files: false
+  web:
+    auth:
+      test-token-validator:
+        enabled: true
+logging:
+  level:
+    de.sky.newcrm: DEBUG
+    de.sky.newcrm.apims.spring.core.env.ApimsApplicationReadyHandler: INFO
+    org.springframework.boot.test: ERROR
+    root: INFO
+management:
+  otlp:
+    tracing:
+      export:
+        enabled: false
+  tracing:
+    sampling:
+      probability: 0
+  main:
+    banner-mode: "off"

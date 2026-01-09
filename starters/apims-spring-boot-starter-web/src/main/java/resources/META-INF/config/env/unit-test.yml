@@ -1,0 +1,9 @@
+# defaults for local test
+apims:
+  rest:
+    auto-validate-request: true
+  web:
+    auth:
+      test-token-validator:
+        enabled: true
+

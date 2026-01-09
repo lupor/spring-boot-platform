@@ -4,7 +4,7 @@
  */
 package de.sky.newcrm.apims.spring.web.core.rest;
 
-import de.sky.newcrm.apims.spring.exceptions.ApimsRestClientBusinessExceptionHandler;
+import de.sky.newcrm.apims.spring.web.core.exceptions.ApimsRestClientBusinessExceptionHandler;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

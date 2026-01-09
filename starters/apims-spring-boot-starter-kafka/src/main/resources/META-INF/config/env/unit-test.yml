@@ -1,0 +1,7 @@
+# defaults for local test
+spring:
+  kafka:
+    properties:
+      allow.auto.create.topics: false
+    listener:
+      auto-startup: false

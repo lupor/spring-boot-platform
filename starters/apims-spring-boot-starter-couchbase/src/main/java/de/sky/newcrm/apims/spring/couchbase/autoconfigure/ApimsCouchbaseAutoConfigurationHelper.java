@@ -7,7 +7,7 @@ package de.sky.newcrm.apims.spring.couchbase.autoconfigure;
 import com.couchbase.client.core.env.SecurityConfig;
 import com.couchbase.client.java.query.QueryScanConsistency;
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.tls.TlsFactory;
+import de.sky.newcrm.apims.spring.couchbase.core.tls.TlsFactory;
 
 import javax.net.ssl.TrustManagerFactory;
 

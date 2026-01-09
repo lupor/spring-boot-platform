@@ -1,0 +1,14 @@
+# defaults for dev (local dev)
+spring:
+  couchbase:
+    hostname: "127.0.0.1"
+    bucket: "dev"
+    username: "apims-dev"
+    scopename: "${apims.app.domain}"
+    env:
+      security:
+        auth-method: password
+        tls-enabled: false
+      io:
+        networkResolution: default
+

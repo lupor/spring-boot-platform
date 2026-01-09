@@ -1,0 +1,34 @@
+apims:
+  aspects:
+    create-new-span: true
+    listeners:
+      kafka-template-synchronizer:
+        enabled: true
+      logging:
+        enabled: true
+        max-length: 15000
+        save-log-lines-as-span-tag: "all"
+        save-log-lines-span-tag-max-length: 1000
+      new-trace-id:
+        enabled: true
+      mdc:
+        enabled: true
+        global-fields:
+          team: "${apims.app.team}"
+        global-fields-prefix: "apims."
+        prefix: "apims."
+        enable-sky-headers: true
+        remote-fields:
+          correlationId: "correlationId"
+          customerId: "customerId"
+          middlewareId: "middlewareId"
+          orderId: "orderId"
+          contractId: "contractId"
+      metrics:
+        enabled: true
+        ignored-components: ""
+    serializer:
+      mask-keys: "secureValue, password, newPassword, oldPassword, new-password, old-password, pin, newPin, oldPin, codepin, role-id, secret-id, token, Token, BearerToken, client_secret, client_token, access_token, role_id, secret_id, ciphertext, signed_string, plaintext, Authorization, authorization, x-forwarded-client-cert, x-envoy-peer-metadata"
+      additional-mask-keys: ""
+      mask-value: "___masked___"
+      default-max-characters: ${apims.aspects.listeners.logging.max-length}

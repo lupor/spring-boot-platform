@@ -1,0 +1,15 @@
+# This file is for local development
+apims:
+  trace:
+    force-record-trace-files: true
+
+management:
+  server:
+    port: 9801
+
+server:
+  port: 9080
+
+spring:
+  couchbase:
+    password: sandbox

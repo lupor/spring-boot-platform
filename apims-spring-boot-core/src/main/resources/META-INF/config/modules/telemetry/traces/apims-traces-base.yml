@@ -1,0 +1,17 @@
+# some defaults resolved by ApimsEnvironmentPostProcessor
+management:
+  otlp:
+    tracing:
+      endpoint: http://opentelemetry-collector.opentelemetry-system:4317/v1/traces
+      transport: grpc
+      compression: gzip
+  tracing:
+    enabled: true
+    baggage:
+      enabled: true
+      remote-fields: x-sky-requestid, x-sky-contactchannel, x-sky-tracing-session
+      correlation:
+        enabled: true
+        fields: x-sky-requestid, x-sky-contactchannel, x-sky-tracing-session
+    sampling:
+      probability: 0

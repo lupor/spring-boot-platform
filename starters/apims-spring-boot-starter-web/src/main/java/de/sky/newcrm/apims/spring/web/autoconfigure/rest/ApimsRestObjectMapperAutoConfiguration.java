@@ -8,6 +8,7 @@ import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.DefaultJack
 import de.sky.newcrm.apims.spring.serialization.core.mapper.jackson3.DefaultJacksonXMLObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
 import org.springframework.boot.jackson.autoconfigure.XmlMapperBuilderCustomizer;
@@ -15,7 +16,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@AutoConfiguration(afterName = {
+        "org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration"
+})
 @ConditionalOnProperty(prefix = "apims.server.rest", name = "enabled", havingValue = "true", matchIfMissing = true)
+
 public class ApimsRestObjectMapperAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(ApimsRestObjectMapperAutoConfiguration.class);

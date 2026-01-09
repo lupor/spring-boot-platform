@@ -4,8 +4,6 @@
  */
 package de.sky.newcrm.apims.spring.exceptions;
 
-import static de.sky.newcrm.apims.spring.exceptions.ApimsErrorAttributes.*;
-
 import de.sky.newcrm.apims.spring.utils.ObjectUtils;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -16,7 +14,9 @@ import org.springframework.util.StringUtils;
 
 @SuppressWarnings({"java:S1123", "java:S1133", "java:S6355"})
 public class ApimsBeanValidator<T extends ApimsBaseException> {
-
+    public static final String BUSINESS_EXCEPTION_ERRORS_KEY = "errors";
+    public static final String VALIDATION_ERROR_FIELD_KEY = "field";
+    public static final String VALIDATION_ERROR_CODE_KEY = "requires";
     public static final String MESSAGE_CODE_ENUM = "Enum";
     public static final String MESSAGE_CODE_NOTENUM = "NotEnum";
     public static final String MESSAGE_CODE_NOTBLANK = NotBlank.class.getSimpleName();

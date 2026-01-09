@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.HeaderElement;
 import org.apache.hc.core5.http.message.BasicHeaderElementIterator;
 import org.apache.hc.core5.util.TimeValue;
-import org.apache.http.protocol.HTTP;
+import org.apache.hc.core5.http.HttpHeaders;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +23,7 @@ public class ApimsConnectionKeepAliveStrategy implements org.apache.hc.client5.h
     @ApimsReportGeneratedHint
     public TimeValue getKeepAliveDuration(
             org.apache.hc.core5.http.HttpResponse response, org.apache.hc.core5.http.protocol.HttpContext context) {
-        BasicHeaderElementIterator it = new BasicHeaderElementIterator(response.headerIterator(HTTP.CONN_KEEP_ALIVE));
+        BasicHeaderElementIterator it = new BasicHeaderElementIterator(response.headerIterator(HttpHeaders.KEEP_ALIVE));
         while (it.hasNext()) {
             HeaderElement he = it.next();
             String param = he.getName();

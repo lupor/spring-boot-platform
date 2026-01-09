@@ -1,0 +1,95 @@
+# some defaults resolved by ApimsEnvironmentPostProcessor
+apims:
+  kafka:
+    consumer:
+      group-id: dev-${apims.app.name}
+      default-error-handler-interval: 20000
+      default-error-handler-max-failures: -1
+      dlt:
+        enabled: true
+        group-based-retry-and-dlt-topics: false
+        dlt-topic-suffix: '-dlt'
+        retry-topic-suffix: '-retry'
+        retry-attempts: 5
+        last-retry-attempts: 10
+        delay: 6000
+        multiplier: 10
+        auto-create-topics: ${spring.kafka.properties.allow.auto.create.topics:false}
+        auto-create-num-partitions: 1
+        auto-create-replication-factor: 1
+        use-dlt-topic-on-no-retryable-exception: true
+        central-dlt-topic-name: "${apims.app.resource-prefix}_central_dlq"
+        central-dlt-topic-enabled: false
+      topics:
+        _placeholder: ''
+    producer:
+      topics:
+        _placeholder: ''
+      headers:
+        x-sky-app-domain: "${apims.app.domain}"
+        x-sky-app-name: "${apims.app.name}"
+        x-sky-client-domain: "${apims.app.domain}"
+        x-sky-client-name: "${apims.app.name}"
+        x-sky-client-service-ci: "${apims.app.incident-mgmt.service-ci:SRVCI0017657}"
+      additional-headers:
+        _placeholder: ''
+spring:
+  kafka:
+    bootstrap-servers: "${apims.integration.endpoints.kafka-servers}"
+    properties:
+      metrics.sample.window.ms: 60000
+      allow.auto.create.topics: false
+      auto.register.schemas: false
+      avro.remove.java.properties: true
+      reconnect.backoff.ms: 5000
+      reconnect.backoff.max.ms: 10000
+      schema.registry.url: "${apims.integration.endpoints.kafka-schema-servers}"
+      specific.avro.reader: true
+      use.latest.version: false
+      apims.kafka.serializer:
+        serialize-string-value-without-schema-id-enabled: false
+        serialize-string-value-without-schema-id-topics: "*"
+      apims.kafka.deserializer:
+        deserialize-to-generics-allowed: false
+      spring.deserializer:
+        key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        value.delegate.class: de.sky.newcrm.apims.spring.core.kafka.serializers.ApimsKafkaDeserializer
+    consumer:
+      group-id: dev-${apims.app.name}-default
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        interceptor.classes: de.sky.newcrm.apims.spring.core.kafka.consumer.ApimsConsumerInterceptor
+        auth.exception.retry.interval.ms: 3600000
+        max.poll.interval.ms: 3660000
+        max.poll.records: 1
+    producer:
+      properties:
+        delivery.timeout.ms: 10000
+        interceptor.classes: de.sky.newcrm.apims.spring.core.kafka.producer.ApimsProducerInterceptor
+        linger.ms: 0
+        request.timeout.ms: 10000
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: de.sky.newcrm.apims.spring.core.kafka.serializers.ApimsKafkaSerializer
+    listener:
+      ack-mode: record
+      concurrency: 1
+      auto-startup: true
+    security:
+      protocol: "SSL"
+    ssl:
+      key-store-location: file://${KAFKA_CLIENT_KEYSTORE_PATH:/usr/share/application/kafka-client.jks}
+      key-store-password: ${KAFKA_CLIENT_KEYSTORE_PASSWORD:changeit}
+    template:
+      auto-flush: false
+  main:
+    banner-mode: "log"
+  banner:
+    location: classpath:apims-banner.txt
+  mvc:
+    dispatch-options-request: true
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB

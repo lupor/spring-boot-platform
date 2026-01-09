@@ -5,34 +5,23 @@
 package de.sky.newcrm.apims.spring.web.autoconfigure.web;
 
 import de.sky.newcrm.apims.spring.environment.core.ApimsReportGeneratedHint;
-import de.sky.newcrm.apims.spring.exceptions.ApimsRuntimeException;
-import de.sky.newcrm.apims.spring.utils.ObjectUtils;
 import de.sky.newcrm.apims.spring.web.config.ApimsWebConfig;
 import de.sky.newcrm.apims.spring.web.core.http.converter.*;
-import de.sky.newcrm.apims.spring.web.core.oauth.builder.ApimsServiceTokenBuilder;
-import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestHandler;
-import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestJwtHandler;
-import de.sky.newcrm.apims.spring.web.core.oauth.handler.ApimsAuthenticationRequestTrustedServicesHandler;
-import de.sky.newcrm.apims.spring.web.core.oauth.principal.ApimsUserPrincipalManager;
-import de.sky.newcrm.apims.spring.web.core.oauth.validator.*;
 import de.sky.newcrm.apims.spring.web.core.support.web.ApimsApiErrorAttributes;
 import de.sky.newcrm.apims.spring.web.core.support.web.ApimsRestControllerExceptionHandler;
 import de.sky.newcrm.apims.spring.web.core.web.ApimsRequestLoggingFilter;
-import de.sky.newcrm.apims.spring.web.core.web.ApimsRoleStatelessAuthenticationFilter;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration;
+import org.springframework.boot.http.converter.autoconfigure.ClientHttpMessageConvertersCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.OrderComparator;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
@@ -40,14 +29,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.*;
 
 @Configuration(proxyBeanMethods = false)
-@AutoConfiguration(before = ErrorMvcAutoConfiguration.class)
+@AutoConfiguration(afterName = {
+        "org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration"         // Boot 4
+})
 @EnableConfigurationProperties(ApimsWebConfig.class)
 @ConditionalOnProperty(prefix = "apims.web", name = "enabled", havingValue = "true", matchIfMissing = true)
 @SuppressWarnings({"java:S6212"})
@@ -120,136 +110,136 @@ public class ApimsWebAutoConfiguration {
         return filter;
     }
 
-    @Bean
-    @ConditionalOnMissingBean()
-    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
-    public ApimsTokenKeySourceLoader tokenKeySourceLoader() {
-        return new ApimsTokenKeySourceLoader();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean()
-    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
-    public ApimsUserPrincipalManager apimsUserPrincipalManager(List<ApimsTokenValidator> tokenValidators) {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsUserPrincipalManager.");
-        ApimsWebConfig.Auth auth = apimsWebConfig.getAuth();
-        tokenValidators.sort(new OrderComparator());
-        Map<String, String> roleMapping = new HashMap<>();
-        for (Map.Entry<String, String> entry : auth.getRoleMapping().entrySet()) {
-            String[] externalRoles = StringUtils.tokenizeToStringArray(entry.getValue(), ",");
-            for (String externalRole : externalRoles) {
-                if (roleMapping.containsKey(externalRole)) {
-                    throw new ApimsRuntimeException("Invalid external role configuration! The role '" + externalRole
-                            + "' is defined several times. Please check config section 'apims.web.auth.role-mapping'!");
-                }
-                roleMapping.put(externalRole, entry.getKey());
-            }
-        }
-        return new ApimsUserPrincipalManager(
-                tokenValidators,
-                Set.of(StringUtils.tokenizeToStringArray(auth.getDefaultRoles(), ",")),
-                roleMapping,
-                Set.of(StringUtils.tokenizeToStringArray(auth.getJwtClaimNameRoles(), ",")));
-    }
-
-    @Bean(name = "apimsServiceTokenBuilder")
-    @ConditionalOnMissingBean(name = "apimsServiceTokenBuilder")
-    @ConditionalOnExpression(
-            "'${apims.web.auth.trusted-services.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    public ApimsServiceTokenBuilder apimsServiceTokenBuilder() {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsServiceTokenBuilder.");
-        ApimsWebConfig.Auth.TrustedServices trustedConfig =
-                apimsWebConfig.getAuth().getTrustedServices();
-        return new ApimsServiceTokenBuilder(
-                getTrustedRoles(trustedConfig.getServicesDefaultRoles(), trustedConfig.getServicesRoles()),
-                getTrustedRoles(trustedConfig.getDomainsDefaultRoles(), trustedConfig.getDomainsRoles()));
-    }
-
-    @Bean(name = "apimsAuthenticationRequestJwtHandler")
-    @ConditionalOnMissingBean(name = "apimsAuthenticationRequestJwtHandler")
-    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
-    public ApimsAuthenticationRequestJwtHandler apimsAuthenticationRequestJwtHandler(
-            ApimsUserPrincipalManager principalManager) {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestJwtHandler.");
-        return new ApimsAuthenticationRequestJwtHandler(principalManager);
-    }
-
-    @Bean(name = "apimsAuthenticationRequestTrustedServicesHandler")
-    @ConditionalOnMissingBean(name = "apimsAuthenticationRequestTrustedServicesHandler")
-    @ConditionalOnExpression(
-            "'${apims.web.auth.trusted-services.trust-by-sky-headers:false}'.equals('true') && '${apims.web.auth.trusted-services.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    public ApimsAuthenticationRequestTrustedServicesHandler apimsAuthenticationRequestTrustedServicesHandler(
-            ApimsUserPrincipalManager principalManager) {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestTrustedServicesHandler.");
-        ApimsWebConfig.Auth.TrustedServices trustedConfig =
-                apimsWebConfig.getAuth().getTrustedServices();
-        return new ApimsAuthenticationRequestTrustedServicesHandler(
-                principalManager,
-                getTrustedRoles(trustedConfig.getServicesDefaultRoles(), trustedConfig.getServicesRoles()),
-                getTrustedRoles(trustedConfig.getDomainsDefaultRoles(), trustedConfig.getDomainsRoles()));
-    }
-
-    @Bean(name = "apimsAuthenticationRequestMockHandler")
-    @ConditionalOnMissingBean(name = "apimsAuthenticationRequestMockHandler")
-    @ConditionalOnExpression(
-            "'${apims.app.mocks.web-auth-mock-enabled:false}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    @ApimsReportGeneratedHint
-    public ApimsAuthenticationRequestHandler apimsAuthenticationRequestMockHandler(
-            ApimsUserPrincipalManager principalManager) {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestMockHandler.");
-        return ObjectUtils.createInstance(ObjectUtils.CreateInstanceDefinition.builder()
-                .className("de.sky.newcrm.apims.spring.core.mocks.ApimsAuthenticationRequestMockHandler")
-                .constructorTypes(new Class<?>[] {ApimsUserPrincipalManager.class})
-                .constructorArgs(new Object[] {principalManager})
-                .build());
-    }
-
-    @Bean(name = "apimsAadTokenValidator")
-    @ConditionalOnMissingBean(name = "apimsAadTokenValidator")
-    @ConditionalOnExpression(
-            "'${apims.web.auth.aad-token-validator.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    public ApimsAadTokenValidator apimsAadTokenValidator() {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsAadTokenValidator.");
-        return new ApimsAadTokenValidator();
-    }
-
-    @Bean(name = "apimsServiceTokenValidator")
-    @ConditionalOnMissingBean(name = "apimsServiceTokenValidator")
-    @ConditionalOnExpression(
-            "'${apims.web.auth.service-token-validator.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    public ApimsServiceTokenValidator apimsServiceTokenValidator() {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsServiceTokenValidator.");
-        return new ApimsServiceTokenValidator();
-    }
-
-    @Bean(name = "apimsAdditionalTokenValidator")
-    @ConditionalOnMissingBean(name = "apimsAdditionalTokenValidator")
-    @ConditionalOnExpression(
-            "'${apims.web.auth.additional-token-validator.enabled:false}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    public ApimsAdditionalTokenValidator apimsAdditionalTokenValidator() {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsAdditionalTokenValidator.");
-        return new ApimsAdditionalTokenValidator();
-    }
-
-    @Bean(name = "apimsAdditionalTokenValidator")
-    @ConditionalOnMissingBean(name = "apimsAdditionalTokenValidator")
-    @ConditionalOnExpression(
-            "'${apims.web.auth.test-token-validator.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
-    public ApimsTestTokenValidator apimsTestTokenValidator() {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsTestTokenValidator.");
-        return new ApimsTestTokenValidator();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean()
-    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
-    @ApimsReportGeneratedHint
-    public ApimsRoleStatelessAuthenticationFilter apimsRoleStatelessAuthenticationFilter(
-            List<ApimsAuthenticationRequestHandler> authenticationRequestHandlerList) {
-        log.debug("[APIMS AUTOCONFIG] Web:apimsRoleStatelessAuthenticationFilter.");
-        authenticationRequestHandlerList.sort(new OrderComparator());
-        return new ApimsRoleStatelessAuthenticationFilter(authenticationRequestHandlerList);
-    }
+//    @Bean
+//    @ConditionalOnMissingBean()
+//    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
+//    public ApimsTokenKeySourceLoader tokenKeySourceLoader() {
+//        return new ApimsTokenKeySourceLoader();
+//    }
+//
+//    @Bean
+//    @ConditionalOnMissingBean()
+//    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
+//    public ApimsUserPrincipalManager apimsUserPrincipalManager(List<ApimsTokenValidator> tokenValidators) {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsUserPrincipalManager.");
+//        ApimsWebConfig.Auth auth = apimsWebConfig.getAuth();
+//        tokenValidators.sort(new OrderComparator());
+//        Map<String, String> roleMapping = new HashMap<>();
+//        for (Map.Entry<String, String> entry : auth.getRoleMapping().entrySet()) {
+//            String[] externalRoles = StringUtils.tokenizeToStringArray(entry.getValue(), ",");
+//            for (String externalRole : externalRoles) {
+//                if (roleMapping.containsKey(externalRole)) {
+//                    throw new ApimsRuntimeException("Invalid external role configuration! The role '" + externalRole
+//                            + "' is defined several times. Please check config section 'apims.web.auth.role-mapping'!");
+//                }
+//                roleMapping.put(externalRole, entry.getKey());
+//            }
+//        }
+//        return new ApimsUserPrincipalManager(
+//                tokenValidators,
+//                Set.of(StringUtils.tokenizeToStringArray(auth.getDefaultRoles(), ",")),
+//                roleMapping,
+//                Set.of(StringUtils.tokenizeToStringArray(auth.getJwtClaimNameRoles(), ",")));
+//    }
+//
+//    @Bean(name = "apimsServiceTokenBuilder")
+//    @ConditionalOnMissingBean(name = "apimsServiceTokenBuilder")
+//    @ConditionalOnExpression(
+//            "'${apims.web.auth.trusted-services.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    public ApimsServiceTokenBuilder apimsServiceTokenBuilder() {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsServiceTokenBuilder.");
+//        ApimsWebConfig.Auth.TrustedServices trustedConfig =
+//                apimsWebConfig.getAuth().getTrustedServices();
+//        return new ApimsServiceTokenBuilder(
+//                getTrustedRoles(trustedConfig.getServicesDefaultRoles(), trustedConfig.getServicesRoles()),
+//                getTrustedRoles(trustedConfig.getDomainsDefaultRoles(), trustedConfig.getDomainsRoles()));
+//    }
+//
+//    @Bean(name = "apimsAuthenticationRequestJwtHandler")
+//    @ConditionalOnMissingBean(name = "apimsAuthenticationRequestJwtHandler")
+//    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
+//    public ApimsAuthenticationRequestJwtHandler apimsAuthenticationRequestJwtHandler(
+//            ApimsUserPrincipalManager principalManager) {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestJwtHandler.");
+//        return new ApimsAuthenticationRequestJwtHandler(principalManager);
+//    }
+//
+//    @Bean(name = "apimsAuthenticationRequestTrustedServicesHandler")
+//    @ConditionalOnMissingBean(name = "apimsAuthenticationRequestTrustedServicesHandler")
+//    @ConditionalOnExpression(
+//            "'${apims.web.auth.trusted-services.trust-by-sky-headers:false}'.equals('true') && '${apims.web.auth.trusted-services.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    public ApimsAuthenticationRequestTrustedServicesHandler apimsAuthenticationRequestTrustedServicesHandler(
+//            ApimsUserPrincipalManager principalManager) {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestTrustedServicesHandler.");
+//        ApimsWebConfig.Auth.TrustedServices trustedConfig =
+//                apimsWebConfig.getAuth().getTrustedServices();
+//        return new ApimsAuthenticationRequestTrustedServicesHandler(
+//                principalManager,
+//                getTrustedRoles(trustedConfig.getServicesDefaultRoles(), trustedConfig.getServicesRoles()),
+//                getTrustedRoles(trustedConfig.getDomainsDefaultRoles(), trustedConfig.getDomainsRoles()));
+//    }
+//
+//    @Bean(name = "apimsAuthenticationRequestMockHandler")
+//    @ConditionalOnMissingBean(name = "apimsAuthenticationRequestMockHandler")
+//    @ConditionalOnExpression(
+//            "'${apims.app.mocks.web-auth-mock-enabled:false}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    @ApimsReportGeneratedHint
+//    public ApimsAuthenticationRequestHandler apimsAuthenticationRequestMockHandler(
+//            ApimsUserPrincipalManager principalManager) {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsAuthenticationRequestMockHandler.");
+//        return ObjectUtils.createInstance(ObjectUtils.CreateInstanceDefinition.builder()
+//                .className("de.sky.newcrm.apims.spring.core.mocks.ApimsAuthenticationRequestMockHandler")
+//                .constructorTypes(new Class<?>[]{ApimsUserPrincipalManager.class})
+//                .constructorArgs(new Object[]{principalManager})
+//                .build());
+//    }
+//
+//    @Bean(name = "apimsAadTokenValidator")
+//    @ConditionalOnMissingBean(name = "apimsAadTokenValidator")
+//    @ConditionalOnExpression(
+//            "'${apims.web.auth.aad-token-validator.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    public ApimsAadTokenValidator apimsAadTokenValidator() {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsAadTokenValidator.");
+//        return new ApimsAadTokenValidator();
+//    }
+//
+//    @Bean(name = "apimsServiceTokenValidator")
+//    @ConditionalOnMissingBean(name = "apimsServiceTokenValidator")
+//    @ConditionalOnExpression(
+//            "'${apims.web.auth.service-token-validator.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    public ApimsServiceTokenValidator apimsServiceTokenValidator() {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsServiceTokenValidator.");
+//        return new ApimsServiceTokenValidator();
+//    }
+//
+//    @Bean(name = "apimsAdditionalTokenValidator")
+//    @ConditionalOnMissingBean(name = "apimsAdditionalTokenValidator")
+//    @ConditionalOnExpression(
+//            "'${apims.web.auth.additional-token-validator.enabled:false}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    public ApimsAdditionalTokenValidator apimsAdditionalTokenValidator() {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsAdditionalTokenValidator.");
+//        return new ApimsAdditionalTokenValidator();
+//    }
+//
+//    @Bean(name = "apimsAdditionalTokenValidator")
+//    @ConditionalOnMissingBean(name = "apimsAdditionalTokenValidator")
+//    @ConditionalOnExpression(
+//            "'${apims.web.auth.test-token-validator.enabled:true}'.equals('true') && '${apims.web.auth.enabled:false}'.equals('true')")
+//    public ApimsTestTokenValidator apimsTestTokenValidator() {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsTestTokenValidator.");
+//        return new ApimsTestTokenValidator();
+//    }
+//
+//    @Bean
+//    @ConditionalOnMissingBean()
+//    @ConditionalOnProperty(prefix = "apims.web.auth", name = "enabled", havingValue = "true", matchIfMissing = false)
+//    @ApimsReportGeneratedHint
+//    public ApimsRoleStatelessAuthenticationFilter apimsRoleStatelessAuthenticationFilter(
+//            List<ApimsAuthenticationRequestHandler> authenticationRequestHandlerList) {
+//        log.debug("[APIMS AUTOCONFIG] Web:apimsRoleStatelessAuthenticationFilter.");
+//        authenticationRequestHandlerList.sort(new OrderComparator());
+//        return new ApimsRoleStatelessAuthenticationFilter(authenticationRequestHandlerList);
+//    }
 
     @Bean
     @ConditionalOnMissingBean(name = "apimsWebFormHttpMessageConverter")
@@ -272,6 +262,7 @@ public class ApimsWebAutoConfiguration {
         return new ApimsByteArrayHttpMessageConverter(false, enabled);
     }
 
+    // TODO: Fix Jackson 3 config
     @Bean
     @ConditionalOnMissingBean(name = "apimsWebMappingJackson2HttpMessageConverter")
     @SuppressWarnings({"java:S1199"})
@@ -284,6 +275,7 @@ public class ApimsWebAutoConfiguration {
         }
     }
 
+    // TODO: Fix Jackson 3 config
     @Bean
     @ConditionalOnMissingBean(name = "apimsWebMappingJackson2XmlHttpMessageConverter")
     @SuppressWarnings({"java:S1199"})
@@ -309,13 +301,18 @@ public class ApimsWebAutoConfiguration {
         return new CorsFilter(source);
     }
 
-    // TODO Fix deprecation
-    @Configuration(proxyBeanMethods = false)
-    public static class ApimsWebMvcAutoConfigurationAdapter implements WebMvcConfigurer {
-        @Override
-        public void extendMessageConverters(@NonNull List<HttpMessageConverter<?>> converters) {
-            new ApimsHttpMessageConvertersConfigurer().configureWebConverters(converters);
-        }
+//    // TODO Fix deprecation. Re-do convertewr configuration for Spring Boot 4
+//    @Configuration(proxyBeanMethods = false)
+//    public static class ApimsWebMvcAutoConfigurationAdapter extends WebMvcAutoConfiguration {
+//        @Override
+//        public void extendMessageConverters(@NonNull List<HttpMessageConverter<?>> converters) {
+//            new ApimsHttpMessageConvertersConfigurer().configureWebConverters(converters);
+//        }
+//    }
+
+    @Bean
+    public ClientHttpMessageConvertersCustomizer myClientConvertersCustomizer(@NonNull List<HttpMessageConverter<?>> converters) {
+        return (clientBuilder) -> converters.forEach(clientBuilder::addCustomConverter);
     }
 
     protected Map<String, Set<String>> getTrustedRoles(String defaultRoles, Map<String, String> rolesMapping) {

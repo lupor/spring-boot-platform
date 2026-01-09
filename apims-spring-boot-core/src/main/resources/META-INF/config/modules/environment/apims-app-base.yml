@@ -1,0 +1,241 @@
+# some defaults resolved by ApimsEnvironmentPostProcessor
+apims:
+  # environment
+  app:
+    instance-id: ${INSTANCEID:}
+    host: ${HOSTNAME:localhost}
+    type: ${APP_TYPE:UNKNOWN}
+    name: ${APP_NAME:UNKNOWN}
+    config-profile: dev
+    config-profile-prefix: dev
+    config-set: v1.0.0
+    env: ${ENV_NAME:dev}
+    namespace: ${NAMESPACE:dev}
+    namespace-prefix: ${apims.app.resource-prefix}
+    resource-prefix: ${RESOURCE_PREFIX:dev}
+    service-startup-listener-enabled: true
+    gcp-project-id: ${GCP_PROJECT_ID:}
+    cicd-branch-name: ${CICD_BRANCH_NAME:}
+    domain: ${APP_DOMAIN:}
+    team: ${APP_TEAM:UNKNOWN}
+    incident-mgmt:
+      exception-cis:
+        - id: "${apims.app.incident-mgmt.default-cis.couchbase}"
+          packageInfo: com.couchbase
+        - id: "${apims.app.incident-mgmt.default-cis.kafka}"
+          packageInfo: org.apache.kafka
+      rest-endpoint-cis:
+        - id: "${apims.app.incident-mgmt.default-cis.domains.common}"
+          url: "${apims.integration.endpoints.salesforce-instance-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.domains.common}"
+          url: "${apims.integration.endpoints.salesforce-token-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.domains.account}"
+          url: "${apims.integration.endpoints.customer-data-instance-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.salesforce}"
+          url: "${apims.integration.endpoints.vlocity-token-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.domains.identity}"
+          url: "${apims.integration.endpoints.customer-pin-instance-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.crm-gateway}"
+          url: "${apims.integration.endpoints.crm-gateway-instance-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.salesforce-mc}"
+          url: "${apims.integration.endpoints.marketing-cloud-instance-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.salesforce-mc}"
+          url: "${apims.integration.endpoints.marketing-cloud-token-url}"
+        - id: "${apims.app.incident-mgmt.default-cis.contentstack}"
+          url: "${apims.integration.endpoints.cms-contentstack-instance-url}"
+      default-cis:
+        crm-gateway: "SRVCI0029626"
+        contentstack: "SRVCI0001063"
+        couchbase: "SRVCI0013748"
+        kafka: "SRVCI0013750"
+        salesforce: "SRVCI0013739"
+        salesforce-mc: "SRVCI0014022"
+        domains:
+          account: "SRVCI0029626"
+          billing-revenue: "SRVCI0029626"
+          caif: "SRVCI0029626"
+          campaign: "SRVCI0029626"
+          care: "SRVCI0029626"
+          common: "SRVCI0029626"
+          content: "SRVCI0029626"
+          contract: "SRVCI0029626"
+          dazn: "SRVCI0018557"
+          fraud: "SRVCI0029626"
+          identity: "SRVCI0013746"
+          interaction-channels: "SRVCI0029626"
+          logistics: "SRVCI0029626"
+          netflix: "SRVCI0029626"
+          order-entry: "SRVCI0029626"
+          order-management: "SRVCI0029626"
+          payment: "SRVCI0017370"
+          product-offer: "SRVCI0029626"
+          rewards: "SRVCI0029626"
+          risk: "SRVCI0029626"
+          sky-go: "SRVCI0029626"
+          sky-pil: "SRVCI0029626"
+          sky-store: "SRVCI0029626"
+          transcomm: "SRVCI0029626"
+  integration:
+    endpoints:
+      apimsdb-server: "apims-db.${apims.app.env}.nc.gcp.internal.skycdp.de:5432"
+      toolsdb-server: "tools-db.${apims.app.env}.nc.gcp.internal.skycdp.de:5432"
+      couchbase-servers: "couchbases://cb-nc01-ew3.nc01.svc.ew3-a.uat.cbms.gcp.internal.skycdp.de"
+      kafka-servers: "kafka-001.${apims.app.env}.nc.gcp.internal.skycdp.de:9093,kafka-002.${apims.app.env}.nc.gcp.internal.skycdp.de:9093,kafka-003.${apims.app.env}.nc.gcp.internal.skycdp.de:9093,kafka-004.${apims.app.env}.nc.gcp.internal.skycdp.de:9093,kafka-005.${apims.app.env}.nc.gcp.internal.skycdp.de:9093,kafka-006.${apims.app.env}.nc.gcp.internal.skycdp.de:9093"
+      kafka-schema-servers: "https://kafka-001.${apims.app.env}.nc.gcp.internal.skycdp.de:8084,https://kafka-002.${apims.app.env}.nc.gcp.internal.skycdp.de:8084,https://kafka-003.${apims.app.env}.nc.gcp.internal.skycdp.de:8084,https://kafka-004.${apims.app.env}.nc.gcp.internal.skycdp.de:8084,https://kafka-005.${apims.app.env}.nc.gcp.internal.skycdp.de:8084,https://kafka-006.${apims.app.env}.nc.gcp.internal.skycdp.de:8084"
+      authentication-signature-instance-url: "http://svc-authentication-signature-service:8080"
+      cms-contentstack-instance-url: "http://svc-contentstack-datasync-api-server.ns-frontend-dev:3000"
+      crm-gateway-instance-url: "https://uat-p.sky.com"
+      customer-pin-instance-url: "http://svc-customer-pin-service:8080"
+      customer-data-instance-url: "http://svc-customer-data-service:8080"
+      marketing-cloud-instance-url: "https://mc3g5c-g6r45z9ljssp7p6r1rk24.rest.marketingcloudapis.com"
+      marketing-cloud-token-url: "https://mc3g5c-g6r45z9ljssp7p6r1rk24.auth.marketingcloudapis.com/v2/token"
+      netflix-partner-instance-url: "https://partnerapi.sandbox.netflix.com"
+      salesforce-instance-url: "https://skyde--devskysf1.sandbox.my.salesforce.com"
+      salesforce-token-url: "http://svc-customer-sf-token-service:8080?system=SFDC"
+      tibco-aopd-instance-url: "https://aopd.tibco.dev.fo.gcp.internal.skycdp.de"
+      tibco-orchestrator-instance-url: "https://orchestrator.tibco.dev.fo.gcp.internal.skycdp.de"
+      tibco-scms-instance-url: "http://svc-http-mock:8080"
+      tibco-rest-token-url: "http://svc-tibco-token-service:8080/token"
+      vault-instance-url: "https://vault.dev.kms.si.gcp.internal.skycdp.de:8200"
+      vault-token-url: "https://vault.dev.kms.si.gcp.internal.skycdp.de:8200/v1/auth/approle/login"
+      vlocity-instance-url: "https://api.devskysf1.skyde.dc.vloc-dev.com"
+      vlocity-token-url: "https://vlocity-dc-nonprod2-skyde.auth.eu-central-1.amazoncognito.com/oauth2/token"
+    urls:
+      _placeholder: ''
+  # serialization
+  jackson:
+    enabled: true
+
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      validate-group-membership: false
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, loggers, info, prometheus, flyway, openapi, swaggerui, env
+      base-path: /
+      path-mapping:
+        prometheus: /metrics
+  health:
+    livenessstate.enabled: true
+    readinessstate.enabled: true
+    defaults.enabled: true
+  info:
+    defaults.enabled: true
+    build.enabled: true
+    git.enabled: true
+    os.enabled: true
+    java.enabled: true
+  # telemetry - micrometer - metrics
+  metrics:
+    high-cardinality-client-uri: false
+    distribution:
+      # Prometheus currently has a scrape interval of 60s. The buffer length corresponds to metrics buckets each with a given expiry
+      # here is the relevant config: https://github.com/1703/sky-newcrm-infrastructure-k8s-prometheus/blob/main/prometheus/values_prod.yaml
+      expiry:
+        "all": PT60s
+      buffer-length:
+        "all": 3
+      percentiles-histogram:
+        http.client.requests: true
+        http.server.requests: true
+        spring.kafka.listener: true
+        spring.kafka.template: true
+    enable:
+      # If you activate more, please add them to the list here: https://sky.atlassian.net/wiki/spaces/CRM/pages/3889791151/MS+Guides+-+Monitoring+Metrics+SLIs
+      # for a full list of the metrics that are available by default. Override the "all" property and set it to true
+      all: false
+      "executor": true
+      "http.client.requests": true
+      "http.server.requests": true
+      "jvm.gc": true
+      "jvm.memory": true
+      "jvm.buffer": true
+      "jvm.threads": true
+      "process.cpu": true
+      "system.cpu": true
+      "spring.data": true
+      "spring.kafka.listener": true
+      "spring.kafka.template": true
+      # Producer Metrics
+      "kafka.producer.record.retry.rate": true
+      "kafka.producer.record.error.rate": true
+      "kafka.producer.buffer.available.bytes": true
+      "kafka.producer.produce.throttle.time.avg": true
+      "kafka.producer.compression.rate.avg": true
+      "kafka.producer.request.latency.avg": true
+      "kafka.producer.record.queue.time.avg": true
+      "kafka.producer.bufferpool.wait.ratio": true
+      "kafka.producer.failed.authentication.total": true
+      "kafka.producer.outgoing.byte.rate": true
+      "kafka.producer.record.send.rate": true
+      "kafka.producer.batch.size.avg": true
+      "kafka.producer.requests.in.flight": true
+      "kafka.producer.record.size.avg": true
+      "kafka.producer.request.rate": true
+      "kafka.producer.request.size.avg": true
+      "kafka.producer.response.rate": true
+      "kafka.producer.connection.count": true
+      "kafka.producer.connection.creation.rate": true
+      "kafka.producer.connection.close.rate": true
+      "kafka.producer.io.ratio": true
+      "kafka.producer.io.wait.time.ns.avg": true
+      "kafka.producer.io.time.ns.avg": true
+      "kafka.producer.io.wait.ratio": true
+      "kafka.producer.select.rate": true
+      "kafka.producer.metadata.age": true
+      # Consumer Metrics
+      "kafka.consumer.coordinator.commit.rate": true
+      "kafka.consumer.fetch.manager.fetch.throttle.time.avg": true
+      "kafka.consumer.failed.authentication.rate": true
+      "kafka.consumer.coordinator.rebalance.rate.per.hour": true
+      "kafka.consumer.fetch.manager.bytes.consumed.rate": true
+      "kafka.consumer.fetch.manager.records.consumed.rate": true
+      "kafka.consumer.fetch.manager.fetch.rate": true
+      "kafka.consumer.fetch.manager.fetch.size.avg": true
+      "kafka.consumer.fetch.manager.fetch.latency.avg": true
+      "kafka.consumer.fetch.manager.fetch.latency.max": true
+      "kafka.consumer.time.between.poll.avg": true
+      "kafka.consumer.time.between.poll.max": true
+      "kafka.consumer.last.poll.seconds.ago": true
+      "kafka.consumer.poll.idle.ratio.avg": true
+      "kafka.consumer.coordinator.commit.latency.avg": true
+      "kafka.consumer.connection.count": true
+      "kafka.consumer.response.rate": true
+      "kafka.consumer.fetch.manager.records.lag.max": true
+      "tomcat.threads": true
+      "tomcat.sessions": false
+      "tomcat.cache": false
+      "tomcat.global": false
+      "resilience4j.circuitbreaker.state": true
+
+spring:
+  application:
+    name: ${apims.app.name}
+    vault:
+      uri: ${apims.integration.endpoints.vault-instance-url}
+      namespace: /sky-de/sales-service/crm
+      authentication: kubernetes
+      kubernetes:
+        role: apims-reader
+        kubernetes-path: kubernetes-nc-${apims.app.env}
+      enabled: false
+  main:
+    banner-mode: "log"
+  banner:
+    location: classpath:apims-banner.txt
+
+springdoc:
+  use-management-port: true
+  show-actuator: false
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+    operationsSorter: method
+    tryItOutEnabled: true
